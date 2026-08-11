@@ -1,0 +1,2225 @@
+/* =========================================================
+   style.css
+   ========================================================= */
+
+html, body { margin: 0; min-height: 100%; }
+body { background: #1d2923; }
+*, *::before, *::after { box-sizing: border-box; }
+
+
+/* ============================ HEADER ============================ */
+.pala-header {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff;
+}
+
+.pala-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(1390px, calc(100% - 80px));
+  height: 78px;
+  margin: 0 auto;
+}
+
+.pala-header__logo {
+  font-size: 22px;
+  letter-spacing: .06em;
+  text-decoration: none;
+  color: #fff;
+}
+
+.pala-header__nav { display: flex; gap: 28px; }
+
+.pala-header__nav a {
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  opacity: .88;
+}
+
+.pala-header__nav a:hover { opacity: 1; color: #cdb88a; }
+
+.pala-header__cta {
+  padding: 10px 20px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-decoration: none;
+  color: #fff;
+}
+
+.pala-header__cta:hover { background: #cdb88a; border-color: #cdb88a; color: #043323; }
+
+@media (max-width: 860px) {
+  .pala-header__inner { width: calc(100% - 32px); height: 64px; }
+  .pala-header__nav { display: none; }
+}
+
+/* ============================ HERO ============================== */
+.pala-hero {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: clamp(760px, 88vh, 860px);
+  min-height: 660px;
+  overflow: hidden;
+  border-radius: 0 0 18px 18px;
+  background:
+    radial-gradient(circle at 78% 24%, rgba(172, 132, 72, .50), transparent 29%),
+    linear-gradient(112deg, #d8c497 0%, #645138 42%, #21372d 100%);
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #ffffff;
+}
+
+.pala-hero__media,
+.pala-hero__video,
+.pala-hero__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pala-hero__media { z-index: -3; }
+
+.pala-hero__video,
+.pala-hero__poster {
+  display: block;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.pala-hero__poster { z-index: -2; }
+.pala-hero__poster[hidden] { display: none; }
+.pala-hero__video { z-index: -1; }
+
+.pala-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 16, 12, .30) 0%,
+    rgba(4, 16, 12, .02) 48%,
+    rgba(4, 16, 12, .28) 100%
+  );
+}
+
+.pala-hero__video-controls {
+  position: absolute;
+  top: 94px;
+  right: 24px;
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.pala-hero__video-controls[hidden] { display: none; }
+
+.pala-hero:hover .pala-hero__video-controls,
+.pala-hero:focus-within .pala-hero__video-controls {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pala-hero__control {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 50%;
+  background: rgba(3, 43, 34, .66);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.pala-hero__control:hover,
+.pala-hero__control:focus-visible {
+  background: #003d31;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.pala-hero__control svg { width: 18px; height: 18px; }
+
+
+/* ========================= BOOKING BAR ========================== */
+.pala-booking {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: 50px;
+  display: grid;
+  grid-template-columns: minmax(310px, 1.5fr) minmax(230px, .9fr) minmax(260px, 1.12fr) minmax(260px, .86fr);
+  width: min(1390px, calc(100% - 80px));
+  min-height: 66px;
+  transform: translateX(-50%);
+  border-radius: 7px;
+  background: #fff;
+  color: #1e2a25;
+  box-shadow: 0 16px 34px rgba(8, 22, 17, .17);
+}
+
+.pala-booking__group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border-right: 1px solid #e6e1d7;
+  background: #fff;
+}
+
+.pala-booking__group:first-child { border-radius: 7px 0 0 7px; }
+.pala-booking__group--guest { background: #eee9df; }
+
+.pala-booking__icon {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 22px;
+  color: #004f42;
+}
+
+.pala-booking__icon svg { display: block; width: 100%; height: 100%; }
+
+.pala-booking__dates {
+  display: grid;
+  grid-template-columns: minmax(95px, 1fr) 20px minmax(95px, 1fr);
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0 18px 0 12px;
+}
+
+.pala-booking__date {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pala-booking__date-label {
+  overflow: hidden;
+  color: #9b9b9b;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.pala-booking__date.is-selected .pala-booking__date-label { color: #262f2b; }
+.pala-booking__date:focus-visible { outline: 2px solid #0b5d4e; outline-offset: 4px; }
+
+.pala-booking__arrow { color: #9d9d9d; font-size: 16px; text-align: center; }
+
+.pala-booking__button,
+.pala-booking__select {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: transparent;
+  color: #636363;
+  font: inherit;
+  font-size: 14px;
+}
+
+.pala-booking__button { padding: 0 18px 0 12px; text-align: left; cursor: pointer; }
+
+.pala-booking__button:focus-visible,
+.pala-booking__select:focus-visible { box-shadow: inset 0 0 0 2px #0b5d4e; }
+
+.pala-booking__select-wrap {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  padding: 0 14px 0 10px;
+}
+
+.pala-booking__select {
+  appearance: none;
+  padding: 0 32px 0 0;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #929292 50%),
+    linear-gradient(135deg, #929292 50%, transparent 50%);
+  background-position: calc(100% - 13px) 50%, calc(100% - 8px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.pala-booking__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 0 7px 7px 0;
+  background: #004f42;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .085em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.pala-booking__submit:hover { background: #003b31; }
+.pala-booking__submit:focus-visible { outline: 3px solid #cdb88a; outline-offset: -4px; }
+
+.pala-booking__search-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .18);
+}
+
+.pala-booking__search-icon svg { width: 17px; height: 17px; }
+
+
+/* ============================= TAMU ============================= */
+.pala-guests {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 12px);
+  display: none;
+  width: 290px;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fff;
+  color: #1d2d27;
+  box-shadow: 0 18px 45px rgba(0, 31, 23, .22);
+}
+
+.pala-guests.is-open { display: block; }
+
+.pala-guests__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pala-guests__row + .pala-guests__row { margin-top: 16px; }
+.pala-guests__title { display: block; font-size: 14px; font-weight: 700; }
+.pala-guests__note { display: block; margin-top: 3px; color: #858585; font-size: 11px; }
+.pala-guests__counter { display: flex; align-items: center; gap: 12px; }
+.pala-guests__count { min-width: 18px; text-align: center; font-size: 14px; }
+
+.pala-guests__step {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid #d7d2c7;
+  border-radius: 50%;
+  background: #fff;
+  color: #004f42;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.pala-guests__step:hover { background: #f1ede4; }
+
+
+/* =========================== KALENDER =========================== */
+.pala-calendar {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  bottom: calc(100% + 12px);
+  display: none;
+  width: min(680px, calc(100vw - 80px));
+  padding: 20px;
+  border: 1px solid rgba(0, 79, 66, .10);
+  border-radius: 10px;
+  background: #fff;
+  color: #21302a;
+  box-shadow: 0 22px 55px rgba(0, 31, 23, .25);
+}
+
+.pala-calendar.is-open { display: block; }
+
+.pala-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.pala-calendar__title {
+  margin: 0;
+  color: #004f42;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.pala-calendar__actions { display: flex; align-items: center; gap: 6px; }
+
+.pala-calendar__nav,
+.pala-calendar__close {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #ded9ce;
+  border-radius: 50%;
+  background: #fff;
+  color: #004f42;
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.pala-calendar__close { font-size: 17px; }
+.pala-calendar__nav:hover,
+.pala-calendar__close:hover { background: #f1ede4; }
+.pala-calendar__nav:disabled { opacity: .32; cursor: not-allowed; }
+
+.pala-calendar__months {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.pala-calendar__month-title {
+  margin-bottom: 12px;
+  color: #25352f;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pala-calendar__weekdays,
+.pala-calendar__days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.pala-calendar__weekdays { margin-bottom: 5px; }
+
+.pala-calendar__weekday {
+  padding: 5px 0;
+  color: #98958e;
+  font-size: 11px;
+  text-align: center;
+}
+
+.pala-calendar__day {
+  aspect-ratio: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #394640;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pala-calendar__day:hover:not(:disabled) { background: #eee9df; }
+.pala-calendar__day.is-today { box-shadow: inset 0 0 0 1px #8b6b4a; }
+.pala-calendar__day.is-in-range { border-radius: 5px; background: #e9f2ef; }
+
+.pala-calendar__day.is-selected {
+  border-radius: 50%;
+  background: #004f42;
+  color: #fff;
+  font-weight: 700;
+}
+
+.pala-calendar__day:disabled { color: #cbc8c0; cursor: not-allowed; }
+.pala-calendar__blank { aspect-ratio: 1; }
+
+.pala-booking__status {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  width: 100%;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .65);
+}
+
+
+/* ============================ FOOTER ============================ */
+.pala-footer {
+  padding: 60px 0 0;
+  background: #043323;
+  color: #f1eee4;
+  font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.pala-footer__inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 40px;
+  width: min(1390px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+.pala-footer__brand { margin: 0 0 12px; font-size: 22px; letter-spacing: .04em; }
+.pala-footer__text { margin: 0; max-width: 36ch; opacity: .78; }
+
+.pala-footer__heading {
+  margin: 0 0 14px;
+  color: #cdb88a;
+  font-size: 12px;
+  letter-spacing: .16em;
+}
+
+.pala-footer__list { margin: 0; padding: 0; list-style: none; }
+.pala-footer__list li { margin-bottom: 8px; }
+.pala-footer__list a { text-decoration: none; color: #f1eee4; opacity: .8; }
+.pala-footer__list a:hover { color: #cdb88a; opacity: 1; }
+
+.pala-footer__qr { display: block; width: 110px; height: 110px; border-radius: 6px; background: #fff; }
+
+.pala-footer__bottom {
+  margin-top: 48px;
+  border-top: 1px solid rgba(241, 238, 228, .16);
+}
+
+.pala-footer__bottom p {
+  width: min(1390px, calc(100% - 80px));
+  margin: 0 auto;
+  padding: 20px 0;
+  font-size: 12px;
+  opacity: .6;
+}
+
+@media (max-width: 860px) {
+  .pala-footer__inner { grid-template-columns: 1fr; gap: 30px; width: calc(100% - 32px); }
+  .pala-footer__bottom p { width: calc(100% - 32px); }
+}
+
+
+/* =========================== RESPONSIF ========================== */
+@media (max-width: 1120px) {
+  .pala-booking {
+    grid-template-columns: 1.4fr .95fr 1fr;
+    width: min(930px, calc(100% - 48px));
+  }
+
+  .pala-booking__submit {
+    grid-column: 1 / -1;
+    min-height: 58px;
+    border-radius: 0 0 7px 7px;
+  }
+
+  .pala-booking__group:first-child { border-radius: 7px 0 0 0; }
+  .pala-booking__group:nth-child(3) { border-right: 0; border-radius: 0 7px 0 0; }
+}
+
+@media (max-width: 720px) {
+  .pala-hero {
+    height: max(660px, 100svh);
+    min-height: 660px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .pala-hero__video,
+  .pala-hero__poster { object-position: center center; }
+
+  .pala-hero__video-controls {
+    top: 76px;
+    right: 16px;
+    opacity: 1;
+    transform: none;
+  }
+
+  .pala-hero__control { width: 38px; height: 38px; }
+
+  .pala-booking {
+    bottom: 24px;
+    grid-template-columns: 1fr;
+    width: calc(100% - 28px);
+    min-height: 0;
+    overflow: visible;
+  }
+
+  .pala-booking__group {
+    min-height: 58px;
+    border-right: 0;
+    border-bottom: 1px solid #e6e1d7;
+  }
+
+  .pala-booking__group:first-child { border-radius: 7px 7px 0 0; }
+  .pala-booking__group:nth-child(3) { border-radius: 0; }
+  .pala-booking__submit { grid-column: auto; min-height: 60px; border-radius: 0 0 7px 7px; }
+  .pala-guests { bottom: auto; top: calc(100% + 8px); width: min(290px, calc(100vw - 50px)); }
+  .pala-booking__status { top: auto; bottom: calc(100% + 9px); }
+
+  .pala-calendar {
+    position: fixed;
+    top: 50%;
+    right: 14px;
+    bottom: auto;
+    left: 14px;
+    width: auto;
+    max-height: calc(100svh - 28px);
+    padding: 16px;
+    overflow-y: auto;
+    transform: translateY(-50%);
+  }
+
+  .pala-calendar__months { grid-template-columns: 1fr; gap: 0; }
+  .pala-calendar__month:nth-child(2) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-hero__video { display: none; }
+  .pala-hero__control { display: none; }
+  .pala-booking__submit { transition: none; }
+}
+
+/* =========================================================
+   section-film.css — section video lengkap (click to load)
+   ========================================================= */
+
+.pala-film {
+  background: #f1eee4;
+  padding: 96px 0 104px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #043323;
+}
+
+.pala-film__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px;
+  text-align: center;
+}
+
+.pala-film__eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: rgba(4, 51, 35, .55);
+}
+
+.pala-film__title {
+  margin: 0 0 16px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.25;
+}
+
+.pala-film__text {
+  max-width: 34em;
+  margin: 0 auto 40px;
+  font-size: 15px;
+  line-height: 1.9;
+  color: rgba(4, 51, 35, .78);
+}
+
+/* ---------- Bingkai video ---------- */
+.pala-film__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #0b1a14;
+  box-shadow: 0 22px 60px rgba(4, 51, 35, .20);
+}
+
+.pala-film__poster,
+.pala-film__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border: 0;
+}
+
+.pala-film__poster[hidden] { display: none; }
+
+/* Poster & tombol disembunyikan begitu video mulai */
+.pala-film__frame.is-playing .pala-film__poster,
+.pala-film__frame.is-playing .pala-film__play,
+.pala-film__frame.is-playing .pala-film__hint { opacity: 0; pointer-events: none; }
+
+.pala-film__poster,
+.pala-film__play,
+.pala-film__hint { transition: opacity .35s ease; }
+
+/* ---------- Tombol play ---------- */
+.pala-film__play {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  gap: 14px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #f1eee4;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pala-film__play[hidden] { display: none; }
+
+.pala-film__play-icon {
+  display: grid;
+  place-items: center;
+  width: 82px;
+  height: 82px;
+  border: 1px solid rgba(241, 238, 228, .55);
+  border-radius: 50%;
+  background: rgba(4, 51, 35, .42);
+  backdrop-filter: blur(6px);
+  transition: background .25s ease, transform .25s ease, border-color .25s ease;
+}
+
+.pala-film__play:hover .pala-film__play-icon,
+.pala-film__play:focus-visible .pala-film__play-icon {
+  background: rgba(4, 51, 35, .78);
+  border-color: #cdb88a;
+  transform: scale(1.06);
+}
+
+.pala-film__play-icon svg { width: 26px; height: 26px; margin-left: 4px; fill: #f1eee4; }
+
+.pala-film__play-label {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 17px;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+}
+
+.pala-film__play:disabled { cursor: wait; }
+
+/* Spinner saat video sedang di-buffer */
+.pala-film__frame.is-loading .pala-film__play-icon {
+  border-color: rgba(241, 238, 228, .30);
+  border-top-color: #cdb88a;
+  animation: pala-film-spin .9s linear infinite;
+}
+.pala-film__frame.is-loading .pala-film__play-icon svg { opacity: .25; }
+
+@keyframes pala-film-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Catatan ukuran / durasi ---------- */
+.pala-film__hint {
+  position: absolute;
+  left: 0; right: 0; bottom: 22px;
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: rgba(241, 238, 228, .82);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, .55);
+}
+
+/* ---------- Responsif ---------- */
+@media (max-width: 720px) {
+  .pala-film { padding: 64px 0 72px; }
+  .pala-film__inner { padding: 0 20px; }
+  .pala-film__title { font-size: 30px; }
+  .pala-film__text { margin-bottom: 28px; font-size: 14px; }
+  .pala-film__frame { border-radius: 8px; }
+  .pala-film__play-icon { width: 62px; height: 62px; }
+  .pala-film__play-icon svg { width: 20px; height: 20px; }
+  .pala-film__play-label { font-size: 15px; }
+  .pala-film__hint { bottom: 14px; font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-film__poster, .pala-film__play, .pala-film__hint { transition: none; }
+  .pala-film__frame.is-loading .pala-film__play-icon { animation: none; }
+}
+
+/* =========================================================
+   section-welcome.css — SECTION 2: sambutan + info kontak
+   Ukuran diambil dari situs asli thepalaubudresort.com
+   ========================================================= */
+
+.pala-welcome {
+  background: #f5f1e9;                 /* asli: rgb(245,241,233) */
+  padding: 96px 0 40px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-welcome__inner {
+  max-width: 1100px;                   /* asli ±1052px isi + padding */
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------------- Judul ---------------- */
+.pala-welcome__head { text-align: center; }
+
+.pala-welcome__eyebrow {
+  margin: 0 0 22px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 22px;                     /* asli ±22px */
+  font-style: italic;
+  font-weight: 400;
+  color: #7a7068;
+  letter-spacing: .5px;
+}
+
+.pala-welcome__title {
+  margin: 0 0 28px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: 48px;                     /* asli ±48px */
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  color: #2b2b2b;
+}
+
+.pala-welcome__location {
+  margin: 0 0 34px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #4a453f;
+  letter-spacing: .5px;
+}
+
+/* ---------------- Paragraf ----------------
+   Hasil ukur: tinggi baris 24px, lebar blok ±854px.
+   Untuk teks Mandarin line-height dinaikkan ke 2.0 — aksara Han lebih rapat
+   guratannya, butuh ruang antarbaris lebih lega daripada huruf Latin. */
+.pala-welcome__body {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pala-welcome__body p {
+  margin: 0 0 26px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .5px;
+  color: #6b645c;
+}
+
+.pala-welcome__body p:last-child { margin-bottom: 0; }
+
+/* ---------------- Info kontak ----------------
+   Kolom alamat lebih lebar (rasio ±1.4 : 1 : 1 : 1 seperti aslinya) */
+.pala-contact {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 96px;
+  padding-bottom: 60px;
+}
+
+.pala-contact__item { flex: 1 1 180px; min-width: 180px; }
+.pala-contact__item--address { flex: 1.4 1 260px; }
+
+.pala-contact__label {
+  margin: 0 0 12px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;                     /* asli ±13px, bukan 14px */
+  font-weight: 500;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: #7a7068;
+}
+
+.pala-contact__item p { margin: 0; }
+
+.pala-contact__item a,
+.pala-contact__text {
+  display: inline-block;
+  color: #8b6b4a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.9;
+  text-decoration: none;
+  word-break: break-word;
+  transition: opacity .3s ease;
+}
+
+.pala-contact__item a:hover { opacity: .7; }
+
+/* Baris kecil di bawah nilai (mis. ID WeChat) */
+.pala-contact__sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(122, 112, 104, .85);
+  letter-spacing: .3px;
+}
+
+/* QR WeChat muncul saat di-hover / difokus */
+.pala-contact__wechat { position: relative; }
+
+.pala-contact__qr {
+  position: absolute;
+  left: 0; bottom: calc(100% + 10px);
+  display: none;
+  padding: 8px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 12px 34px rgba(43, 43, 43, .18);
+  z-index: 5;
+}
+
+.pala-contact__qr img { display: block; width: 128px; height: 128px; }
+
+.pala-contact__wechat:hover .pala-contact__qr,
+.pala-contact__wechat:focus-within .pala-contact__qr { display: block; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-welcome__title { font-size: 40px; }
+  .pala-contact { justify-content: flex-start; gap: 44px 40px; }
+  .pala-contact__item { flex: 1 1 40%; }
+}
+
+@media (max-width: 768px) {
+  .pala-welcome { padding-top: 64px; }
+  .pala-welcome__eyebrow { font-size: 19px; margin-bottom: 16px; }
+  .pala-welcome__title { font-size: 32px; margin-bottom: 20px; }
+  .pala-welcome__location { font-size: 18px; margin-bottom: 26px; }
+  .pala-welcome__body p { font-size: 15px; line-height: 1.95; margin-bottom: 22px; }
+
+  .pala-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+    margin-top: 60px;
+    padding-bottom: 50px;
+  }
+  .pala-contact__item,
+  .pala-contact__item--address { width: 100%; max-width: 100%; min-width: 0; flex: none; }
+  .pala-contact__label { font-size: 12px; letter-spacing: 1.8px; }
+}
+
+@media (max-width: 480px) {
+  .pala-welcome__inner { padding: 0 18px; }
+  .pala-welcome__title { font-size: 28px; }
+  .pala-contact { gap: 30px; padding-bottom: 40px; }
+  .pala-contact__item a, .pala-contact__text { font-size: 13px; }
+  .pala-contact__qr { left: 50%; transform: translateX(-50%); }
+}
+
+/* =========================================================
+   section-villas.css — SECTION 3: daftar villa (slider)
+   TANPA Swiper. Memakai CSS scroll-snap bawaan browser,
+   karena cdn.jsdelivr.net tidak andal diakses dari Tiongkok.
+   ========================================================= */
+
+.pala-villas {
+  position: relative;
+  isolation: isolate;
+  padding: 88px 0 96px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff;
+  background: #1d2923;
+}
+
+/* Foto latar — ganti path-nya, host lokal (jangan tarik dari domain lain) */
+.pala-villas__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pala-villas::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 22, 16, .52) 0%,
+    rgba(6, 22, 16, .34) 45%,
+    rgba(6, 22, 16, .62) 100%
+  );
+}
+
+.pala-villas__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------------- Judul ---------------- */
+.pala-villas__eyebrow {
+  margin: 0 0 18px;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .88);
+}
+
+/* Versi Inggris memakai dua baris bertingkat ("The Joy / of Silence").
+   Untuk Mandarin judulnya hanya 4 aksara, jadi cukup satu baris — susunan
+   bertingkat justru terlihat aneh pada aksara Han. line-height dinaikkan ke 1.1
+   karena aksara Han terpotong pada nilai serapat 0.85. */
+.pala-villas__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(46px, 5.4vw, 92px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 4px;
+  color: #fff;
+}
+
+/* ---------------- Meta + teks ---------------- */
+.pala-villas__grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 60px;
+  margin: 54px 0 64px;
+}
+
+.pala-villas__meta,
+.pala-villas__content {
+  border-top: 1px solid rgba(221, 210, 198, .55);
+  padding-top: 22px;
+}
+
+.pala-villas__meta {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 19px;
+  font-style: italic;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, .92);
+}
+
+.pala-villas__content p {
+  max-width: 760px;
+  margin: 0 0 30px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: rgba(255, 255, 255, .92);
+}
+
+.pala-villas__cta {
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #fff;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.pala-villas__cta:hover { color: #cdb88a; border-color: #cdb88a; }
+
+/* ---------------- Slider ---------------- */
+.pala-villas__slider { position: relative; }
+
+.pala-villas__track {
+  --cards: 3.2;
+  --gap: 24px;
+
+  display: flex;
+  gap: var(--gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pala-villas__track::-webkit-scrollbar { display: none; }
+
+.pala-villas__slide {
+  flex: 0 0 calc((100% - var(--gap) * 2.2) / var(--cards));
+  scroll-snap-align: start;
+}
+
+/* ---------------- Kartu ---------------- */
+.pala-card {
+  position: relative;
+  display: block;
+  height: 460px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.pala-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .8s ease;
+}
+
+.pala-card:hover img { transform: scale(1.05); }
+
+.pala-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 28px;
+  background: linear-gradient(to top, rgba(0, 0, 0, .82) 0%, rgba(0, 0, 0, .08) 65%);
+}
+
+.pala-card__type {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .78);
+}
+
+/* line-height 0.5 pada versi lama memotong aksara Han — dinaikkan ke 1.15 */
+.pala-card__name {
+  margin: 6px 0 8px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.pala-card__tagline {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 500;
+  color: #fff;
+}
+
+.pala-card__specs {
+  margin: 8px 0 0;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: #b8aa94;
+}
+
+/* ---------------- Tombol navigasi ---------------- */
+.pala-villas__nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .10);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  cursor: pointer;
+  z-index: 5;
+  transition: background .3s ease, transform .3s ease, opacity .3s ease;
+}
+
+.pala-villas__nav:hover { background: rgba(255, 255, 255, .22); }
+.pala-villas__nav:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+.pala-villas__nav svg { width: 17px; height: 17px; }
+
+.pala-villas__nav--prev { left: -27px; }
+.pala-villas__nav--next { right: -27px; }
+
+.pala-villas__nav[disabled] { opacity: 0; pointer-events: none; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1024px) {
+  .pala-villas__track { --cards: 2; }
+  .pala-villas__slide { flex-basis: calc((100% - var(--gap)) / 2); }
+  .pala-villas__nav--prev { left: 10px; }
+  .pala-villas__nav--next { right: 10px; }
+}
+
+@media (max-width: 768px) {
+  .pala-villas { padding: 64px 0 72px; }
+  .pala-villas__grid { grid-template-columns: 1fr; gap: 30px; margin: 40px 0 44px; }
+  .pala-villas__meta { font-size: 17px; }
+  .pala-villas__content p { font-size: 15px; line-height: 1.95; }
+  .pala-villas__track { --cards: 1; --gap: 16px; }
+  .pala-villas__slide { flex-basis: 100%; }
+  .pala-card { height: 420px; }
+  .pala-card__name { font-size: 32px; }
+  .pala-villas__nav { width: 44px; height: 44px; }
+  .pala-villas__nav--prev { left: 8px; }
+  .pala-villas__nav--next { right: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-villas__track { scroll-behavior: auto; }
+  .pala-card img { transition: none; }
+}
+
+
+/* =========================================================
+   section-events.css — SECTION 4: acara & perayaan
+   TANPA GSAP. Animasi memakai CSS keyframes + IntersectionObserver,
+   karena cdn.jsdelivr.net tidak andal diakses dari Tiongkok.
+   ========================================================= */
+
+.pala-events {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f5f1e8;
+  padding: 100px 30px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-events *,
+.pala-events *::before,
+.pala-events *::after { box-sizing: border-box; }
+
+.pala-events__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------------- Kolom foto ---------------- */
+.pala-events__photos {
+  position: relative;
+  height: 540px;
+}
+
+.pala-events__photo {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
+  transition: box-shadow .5s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.pala-events__photo:hover { box-shadow: 0 20px 45px rgba(0, 0, 0, .18); }
+
+.pala-events__photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.pala-events__photo:hover img { transform: scale(1.06); }
+
+/* Posisi + rotasi. Rotasi ikut ditulis di dalam keyframes supaya
+   animasi mengambang tidak menghapus kemiringannya. */
+.pala-events__photo--1 { width: 240px; height: 320px; top: 20px;    left: 10px;   z-index: 1; transform: rotate(-4deg); }
+.pala-events__photo--2 { width: 220px; height: 280px; top: 50px;    left: 140px;  z-index: 4; transform: rotate(3deg); }
+.pala-events__photo--3 { width: 180px; height: 220px; top: 10px;    right: 10px;  z-index: 3; transform: rotate(-2deg); }
+.pala-events__photo--4 { width: 280px; height: 180px; bottom: 30px; left: 70px;   z-index: 4; transform: rotate(2deg); }
+.pala-events__photo--5 { width: 280px; height: 180px; bottom: 90px; right: -30px; z-index: 2; transform: rotate(-2deg); }
+
+/* ---------------- Kolom teks ---------------- */
+.pala-events__text { position: relative; z-index: 5; }
+
+.pala-events__eyebrow {
+  margin: 0 0 20px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+/* Versi Inggris dipecah dua baris ("The Days Worth / Gathering For").
+   Versi Mandarin hanya 7 aksara — dipecah justru memutus makna,
+   jadi dibuat satu baris dengan jarak antaraksara.
+   line-height juga dinaikkan dari .95 ke 1.2 supaya aksara Han tidak terpotong. */
+.pala-events__title {
+  margin: 0 0 30px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(34px, 4.2vw, 66px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 4px;
+  color: #2c241f;
+}
+
+.pala-events__meta {
+  border-top: 1px solid #ddd2c6;
+  padding-top: 18px;
+  margin-bottom: 24px;
+}
+
+.pala-events__meta p {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #8f7f70;
+}
+
+.pala-events__body {
+  margin: 0 0 35px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: #5d554d;
+}
+
+.pala-events__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 26px;
+  margin-bottom: 35px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #ddd2c6;
+}
+
+.pala-events__links a {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 18px;
+  font-style: italic;
+  text-decoration: none;
+  color: #9f7d5d;
+  transition: color .3s ease;
+}
+
+.pala-events__links a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: #c7a98a;
+  transition: background .3s ease;
+}
+
+.pala-events__links a:hover { color: #2c241f; }
+.pala-events__links a:hover::after { background: #2c241f; }
+
+.pala-events__cta {
+  display: inline-block;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #8b6b4a;
+  font-size: 11px;
+  letter-spacing: .25em;
+  text-decoration: none;
+  color: #8b6b4a;
+  transition: color .3s ease, border-color .3s ease;
+}
+
+.pala-events__cta:hover { color: #2c241f; border-color: #2c241f; }
+
+/* ---------------- Animasi ----------------
+   Kelas .has-reveal HANYA ditambahkan oleh JavaScript.
+   Kalau JS gagal dimuat, semua konten tetap terlihat normal —
+   ini bedanya dengan gsap.from() yang menyembunyikan elemen lebih dulu. */
+.pala-events.has-reveal .pala-events__photo,
+.pala-events.has-reveal .pala-events__text > * {
+  opacity: 0;
+  transition: opacity .8s ease, translate .8s ease;
+  translate: 0 22px;
+}
+
+.pala-events.is-visible .pala-events__photo,
+.pala-events.is-visible .pala-events__text > * {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.pala-events.is-visible .pala-events__photo--1 { transition-delay: .00s; }
+.pala-events.is-visible .pala-events__photo--2 { transition-delay: .12s; }
+.pala-events.is-visible .pala-events__photo--3 { transition-delay: .24s; }
+.pala-events.is-visible .pala-events__photo--4 { transition-delay: .36s; }
+.pala-events.is-visible .pala-events__photo--5 { transition-delay: .48s; }
+
+.pala-events.is-visible .pala-events__text > *:nth-child(1) { transition-delay: .20s; }
+.pala-events.is-visible .pala-events__text > *:nth-child(2) { transition-delay: .28s; }
+.pala-events.is-visible .pala-events__text > *:nth-child(3) { transition-delay: .36s; }
+.pala-events.is-visible .pala-events__text > *:nth-child(4) { transition-delay: .44s; }
+.pala-events.is-visible .pala-events__text > *:nth-child(5) { transition-delay: .52s; }
+.pala-events.is-visible .pala-events__text > *:nth-child(6) { transition-delay: .60s; }
+
+/* Mengambang pelan — rotasi ditulis ulang di tiap keyframe */
+@keyframes pala-float-1 { 0%,100% { transform: rotate(-4deg) translateY(0); } 50% { transform: rotate(-4deg) translateY(-5px); } }
+@keyframes pala-float-2 { 0%,100% { transform: rotate(3deg)  translateY(0); } 50% { transform: rotate(3deg)  translateY(5px); } }
+@keyframes pala-float-3 { 0%,100% { transform: rotate(-2deg) translateY(0); } 50% { transform: rotate(-2deg) translateY(-4px); } }
+@keyframes pala-float-4 { 0%,100% { transform: rotate(2deg)  translateY(0); } 50% { transform: rotate(2deg)  translateY(4px); } }
+
+.pala-events.is-visible .pala-events__photo--1 { animation: pala-float-1 8s  ease-in-out 1s infinite; }
+.pala-events.is-visible .pala-events__photo--2 { animation: pala-float-2 10s ease-in-out 1s infinite; }
+.pala-events.is-visible .pala-events__photo--3 { animation: pala-float-3 9s  ease-in-out 1s infinite; }
+.pala-events.is-visible .pala-events__photo--4 { animation: pala-float-4 12s ease-in-out 1s infinite; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 900px) {
+  .pala-events { padding: 70px 20px; }
+  .pala-events__grid { grid-template-columns: 1fr; gap: 60px; }
+  .pala-events__photos { height: 420px; }
+
+  .pala-events__photo--1 { width: 170px; height: 220px; }
+  .pala-events__photo--2 { width: 160px; height: 200px; left: 120px; }
+  .pala-events__photo--3 { width: 130px; height: 170px; }
+  .pala-events__photo--4 { width: 220px; height: 140px; left: 40px; }
+  .pala-events__photo--5 { width: 200px; height: 130px; right: -20px; bottom: 60px; }
+
+  .pala-events__body { font-size: 15px; line-height: 1.95; }
+  .pala-events__meta p { font-size: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-events__photo,
+  .pala-events__photo img { transition: none; animation: none !important; }
+  .pala-events.has-reveal .pala-events__photo,
+  .pala-events.has-reveal .pala-events__text > * { opacity: 1; translate: 0 0; transition: none; }
+}
+
+
+/* =========================================================
+   section-hura.css — SECTION 5: Hura Restaurant
+   ========================================================= */
+
+.pala-hura {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: #1d2923;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff;
+}
+
+/* Foto latar — host lokal, WebP, target < 250 KB */
+.pala-hura__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pala-hura::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(8, 20, 14, .74) 0%,
+    rgba(8, 20, 14, .52) 55%,
+    rgba(8, 20, 14, .38) 100%
+  );
+}
+
+.pala-hura__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 60px;
+}
+
+.pala-hura__inner { max-width: 860px; }
+
+/* ---------------- Eyebrow ---------------- */
+.pala-hura__eyebrow {
+  margin: 0 0 18px;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .88);
+}
+
+/* ---------------- Judul ----------------
+   Kasus istimewa: di sini susunan DUA BARIS justru cocok untuk Mandarin.
+   家常滋味 / 温暖人心 sama-sama empat aksara dan membentuk pasangan
+   sejajar (对仗) — persis seperti "Comfort Food. / Warm Hearts."
+   line-height tetap dinaikkan dari .85 ke 1.15 supaya aksara Han utuh. */
+.pala-hura__title {
+  margin: 0 0 26px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(42px, 5.4vw, 88px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 6px;
+  color: #fff;
+}
+
+.pala-hura__title span {
+  display: block;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ---------------- Divider ----------------
+   Versi lama hanya mengatur background tanpa ukuran, jadi tingginya 0
+   dan garisnya tidak pernah terlihat. */
+.pala-hura__divider {
+  width: 90px;
+  height: 1px;
+  margin-bottom: 24px;
+  background: rgba(255, 255, 255, .75);
+}
+
+/* ---------------- Subtitle ---------------- */
+.pala-hura__subtitle {
+  display: inline-block;
+  margin: 0 0 28px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(221, 210, 198, .55);
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.7;
+  color: #fff;
+}
+
+/* ---------------- Body ---------------- */
+.pala-hura__text {
+  max-width: 760px;
+  margin: 0 0 34px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: rgba(255, 255, 255, .93);
+}
+
+/* ---------------- CTA ---------------- */
+.pala-hura__cta {
+  display: inline-block;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #fff;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fff;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.pala-hura__cta:hover { color: #cdb88a; border-color: #cdb88a; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 900px) {
+  .pala-hura__content { padding: 80px 32px; }
+  .pala-hura::after {
+    background: linear-gradient(to bottom, rgba(8, 20, 14, .62) 0%, rgba(8, 20, 14, .74) 100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .pala-hura__content { padding: 72px 24px; }
+  .pala-hura__eyebrow { font-size: 15px; }
+  .pala-hura__title { font-size: 40px; letter-spacing: 4px; }
+  .pala-hura__subtitle { font-size: 17px; margin-bottom: 22px; }
+
+  /* 13px terlalu kecil untuk aksara Han — guratannya rapat dan jadi kabur */
+  .pala-hura__text { font-size: 15px; line-height: 1.95; }
+}
+
+/* =========================================================
+   section-beyond.css — SECTION 6: pengalaman di luar Ubud
+   ========================================================= */
+
+.pala-beyond {
+  --cream: #f7f3ed;
+  --warm-white: #f5f1e8;
+  --charcoal: #2a2520;
+  --muted: #7a7068;
+  --accent: #8b6b4a;
+  --border: #e0d8ce;
+
+  width: 100%;
+  overflow: hidden;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-beyond *,
+.pala-beyond *::before,
+.pala-beyond *::after { box-sizing: border-box; }
+
+.pala-beyond__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 650px;
+}
+
+/* ---------------- Kolom teks ---------------- */
+.pala-beyond__text { padding: 5rem 3rem 4rem; }
+
+.pala-beyond__eyebrow {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-beyond__title { margin: 0 0 2rem; }
+
+/* Judul tiga baris bertingkat.
+   乌布之外 / 往北 / 往东 — tiga frasa pendek yang sejajar,
+   jadi susunan bertingkat tetap masuk akal dalam bahasa Mandarin.
+   line-height dinaikkan dari .95 ke 1.18 supaya aksara Han tidak terpotong. */
+.pala-beyond__line {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(40px, 5vw, 78px);
+  font-weight: 300;
+  line-height: 1.18;
+  letter-spacing: 5px;
+  color: #2c241f;
+}
+
+/* Versi Inggris memakai italic di baris kedua. Untuk aksara Han italic
+   tidak tersedia — browser membuat kemiringan palsu yang terlihat rusak.
+   Pembeda diganti dengan bobot dan opacity saja. */
+.pala-beyond__line--2 {
+  padding-left: 1.5rem;
+  font-weight: 200;
+  opacity: .48;
+}
+
+.pala-beyond__line--3 { padding-left: 3rem; }
+
+.pala-beyond__rule {
+  width: 28px;
+  height: 1px;
+  margin-bottom: 1.4rem;
+  background: #c8bfb4;
+}
+
+.pala-beyond__subtitle {
+  margin: 0 0 1.6rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #7a7068;
+}
+
+/* text-align: justify dipertahankan — aksara Han punya lebar seragam,
+   jadi perataan penuh justru rapi (tidak menimbulkan celah seperti huruf Latin). */
+.pala-beyond__body {
+  max-width: 580px;
+  margin: 0 0 2rem;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .02em;
+  text-align: justify;
+  color: #5a5248;
+}
+
+.pala-beyond__cta {
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--accent);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  transition: color .3s ease, border-color .3s ease;
+}
+
+.pala-beyond__cta:hover { color: var(--charcoal); border-color: var(--charcoal); }
+
+/* ---------------- Kolom gambar ---------------- */
+.pala-beyond__gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 9px;
+  min-height: 800px;
+  margin: 4rem 2rem;
+
+}
+
+.pala-beyond__card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  min-height: 380px;
+}
+
+/* Versi lama memakai background-image di <div>, yang TIDAK bisa lazy-load.
+   Diganti <img> asli supaya loading="lazy" berfungsi — penting untuk
+   pengunjung Tiongkok, karena empat foto ini beratnya paling besar. */
+.pala-beyond__card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.pala-beyond__card:hover img { transform: scale(1.04); }
+
+.pala-beyond__card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(12, 18, 8, .75) 0%, rgba(12, 18, 8, 0) 55%);
+}
+
+.pala-beyond__info {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  padding: 14px 16px;
+}
+
+.pala-beyond__region {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(200, 180, 140, .8);
+}
+
+.pala-beyond__place {
+  display: block;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: #f5f0e8;
+}
+
+/* ---------------- Animasi ----------------
+   Kelas .has-reveal hanya ditambahkan oleh JavaScript, sama seperti section 4.
+   Kalau JS gagal dimuat, semua konten tetap terlihat. */
+.pala-beyond.has-reveal .pala-beyond__text,
+.pala-beyond.has-reveal .pala-beyond__gallery {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-beyond.is-visible .pala-beyond__text,
+.pala-beyond.is-visible .pala-beyond__gallery { opacity: 1; translate: 0 0; }
+
+.pala-beyond.is-visible .pala-beyond__gallery { transition-delay: .15s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 768px) {
+  .pala-beyond__grid { grid-template-columns: 1fr; }
+  .pala-beyond__text { padding: 3rem 1.5rem; }
+  .pala-beyond__line { font-size: 40px; letter-spacing: 3px; }
+  .pala-beyond__line--2 { padding-left: 1rem; }
+  .pala-beyond__line--3 { padding-left: 2rem; }
+  .pala-beyond__subtitle { font-size: 18px; }
+  .pala-beyond__body { font-size: 15px; line-height: 1.95; text-align: left; }
+  .pala-beyond__gallery { min-height: 0; }
+  .pala-beyond__card { min-height: 200px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-beyond__card img { transition: none; }
+  .pala-beyond.has-reveal .pala-beyond__text,
+  .pala-beyond.has-reveal .pala-beyond__gallery {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   section-reviews.css — SECTION 7: 宾客之声 (Words From Our Guests)
+   TANPA Swiper — memakai CSS scroll-snap.
+   ========================================================= */
+
+.pala-reviews {
+  background: #f7f3ed;
+  padding: 88px 0 96px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2a2520;
+}
+
+.pala-reviews *,
+.pala-reviews *::before,
+.pala-reviews *::after { box-sizing: border-box; }
+
+.pala-reviews__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ---------------- Judul ---------------- */
+.pala-reviews__head {
+  text-align: center;
+  margin-bottom: 54px;
+}
+
+.pala-reviews__eyebrow {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-reviews__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(34px, 4vw, 60px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 6px;
+  color: #2c241f;
+}
+
+/* ---------------- Slider ---------------- */
+.pala-reviews__slider { position: relative; }
+
+.pala-reviews__track {
+  --gap: 24px;
+  display: flex;
+  gap: var(--gap);
+  align-items: flex-start;
+  overflow-x: auto;
+  padding: 6px 2px 10px;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pala-reviews__track::-webkit-scrollbar { display: none; }
+
+.pala-reviews__slide {
+  flex: 0 0 calc((100% - var(--gap) * 2) / 3);
+  scroll-snap-align: start;
+}
+
+/* ---------------- Kartu ---------------- */
+.pala-reviews__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 290px;
+  padding: 24px;
+  border: 1px solid #e0d8ce;
+  border-radius: 18px;
+  background: #fff;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.pala-reviews__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
+}
+
+.pala-reviews__profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.pala-reviews__avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #5d6a75;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 500;
+}
+
+.pala-reviews__name {
+  display: block;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #111;
+}
+
+.pala-reviews__time {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  letter-spacing: .5px;
+  color: #8a8a8a;
+}
+
+.pala-reviews__stars {
+  margin: 0 0 16px;
+  color: #f5b301;
+  font-size: 17px;
+  letter-spacing: 3px;
+}
+
+/* ---------------- Teks ulasan ----------------
+   Batas tinggi ditulis dalam em (bukan px) supaya selalu pas 3 baris
+   berapa pun ukuran fontnya — penting karena tinggi baris teks Mandarin
+   berbeda dengan huruf Latin. */
+.pala-reviews__text {
+  flex: 1 1 auto;
+  max-height: calc(1.95em * 3);
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+
+.pala-reviews__text.is-open { max-height: 90em; }
+
+.pala-reviews__text p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: #34302b;
+}
+
+.pala-reviews__more {
+  align-self: flex-start;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #8c8c8c;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.pala-reviews__more:hover { opacity: .7; }
+.pala-reviews__more[hidden] { display: none; }
+
+/* ---------------- Navigasi ---------------- */
+.pala-reviews__nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+  transition: background .25s ease, opacity .25s ease;
+}
+
+.pala-reviews__nav:hover { background: #f3efe8; }
+.pala-reviews__nav:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 3px; }
+.pala-reviews__nav svg { width: 16px; height: 16px; }
+.pala-reviews__nav[disabled] { opacity: 0; pointer-events: none; }
+
+.pala-reviews__nav--prev { left: -22px; }
+.pala-reviews__nav--next { right: -22px; }
+
+/* ---------------- Sumber ulasan ---------------- */
+.pala-reviews__note {
+  margin: 30px 0 0;
+  font-size: 12px;
+  line-height: 1.8;
+  text-align: center;
+  color: #9b8d7c;
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1024px) {
+  .pala-reviews__slide { flex-basis: calc((100% - var(--gap)) / 2); }
+  .pala-reviews__nav--prev { left: 6px; }
+  .pala-reviews__nav--next { right: 6px; }
+}
+
+@media (max-width: 767px) {
+  .pala-reviews { padding: 64px 0 72px; }
+  .pala-reviews__inner { padding: 0 20px; }
+  .pala-reviews__head { margin-bottom: 36px; }
+  .pala-reviews__title { letter-spacing: 4px; }
+  .pala-reviews__track { --gap: 16px; }
+  .pala-reviews__slide { flex-basis: 88%; }
+  .pala-reviews__card { padding: 20px; min-height: 280px; }
+  /* Versi lama melompat ke 28px di mobile — kemungkinan salah ketik */
+  .pala-reviews__name { font-size: 18px; }
+  .pala-reviews__text p { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-reviews__track { scroll-behavior: auto; }
+  .pala-reviews__card,
+  .pala-reviews__text { transition: none; }
+}
+
+/* =========================================================
+   page-coming-soon.css — halaman placeholder "敬请期待"
+   ========================================================= */
+
+.pala-soon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: calc(100svh - var(--pala-header-h, 110px));
+  padding: 80px 24px 96px;
+  background: #f5f1e9;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2c241f;
+  text-align: center;
+}
+
+/* Cahaya lembut yang bernapas pelan di belakang konten */
+.pala-soon::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%; left: 50%;
+  width: min(820px, 120vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(205, 184, 138, .26) 0%, rgba(245, 241, 233, 0) 68%);
+  animation: pala-soon-breathe 9s ease-in-out infinite;
+}
+
+@keyframes pala-soon-breathe {
+  0%, 100% { opacity: .75; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.08); }
+}
+
+.pala-soon__inner {
+  position: relative;
+  max-width: 640px;
+}
+
+/* ---------------- Ornamen frangipani ---------------- */
+.pala-soon__mark {
+  width: 128px;
+  height: 128px;
+  margin: 0 auto 34px;
+  color: #b08d4f;
+}
+
+.pala-soon__mark svg { width: 100%; height: 100%; display: block; }
+
+/* Garis lingkaran menggambar dirinya sendiri, lalu berputar sangat pelan */
+.pala-soon__ring {
+  stroke-dasharray: 361;
+  stroke-dashoffset: 361;
+  transform-origin: 64px 64px;
+  animation: pala-soon-draw 2.4s ease-out .2s forwards,
+             pala-soon-spin 44s linear 2.6s infinite;
+}
+
+@keyframes pala-soon-draw { to { stroke-dashoffset: 0; } }
+@keyframes pala-soon-spin { to { transform: rotate(360deg); } }
+
+.pala-soon__petals {
+  transform-origin: 64px 64px;
+  opacity: 0;
+  animation: pala-soon-bloom 1.4s ease-out 1.1s forwards;
+}
+
+@keyframes pala-soon-bloom {
+  from { opacity: 0; transform: scale(.72) rotate(-14deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* ---------------- Teks ---------------- */
+.pala-soon__eyebrow {
+  margin: 0 0 16px;
+  font-size: 11px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-soon__title {
+  margin: 0 0 22px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 10px;
+  /* letter-spacing menambah ruang di kanan aksara terakhir — digeser balik
+     supaya judulnya tetap terlihat benar-benar di tengah */
+  text-indent: 10px;
+  color: #2c241f;
+}
+
+.pala-soon__rule {
+  width: 64px;
+  height: 1px;
+  margin: 0 auto 24px;
+  background: #c8bfb4;
+}
+
+.pala-soon__text {
+  margin: 0 auto 38px;
+  max-width: 30em;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: #6b645c;
+}
+
+/* ---------------- Indikator proses ---------------- */
+.pala-soon__progress { margin: 0 auto 40px; max-width: 320px; }
+
+.pala-soon__progress-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-soon__bar {
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: rgba(176, 141, 79, .18);
+}
+
+.pala-soon__bar span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #b08d4f, #cdb88a);
+  animation: pala-soon-fill 2.2s cubic-bezier(.22, .9, .3, 1) .6s forwards;
+}
+
+@keyframes pala-soon-fill { to { width: var(--pala-progress, 65%); } }
+
+/* ---------------- Tombol ---------------- */
+.pala-soon__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 18px;
+}
+
+.pala-soon__btn {
+  display: inline-block;
+  padding: 13px 32px;
+  border: 1px solid #043323;
+  border-radius: 999px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.pala-soon__btn--solid { background: #043323; color: #f1eee4; }
+.pala-soon__btn--solid:hover { background: #0a4a33; border-color: #0a4a33; }
+
+.pala-soon__btn--ghost { background: transparent; color: #043323; }
+.pala-soon__btn--ghost:hover { background: #043323; color: #f1eee4; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 600px) {
+  .pala-soon { padding: 56px 20px 72px; }
+  .pala-soon__mark { width: 100px; height: 100px; margin-bottom: 26px; }
+  .pala-soon__title { letter-spacing: 6px; text-indent: 6px; }
+  .pala-soon__text { font-size: 15px; margin-bottom: 32px; }
+  .pala-soon__btn { padding: 12px 26px; font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-soon::before,
+  .pala-soon__ring,
+  .pala-soon__petals,
+  .pala-soon__bar span { animation: none; }
+  .pala-soon__ring { stroke-dashoffset: 0; }
+  .pala-soon__petals { opacity: 1; }
+  .pala-soon__bar span { width: var(--pala-progress, 65%); }
+}
