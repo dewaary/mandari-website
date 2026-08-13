@@ -604,3 +604,251 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", refresh);
   refresh();
 });
+
+/* =========================================================
+   Blok masterplan — tempel di script.js sebagai blok terpisah.
+
+   Dua bug dari versi lama yang diperbaiki di sini:
+
+   1. Listener menumpuk. Versi lama memanggil
+      tooltipLink.addEventListener() DI DALAM handler klik titik,
+      jadi setiap klik menambah satu listener baru. Lima klik =
+      lima listener, dan semuanya jalan bersamaan.
+      Sekarang listener dipasang SEKALI di luar loop.
+
+   2. querySelector(URL). Versi lama menjalankan
+      document.querySelector('https://...') untuk data-link yang
+      berisi URL penuh — itu melempar SyntaxError dan menghentikan
+      seluruh handler. Sekarang URL dan anchor (#) dipisah.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const map = document.querySelector(".pala-mp");
+  if (!map) return;
+
+  const wrapper = map.querySelector("[data-mp-wrapper]");
+  const tooltip = map.querySelector("[data-mp-tooltip]");
+  const ttTitle = map.querySelector("[data-mp-title]");
+  const ttSubtitle = map.querySelector("[data-mp-subtitle]");
+  const ttBody = map.querySelector("[data-mp-body]");
+  const ttLink = map.querySelector("[data-mp-link]");
+  const points = map.querySelectorAll(".pala-mp__point");
+  if (!wrapper || !tooltip || !points.length) return;
+
+  let activeHref = "";
+
+  const closeTooltip = () => {
+    tooltip.classList.remove("is-open");
+    points.forEach((p) => {
+      p.classList.remove("is-active");
+      p.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  /* Tooltip diposisikan lalu dijepit agar tidak keluar dari peta */
+  const placeTooltip = (point) => {
+    const wrapRect = wrapper.getBoundingClientRect();
+    const ptRect = point.getBoundingClientRect();
+    const ttWidth = tooltip.offsetWidth;
+    const ttHeight = tooltip.offsetHeight;
+    const gap = 14;
+
+    const ptLeft = ptRect.left - wrapRect.left;
+    const ptTop = ptRect.top - wrapRect.top;
+
+    // Default: di kanan titik. Kalau mepet tepi kanan, pindah ke kiri.
+    let left = ptLeft + ptRect.width + gap;
+    if (left + ttWidth > wrapRect.width - 8) {
+      left = ptLeft - ttWidth - gap;
+    }
+    left = Math.max(8, Math.min(left, wrapRect.width - ttWidth - 8));
+
+    let top = ptTop + ptRect.height / 2 - ttHeight / 2;
+    top = Math.max(8, Math.min(top, wrapRect.height - ttHeight - 8));
+
+    tooltip.style.left = left + "px";
+    tooltip.style.top = top + "px";
+  };
+
+  points.forEach((point) => {
+    point.setAttribute("aria-expanded", "false");
+
+    point.addEventListener("click", (event) => {
+      event.stopPropagation();
+
+      const isSame = point.classList.contains("is-active");
+      closeTooltip();
+      if (isSame) return;
+
+      point.classList.add("is-active");
+      point.setAttribute("aria-expanded", "true");
+
+      ttTitle.textContent = point.dataset.title || "";
+      ttSubtitle.textContent = point.dataset.subtitle || "";
+
+      /* Isi tooltip: dari blok data tersembunyi, atau dari teks biasa */
+      ttBody.textContent = "";
+      if (point.dataset.content) {
+        const source = map.querySelector(point.dataset.content);
+        if (source) ttBody.innerHTML = source.innerHTML;
+      } else if (point.dataset.description) {
+        ttBody.textContent = point.dataset.description.trim();
+      }
+
+      /* Tombol */
+      const label = (point.dataset.button || "").trim();
+      activeHref = (point.dataset.link || "").trim();
+
+      if (label && activeHref) {
+        ttLink.textContent = label;
+        ttLink.href = activeHref;
+        ttLink.hidden = false;
+      } else {
+        ttLink.hidden = true;
+        activeHref = "";
+      }
+
+      tooltip.classList.add("is-open");
+      placeTooltip(point);
+    });
+  });
+
+  /* Listener tombol dipasang SEKALI, bukan di dalam loop */
+  ttLink.addEventListener("click", (event) => {
+    if (!activeHref) return;
+
+    // Anchor di halaman yang sama -> scroll halus
+    if (activeHref.startsWith("#")) {
+      event.preventDefault();
+      const target = document.querySelector(activeHref);
+      if (target) {
+        closeTooltip();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return;
+    }
+    // Selain itu biarkan browser membuka tautannya seperti biasa
+  });
+
+  document.addEventListener("click", closeTooltip);
+  tooltip.addEventListener("click", (event) => event.stopPropagation());
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeTooltip();
+  });
+
+  window.addEventListener("resize", closeTooltip);
+});
+
+const sections = document.querySelectorAll(".pala-events, .pala-beyond, .pala-wv");
+
+/* =========================================================
+   Blok "庄园周边体验" — tempel di script.js sebagai blok terpisah.
+
+   Perbaikan dari versi lama:
+
+   1. onclick="estateScroll(±1)" dihapus. Fungsi global di halaman
+      yang berisi banyak section mudah bertabrakan namanya.
+      Sekarang listener dipasang dari sini.
+
+   2. estateTotal = 6 tidak lagi ditulis manual — dihitung dari DOM,
+      jadi menambah/menghapus kartu tidak perlu mengubah JS.
+
+   3. Bug seret-lalu-klik. Kartu adalah <a>. Di versi lama, menyeret
+      lalu melepas mouse ikut memicu klik dan halaman berpindah.
+      Sekarang tautan dimatikan sementara selama proses seret.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const estate = document.querySelector(".pala-ae");
+  if (!estate) return;
+
+  const track = estate.querySelector("[data-ae-track]");
+  const count = estate.querySelector("[data-ae-count]");
+  const prev = estate.querySelector("[data-ae-prev]");
+  const next = estate.querySelector("[data-ae-next]");
+  const cards = track ? track.querySelectorAll(".pala-ae__card") : [];
+  if (!track || !cards.length) return;
+
+  const total = cards.length;
+
+  const stepSize = () => {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return cards[0].getBoundingClientRect().width + gap;
+  };
+
+  const currentIndex = () =>
+    Math.min(total - 1, Math.max(0, Math.round(track.scrollLeft / stepSize())));
+
+  const refresh = () => {
+    const index = currentIndex();
+    const max = track.scrollWidth - track.clientWidth;
+
+    if (count) count.textContent = index + 1 + " / " + total;
+    if (prev) prev.disabled = track.scrollLeft <= 2;
+    if (next) next.disabled = track.scrollLeft >= max - 2;
+  };
+
+  const move = (direction) => {
+    track.scrollBy({ left: direction * stepSize(), behavior: "smooth" });
+  };
+
+  if (prev) prev.addEventListener("click", () => move(-1));
+  if (next) next.addEventListener("click", () => move(1));
+
+  track.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); move(1); }
+    if (event.key === "ArrowLeft")  { event.preventDefault(); move(-1); }
+  });
+
+  let ticking = false;
+  track.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { refresh(); ticking = false; });
+  }, { passive: true });
+
+  window.addEventListener("resize", refresh);
+
+  /* ---------- Seret dengan mouse (desktop) ----------
+     Di layar sentuh tidak dipakai — geser jari sudah ditangani
+     browser secara native dan jauh lebih halus. */
+  let dragging = false;
+  let moved = 0;
+  let startX = 0;
+  let startScroll = 0;
+
+  const stopDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    // Jeda singkat supaya klik yang menyusul pelepasan mouse
+    // tidak sempat membuka halaman kartu
+    setTimeout(() => track.classList.remove("is-dragging"), 0);
+  };
+
+  track.addEventListener("mousedown", (event) => {
+    if (event.button !== 0) return;
+    dragging = true;
+    moved = 0;
+    startX = event.pageX;
+    startScroll = track.scrollLeft;
+  });
+
+  track.addEventListener("mousemove", (event) => {
+    if (!dragging) return;
+    const distance = event.pageX - startX;
+    moved = Math.abs(distance);
+
+    // Baru dianggap seret setelah 5px, supaya klik biasa tetap jalan
+    if (moved > 5) {
+      event.preventDefault();
+      track.classList.add("is-dragging");
+      track.scrollLeft = startScroll - distance * 1.2;
+    }
+  });
+
+  track.addEventListener("mouseup", stopDrag);
+  track.addEventListener("mouseleave", stopDrag);
+
+  refresh();
+});
