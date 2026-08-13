@@ -2223,3 +2223,533 @@ body { background: #1d2923; }
   .pala-soon__petals { opacity: 1; }
   .pala-soon__bar span { width: var(--pala-progress, 65%); }
 }
+
+/* =========================================================
+   page-villas.css — halaman 别墅 (villas) — v2
+   Prefiks .pala-vp- supaya tidak bentrok dengan .pala-villas
+   di homepage.
+   ========================================================= */
+
+/* Sprite ikon: disembunyikan tanpa display:none, karena sebagian
+   browser gagal me-render <use> dari elemen yang display:none. */
+.pala-vp-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   1. HERO — tinggi satu layar penuh
+   --------------------------------------------------------- */
+.pala-vp-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  /* Header ikut dihitung supaya header + hero = tepat satu layar.
+     svh dipakai agar tidak melompat saat bar browser mobile muncul. */
+  min-height: calc(100svh - var(--pala-header-h, 110px));
+  padding: 0 0 72px;
+  background: #043323;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #fff;
+}
+
+.pala-vp-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pala-vp-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 22, 16, .28) 0%,
+    rgba(6, 22, 16, .08) 42%,
+    rgba(6, 22, 16, .74) 100%
+  );
+}
+
+.pala-vp-hero__inner {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+.pala-vp-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .82);
+}
+
+.pala-vp-hero__title {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(40px, 5.2vw, 82px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 6px;
+  color: #fff;
+}
+
+.pala-vp-hero__lead {
+  max-width: 40em;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: rgba(255, 255, 255, .9);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+}
+
+/* ---------------------------------------------------------
+   2. KARTU VILLA — kartu krem di atas latar hijau tua
+   --------------------------------------------------------- */
+.pala-vp-list {
+  background: #043323;
+  padding: 84px 0 92px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-vp-list__inner {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+.pala-vp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+}
+
+.pala-vp-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 14px 14px 24px;
+  border-radius: 16px;
+  background: #f5f1e9;
+  color: #2c241f;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, .18);
+}
+
+/* --- Foto --- */
+.pala-vp-card__media {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 7 / 6;
+  border-radius: 10px;
+  background: #e6e1d7;
+}
+
+.pala-vp-card__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .8s ease;
+}
+
+.pala-vp-card__media:hover img { transform: scale(1.05); }
+
+/* --- Isi kartu --- */
+.pala-vp-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 0 10px;
+}
+
+/* Tipe + nama digabung dalam satu baris, mengikuti versi Inggris */
+.pala-vp-card__name {
+  margin: 22px 0 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 1px;
+  color: #2c241f;
+}
+
+.pala-vp-card__specs {
+  margin: 9px 0 0;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .03em;
+  color: #6b645c;
+}
+
+/* --- Daftar fitur dengan ikon, 2 kolom --- */
+.pala-vp-card__features {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px 18px;
+}
+
+.pala-vp-card__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: #4a443d;
+}
+
+.pala-vp-ico {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  color: #9b8d7c;
+}
+
+.pala-vp-ico-facilities {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  color: #ffffff;
+}
+
+/* --- Tombol: dua sama lebar, menempel di dasar kartu --- */
+.pala-vp-card__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.pala-vp-btn {
+  display: block;
+  padding: 12px 10px;
+  border-radius: 999px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.pala-vp-btn--ghost {
+  border: 1px solid #043323;
+  background: transparent;
+  color: #043323;
+}
+.pala-vp-btn--ghost:hover { background: #043323; color: #f5f1e9; }
+
+.pala-vp-btn--solid {
+  border: 1px solid #043323;
+  background: #043323;
+  color: #f5f1e9;
+}
+.pala-vp-btn--solid:hover { background: #0a4a33; border-color: #0a4a33; }
+
+/* ---------------------------------------------------------
+   3. FASILITAS
+   --------------------------------------------------------- */
+.pala-vp-fac {
+  background: #043323;
+  padding: 80px 0 84px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2c241f;
+}
+
+.pala-vp-fac__inner {
+  width: min(1100px, calc(100% - 80px));
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pala-vp-fac__eyebrow {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.pala-vp-fac__title {
+  margin: 0 0 14px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: 5px;
+  color: #ffffff;
+}
+
+.pala-vp-fac__lead {
+  max-width: 34em;
+  margin: 0 auto 44px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  color: #ffffff;;
+}
+
+.pala-vp-fac__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.pala-vp-fac__list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(4, 51, 35, .12);
+  font-size: 14px;
+  font-weight: 300;
+  color: #ffffff;;
+}
+
+.pala-vp-fac__list .pala-vp-ico { width: 17px; height: 17px; margin-top: 0; }
+
+/* ---------------------------------------------------------
+   4. FAQ — <details>, tanpa JavaScript
+   --------------------------------------------------------- */
+.pala-vp-faq {
+  background: #f5f1e9;
+  padding: 84px 0 96px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #2c241f;
+}
+
+.pala-vp-faq__inner {
+  width: min(880px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+.pala-vp-faq__head { text-align: center; margin-bottom: 44px; }
+
+.pala-vp-faq__eyebrow {
+  margin: 0 0 12px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-vp-faq__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: 5px;
+  color: #2c241f;
+}
+
+.pala-vp-faq__item { border-bottom: 1px solid rgba(4, 51, 35, .14); }
+.pala-vp-faq__item:first-of-type { border-top: 1px solid rgba(4, 51, 35, .14); }
+
+.pala-vp-faq__q {
+  position: relative;
+  display: block;
+  padding: 22px 44px 22px 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: .5px;
+  color: #2c241f;
+  cursor: pointer;
+  list-style: none;
+  transition: color .2s ease;
+}
+
+.pala-vp-faq__q::-webkit-details-marker { display: none; }
+.pala-vp-faq__q::marker { content: ""; }
+
+.pala-vp-faq__q:hover { color: #b08d4f; }
+.pala-vp-faq__q:focus-visible { outline: 2px solid #b08d4f; outline-offset: 3px; }
+
+/* Tanda + yang berubah jadi − saat terbuka */
+.pala-vp-faq__q::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 13px;
+  height: 1px;
+  background: #8b6b4a;
+  transform: translateY(-50%);
+}
+
+.pala-vp-faq__q::before {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 1px;
+  height: 13px;
+  background: #8b6b4a;
+  transform: translateY(-50%);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.pala-vp-faq__item[open] .pala-vp-faq__q::before {
+  opacity: 0;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.pala-vp-faq__item[open] .pala-vp-faq__q { color: #043323; }
+
+.pala-vp-faq__a {
+  padding: 0 44px 26px 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .3px;
+  color: #5d554d;
+  animation: pala-vp-faq-in .3s ease;
+}
+
+@keyframes pala-vp-faq-in {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.pala-vp-faq__a p { margin: 0 0 12px; }
+.pala-vp-faq__a p:last-child { margin-bottom: 0; }
+.pala-vp-faq__a ul { margin: 0; padding: 0; list-style: none; }
+
+.pala-vp-faq__a li {
+  position: relative;
+  padding-left: 17px;
+  margin-bottom: 6px;
+}
+
+.pala-vp-faq__a li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .92em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #b08d4f;
+}
+
+/* ---------------------------------------------------------
+   5. CTA penutup
+   --------------------------------------------------------- */
+.pala-vp-cta {
+  background: #043323;
+  padding: 78px 0 84px;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #f1eee4;
+  text-align: center;
+}
+
+.pala-vp-cta__inner { width: min(760px, calc(100% - 60px)); margin: 0 auto; }
+
+.pala-vp-cta__title {
+  margin: 0 0 18px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: 5px;
+}
+
+.pala-vp-cta__text {
+  margin: 0 0 32px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  color: rgba(241, 238, 228, .82);
+}
+
+.pala-vp-cta__btn {
+  display: inline-block;
+  padding: 13px 34px;
+  border: 1px solid #cdb88a;
+  border-radius: 999px;
+  background: transparent;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: #cdb88a;
+  transition: background .25s ease, color .25s ease;
+}
+
+.pala-vp-cta__btn:hover { background: #cdb88a; color: #043323; }
+
+/* ---------------------------------------------------------
+   Responsif
+   --------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .pala-vp-hero__inner,
+  .pala-vp-list__inner,
+  .pala-vp-fac__inner,
+  .pala-vp-faq__inner { width: calc(100% - 48px); }
+
+  .pala-vp-grid { gap: 30px 26px; }
+  .pala-vp-card__name { font-size: 23px; }
+  .pala-vp-card__features { grid-template-columns: 1fr; gap: 10px; }
+  .pala-vp-card__body { padding: 0 6px; }
+}
+
+@media (max-width: 720px) {
+  .pala-vp-hero {
+    min-height: calc(100svh - var(--pala-header-h, 64px));
+    padding-bottom: 48px;
+  }
+  .pala-vp-hero__inner,
+  .pala-vp-list__inner,
+  .pala-vp-fac__inner,
+  .pala-vp-faq__inner { width: calc(100% - 40px); }
+  .pala-vp-hero__title { letter-spacing: 4px; }
+  .pala-vp-hero__lead { font-size: 15px; line-height: 1.95; }
+
+  .pala-vp-list { padding: 56px 0 64px; }
+  .pala-vp-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pala-vp-card { padding: 12px 12px 22px; }
+  .pala-vp-card__features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pala-vp-btn { font-size: 14px; letter-spacing: 1px; }
+
+  .pala-vp-fac { padding: 60px 0 64px; }
+  .pala-vp-fac__lead { margin-bottom: 30px; }
+
+  .pala-vp-faq { padding: 60px 0 68px; }
+  .pala-vp-faq__q { font-size: 18px; padding-right: 36px; }
+  .pala-vp-faq__a { font-size: 14.5px; padding-right: 0; }
+
+  .pala-vp-cta { padding: 58px 0 64px; }
+}
+
+@media (max-width: 460px) {
+  .pala-vp-card__features { grid-template-columns: 1fr; }
+  .pala-vp-card__actions { gap: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-vp-card__media img { transition: none; }
+  .pala-vp-faq__a { animation: none; }
+}
