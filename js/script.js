@@ -852,3 +852,797 @@ document.addEventListener("DOMContentLoaded", () => {
 
   refresh();
 });
+
+/* =========================================================
+   Blok sticky bar — tempel di script.js sebagai blok terpisah.
+
+   Perbaikan dari versi lama:
+
+   1. Listener scroll di-throttle dengan requestAnimationFrame.
+      Versi lama menjalankan classList setiap frame scroll —
+      terasa pada ponsel Android kelas menengah.
+
+   2. Bar disembunyikan saat footer masuk layar. Versi lama
+      membiarkannya melayang di atas footer, menutupi kontak
+      dan tautan legal.
+
+   3. { passive: true } supaya scroll tidak tertahan.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const bar = document.querySelector(".pala-sb");
+  if (!bar) return;
+
+  const footer = document.querySelector(".tpr-ftr");
+  const SHOW_AFTER = 500;
+
+  let footerVisible = false;
+
+  /* Footer terlihat -> bar disembunyikan supaya tidak menutupi
+     alamat, telepon, dan tautan legal di footer */
+  if (footer && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        footerVisible = entries[0].isIntersecting;
+        update();
+      },
+      { rootMargin: "0px 0px -40px 0px" }
+    );
+    observer.observe(footer);
+  }
+
+  function update() {
+    const show = window.scrollY > SHOW_AFTER && !footerVisible;
+    bar.classList.toggle("is-visible", show);
+    bar.setAttribute("aria-hidden", String(!show));
+  }
+
+  let ticking = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    },
+    { passive: true }
+  );
+
+  update();
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.querySelector(".pala-we-hero");
+  if (!hero) return;
+
+  const bg = hero.querySelector(".pala-we-hero__bg");
+  if (!bg) return;
+
+  // Hormati preferensi sistem: tanpa gerakan, foto dibiarkan diam
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const FACTOR = 0.07;
+  let ticking = false;
+  let inView = true;
+
+  const apply = () => {
+    const height = hero.offsetHeight;
+    const maxShift = height * 0.08;          // ruang dari height:116%
+    const shift = Math.min(window.scrollY * FACTOR, maxShift);
+    bg.style.transform = "translate3d(0," + shift.toFixed(1) + "px,0)";
+  };
+
+  const onScroll = () => {
+    if (ticking || !inView) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      apply();
+      ticking = false;
+    });
+  };
+
+  // Berhenti menghitung setelah hero keluar layar
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => { inView = entries[0].isIntersecting; },
+      { threshold: 0 }
+    );
+    observer.observe(hero);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", apply);
+  apply();
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".pala-wvid");
+  if (!section) return;
+
+  const frame = section.querySelector("[data-wvid-frame]");
+  const popup = section.querySelector("[data-wvid-popup]");
+  const stage = section.querySelector("[data-wvid-stage]");
+  const close = section.querySelector("[data-wvid-close]");
+  const hint = section.querySelector("[data-wvid-hint]");
+  if (!frame || !popup || !stage || !close) return;
+
+  const embedUrl = (section.dataset.embedUrl || "").trim();
+  const videoSrc = (section.dataset.videoSrc || "").trim();
+
+  /* Tanpa sumber video, tombol play tidak ada gunanya */
+  if (!embedUrl && !videoSrc) {
+    frame.disabled = true;
+    frame.style.cursor = "default";
+    if (hint) hint.textContent = "影片即将上线";
+    return;
+  }
+
+  let lastFocus = null;
+
+  const openPopup = () => {
+    lastFocus = document.activeElement;
+    stage.replaceChildren();
+
+    if (embedUrl) {
+      const iframe = document.createElement("iframe");
+      iframe.src = embedUrl;
+      iframe.title = "帕拉乌布度假村影片";
+      iframe.allow = "autoplay; fullscreen; encrypted-media";
+      iframe.allowFullscreen = true;
+      iframe.setAttribute("scrolling", "no");
+      iframe.setAttribute("frameborder", "0");
+      stage.appendChild(iframe);
+    } else {
+      const video = document.createElement("video");
+      video.src = videoSrc;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      video.preload = "auto";
+      stage.appendChild(video);
+    }
+
+    popup.classList.add("is-open");
+    popup.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    close.focus();
+  };
+
+  const closePopup = () => {
+    if (!popup.classList.contains("is-open")) return;
+    popup.classList.remove("is-open");
+    popup.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    /* Elemen video dihapus supaya suaranya benar-benar berhenti —
+       menyembunyikan popup saja tidak menghentikan pemutaran. */
+    stage.replaceChildren();
+
+    if (lastFocus) lastFocus.focus();
+  };
+
+  frame.addEventListener("click", openPopup);
+  close.addEventListener("click", closePopup);
+
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) closePopup();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closePopup();
+  });
+});
+
+/* =========================================================
+   Blok 场地 (The Venues) — tempel di script.js.
+
+   Perbaikan dari versi lama:
+
+   1. onclick="selectVenue(...)" dihapus. Fungsi global di halaman
+      berisi banyak section mudah bertabrakan nama.
+
+   2. Header accordion diubah dari <div onclick> jadi <button>,
+      sehingga bisa dibuka dengan keyboard (Tab + Enter).
+
+   3. max-height dihitung dari scrollHeight, bukan angka tetap 500px.
+      Angka tetap berisiko memotong isi kalau teksnya bertambah.
+
+   4. Pembacaan #hash dipindah dari event 'load' ke DOMContentLoaded.
+      'load' menunggu SEMUA gambar selesai — di koneksi lambat, tamu
+      yang datang dari peta harus menunggu lama sebelum accordion
+      yang benar terbuka.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".pala-vn");
+  if (!section) return;
+
+  const items = Array.from(section.querySelectorAll(".pala-vn__item"));
+  const images = Array.from(section.querySelectorAll(".pala-vn__image"));
+  const counter = section.querySelector("[data-vn-counter]");
+  if (!items.length) return;
+
+  const total = String(items.length).padStart(2, "0");
+
+  const select = (index, scroll) => {
+    items.forEach((item, i) => {
+      const active = i === index;
+      const head = item.querySelector(".pala-vn__head");
+      const content = item.querySelector(".pala-vn__content");
+
+      item.classList.toggle("is-active", active);
+      if (head) head.setAttribute("aria-expanded", String(active));
+      if (content) {
+        // Dihitung dari isinya sendiri, bukan angka tetap
+        content.style.maxHeight = active ? content.scrollHeight + "px" : "0px";
+      }
+    });
+
+    images.forEach((img, i) => img.classList.toggle("is-active", i === index));
+
+    if (counter) {
+      counter.textContent = String(index + 1).padStart(2, "0") + " / " + total;
+    }
+
+    if (scroll) {
+      items[index].scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  items.forEach((item, index) => {
+    const head = item.querySelector(".pala-vn__head");
+    if (!head) return;
+    head.addEventListener("click", () => select(index, false));
+  });
+
+  /* Buka otomatis kalau halaman dibuka dengan #anchor,
+     misalnya dari titik di peta masterplan */
+  const hash = window.location.hash.replace("#", "");
+  const fromHash = hash ? items.findIndex((item) => item.id === hash) : -1;
+
+  select(fromHash >= 0 ? fromHash : 0, false);
+
+  if (fromHash >= 0) {
+    setTimeout(() => select(fromHash, true), 220);
+  }
+
+  /* Tinggi dihitung ulang saat lebar berubah — teks bisa berganti
+     jumlah baris dan isinya jadi terpotong */
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const active = items.findIndex((item) => item.classList.contains("is-active"));
+      if (active >= 0) select(active, false);
+    }, 150);
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.querySelector(".pala-mo");
+  if (!modal) return;
+
+  const overlay = modal.querySelector("[data-mo-overlay]");
+  const box = modal.querySelector("[data-mo-box]");
+  const closeBtn = modal.querySelector("[data-mo-close]");
+  const form = modal.querySelector("[data-mo-form]");
+  const formWrap = modal.querySelector("[data-mo-formwrap]");
+  const success = modal.querySelector("[data-mo-success]");
+  const successBtn = modal.querySelector("[data-mo-successbtn]");
+  const submit = modal.querySelector("[data-mo-submit]");
+  const notice = modal.querySelector("[data-mo-notice]");
+  const openers = document.querySelectorAll("[data-mo-open]");
+  if (!overlay || !form || !submit) return;
+
+  const ENDPOINT = "send-inquiry.php";
+  const FALLBACK_EMAIL = "enquiry@thepalaubudresort.com";
+  let lastFocus = null;
+
+  /* ---------- Tanggal paling awal = hari ini ---------- */
+  const dateInput = form.querySelector("#pala-mo-date");
+  if (dateInput) {
+    const today = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    dateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+  }
+
+  /* ---------- Telepon: hanya angka, spasi, dan + ---------- */
+  const phoneInput = form.querySelector("#pala-mo-phone");
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9+\s-]/g, "");
+    });
+  }
+
+  /* ---------- Buka & tutup ---------- */
+  const openModal = (event) => {
+    if (event) event.preventDefault();
+    lastFocus = document.activeElement;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    const first = form.querySelector("select, input");
+    if (first) first.focus();
+  };
+
+  const closeModal = () => {
+    if (!modal.classList.contains("is-open")) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    if (lastFocus) lastFocus.focus();
+  };
+
+  openers.forEach((btn) => btn.addEventListener("click", openModal));
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeModal();
+  });
+
+  /* ---------- Keyboard: Esc menutup, Tab tetap di dalam modal ---------- */
+  document.addEventListener("keydown", (event) => {
+    if (!modal.classList.contains("is-open")) return;
+
+    if (event.key === "Escape") {
+      closeModal();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const focusable = box.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const list = Array.from(focusable).filter((el) => !el.disabled && el.offsetParent !== null);
+    if (!list.length) return;
+
+    const first = list[0];
+    const last = list[list.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  /* ---------- Penanda kesalahan per kolom ---------- */
+  const showError = (input, message) => {
+    const group = input.closest(".pala-mo__group");
+    if (!group) return;
+    clearError(input);
+    group.classList.add("has-error");
+    const el = document.createElement("p");
+    el.className = "pala-mo__error";
+    el.textContent = message;
+    group.appendChild(el);
+  };
+
+  const clearError = (input) => {
+    const group = input.closest(".pala-mo__group");
+    if (!group) return;
+    group.classList.remove("has-error");
+    const el = group.querySelector(".pala-mo__error");
+    if (el) el.remove();
+  };
+
+  const clearAllErrors = () => {
+    form.querySelectorAll(".pala-mo__group").forEach((g) => g.classList.remove("has-error"));
+    form.querySelectorAll(".pala-mo__error").forEach((e) => e.remove());
+    if (notice) notice.hidden = true;
+  };
+
+  const showNotice = (message) => {
+    if (!notice) return;
+    notice.textContent = message;
+    notice.hidden = false;
+    notice.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  };
+
+  /* ---------- Validasi di browser ----------
+     Hanya untuk kenyamanan. Validasi sebenarnya ada di
+     send-inquiry.php, karena siapa pun bisa melewati yang ini. */
+  const validate = () => {
+    const f = form.elements;
+    let ok = true;
+
+    const check = (input, condition, message) => {
+      if (!condition) {
+        showError(input, message);
+        ok = false;
+      }
+    };
+
+    check(f.event, f.event.value !== "", "请选择活动类型");
+    // Panjang dihitung dengan Array.from supaya aksara Han dihitung
+    // sebagai satu karakter, bukan per unit UTF-16
+    check(f.name, Array.from(f.name.value.trim()).length >= 2, "请填写您的姓名");
+    check(f.phone, f.phone.value.trim().replace(/\D/g, "").length >= 7, "请填写有效的联系电话");
+    check(f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()), "请填写有效的邮箱地址");
+    check(f.date, f.date.value !== "", "请选择意向日期");
+    check(f.guests, Number(f.guests.value) >= 10 && Number(f.guests.value) <= 500, "人数请填写 10 至 500 之间");
+    check(f.notes, Array.from(f.notes.value.trim()).length >= 5, "请简单描述您的活动");
+
+    return ok;
+  };
+
+  /* ---------- Kirim ---------- */
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    clearAllErrors();
+
+    if (!validate()) {
+      const firstError = form.querySelector(".pala-mo__group.has-error");
+      if (firstError) firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    submit.classList.add("is-loading");
+    submit.disabled = true;
+
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        body: new FormData(form),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || !data.ok) {
+        if (data.errors) {
+          Object.entries(data.errors).forEach(([key, message]) => {
+            const input = form.elements[key];
+            if (input) showError(input, message);
+          });
+          showNotice("请检查上方标红的项目。");
+        } else {
+          showNotice(data.message || `发送失败，请直接发送邮件至 ${FALLBACK_EMAIL}`);
+        }
+        return;
+      }
+
+      /* Berhasil — langsung tampilkan, tanpa jeda buatan */
+      if (formWrap) formWrap.style.display = "none";
+      if (success) success.classList.add("is-active");
+      if (box) box.scrollTop = 0;
+      if (successBtn) successBtn.focus();
+    } catch (error) {
+      showNotice(`网络连接失败，请稍后重试，或直接发送邮件至 ${FALLBACK_EMAIL}`);
+    } finally {
+      submit.classList.remove("is-loading");
+      submit.disabled = false;
+    }
+  });
+
+  /* ---------- Tombol pada layar berhasil ---------- */
+  if (successBtn) {
+    successBtn.addEventListener("click", () => {
+      closeModal();
+      /* Ditunda sampai animasi tutup selesai supaya tamu tidak
+         sempat melihat formulir kosong berkedip */
+      setTimeout(() => {
+        form.reset();
+        clearAllErrors();
+        if (success) success.classList.remove("is-active");
+        if (formWrap) formWrap.style.display = "";
+      }, 400);
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const heroes = document.querySelectorAll("[data-hero-parallax]");
+  if (!heroes.length) return;
+
+  // Hormati preferensi sistem: tanpa gerakan, foto dibiarkan diam
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const FACTOR = 0.07;
+
+  heroes.forEach((hero) => {
+    const bg = hero.querySelector("img");
+    if (!bg) return;
+
+    let ticking = false;
+    let inView = true;
+
+    const apply = () => {
+      const maxShift = hero.offsetHeight * 0.08;   // ruang dari height:116%
+      const shift = Math.min(window.scrollY * FACTOR, maxShift);
+      bg.style.transform = "translate3d(0," + shift.toFixed(1) + "px,0)";
+    };
+
+    const onScroll = () => {
+      if (ticking || !inView) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        apply();
+        ticking = false;
+      });
+    };
+
+    // Berhenti menghitung setelah hero keluar layar
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => { inView = entries[0].isIntersecting; },
+        { threshold: 0 }
+      );
+      observer.observe(hero);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", apply);
+    apply();
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.querySelector(".pala-menu");
+  if (!root) return;
+
+  const book = root.querySelector("[data-menu-book]");
+  const info = root.querySelector("[data-menu-info]");
+  const prev = root.querySelector("[data-menu-prev]");
+  const next = root.querySelector("[data-menu-next]");
+  if (!book) return;
+
+  /* Daftar halaman dari atribut, dipisah koma atau baris baru */
+  const pages = (root.dataset.pages || "")
+    .split(/[\n,]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+
+  if (!pages.length) return;
+
+  const base = (root.dataset.base || "").trim();
+  const total = pages.length;
+  const totalLeaves = Math.ceil(total / 2);
+
+  let current = 0;
+  let busy = false;
+  const leaves = [];
+
+  /* ---------- Suara balik halaman (tanpa berkas audio) ---------- */
+  let audioCtx = null;
+  const flipSound = () => {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      if (!audioCtx) audioCtx = new Ctx();
+      const dur = 0.18;
+      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * dur, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < data.length; i += 1) {
+        const t = i / data.length;
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - t, 3) * 0.25;
+      }
+      const src = audioCtx.createBufferSource();
+      src.buffer = buffer;
+      const hp = audioCtx.createBiquadFilter();
+      hp.type = "highpass";
+      hp.frequency.value = 1200;
+      src.connect(hp);
+      hp.connect(audioCtx.destination);
+      src.start();
+    } catch (_) { /* diabaikan */ }
+  };
+
+  /* ---------- Susun lembar ---------- */
+  const makeFace = (side, index) => {
+    const face = document.createElement("div");
+    face.className = "pala-menu__face pala-menu__face--" + side;
+
+    if (index < total) {
+      const img = document.createElement("img");
+      img.alt = "菜单第 " + (index + 1) + " 页";
+      img.decoding = "async";
+      img.dataset.src = base + pages[index];   // src dipasang belakangan
+      face.appendChild(img);
+    } else {
+      face.classList.add("pala-menu__face--blank");
+    }
+
+    face.insertAdjacentHTML("beforeend", '<span class="pala-menu__gloss"></span>');
+    return face;
+  };
+
+  for (let i = 0; i < totalLeaves; i += 1) {
+    const leaf = document.createElement("div");
+    leaf.className = "pala-menu__leaf";
+    leaf.appendChild(makeFace("front", i * 2));
+    leaf.appendChild(makeFace("back", i * 2 + 1));
+
+    leaf.addEventListener("click", () => {
+      if (i === current) go(1);
+      else if (i === current - 1) go(-1);
+    });
+
+    leaves.push(leaf);
+    book.appendChild(leaf);
+  }
+
+  /* ---------- Muat gambar di sekitar lembar aktif ---------- */
+  const loadNearby = () => {
+    for (let i = current - 1; i <= current + 1; i += 1) {
+      const leaf = leaves[i];
+      if (!leaf) continue;
+      leaf.querySelectorAll("img[data-src]").forEach((img) => {
+        img.src = img.dataset.src;
+        delete img.dataset.src;
+      });
+    }
+  };
+
+  /* ---------- Perbarui tampilan ---------- */
+  const paint = (turnIndex) => {
+    leaves.forEach((leaf, i) => {
+      const flipped = i < current;
+      leaf.classList.toggle("is-flipped", flipped);
+      leaf.style.zIndex = flipped ? i : totalLeaves - i;
+    });
+
+    book.classList.toggle("at-start", current === 0);
+    book.classList.toggle("at-end", current === totalLeaves);
+
+    if (info) {
+      if (current === 0) info.textContent = "封面";
+      else if (current === totalLeaves) info.textContent = "完";
+      else {
+        const left = current * 2;
+        const right = left + 1;
+        info.textContent = right <= total ? left + "–" + right : String(left);
+      }
+    }
+
+    if (prev) prev.disabled = current === 0;
+    if (next) next.disabled = current === totalLeaves;
+
+    if (typeof turnIndex === "number" && leaves[turnIndex]) {
+      const el = leaves[turnIndex];
+      el.classList.add("is-turning");
+      setTimeout(() => el.classList.remove("is-turning"), 850);
+    }
+
+    loadNearby();
+  };
+
+  function go(direction) {
+    if (busy) return;
+    if (direction > 0 && current < totalLeaves) {
+      busy = true;
+      const turned = current;
+      current += 1;
+      flipSound();
+      paint(turned);
+    } else if (direction < 0 && current > 0) {
+      busy = true;
+      current -= 1;
+      flipSound();
+      paint(current);
+    } else {
+      return;
+    }
+    setTimeout(() => { busy = false; }, 870);
+  }
+
+  /* ---------- Kontrol ---------- */
+  if (prev) prev.addEventListener("click", () => go(-1));
+  if (next) next.addEventListener("click", () => go(1));
+
+  /* Panah kiri/kanan hanya saat section ini difokus —
+     versi lama memasangnya di document, sehingga menekan panah
+     di bagian lain halaman ikut membalik menu. */
+  root.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); go(1); }
+    if (event.key === "ArrowLeft")  { event.preventDefault(); go(-1); }
+  });
+
+  let startX = 0;
+  book.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  book.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  }, { passive: true });
+
+  paint();
+});
+
+/* =========================================================
+   Blok galeri + lightbox — tempel di script.js.
+
+   Perbaikan dari versi Elementor:
+
+   1. Lightbox membuka versi BESAR gambar, bukan thumbnail.
+      Versi lama menyalin src thumbnail apa adanya, jadi gambar
+      yang dibuka penuh layar tetap resolusi kartu — terlihat buram.
+      Sekarang jalur versi besar dibaca dari data-full.
+
+   2. Tombol panah dan tutup jadi <button>, bukan <span>.
+      Versi lama tidak bisa diakses keyboard sama sekali.
+
+   3. Ditambah tutup dengan Esc, geser jari, dan penguncian scroll
+      di belakang lightbox.
+
+   4. Fokus dikembalikan ke gambar yang tadi diklik saat ditutup.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const gallery = document.querySelector(".pala-gal");
+  if (!gallery) return;
+
+  const items = Array.from(gallery.querySelectorAll(".pala-gal__item"));
+  const box = gallery.querySelector("[data-gal-box]");
+  const boxImg = gallery.querySelector("[data-gal-img]");
+  const counter = gallery.querySelector("[data-gal-counter]");
+  const closeBtn = gallery.querySelector("[data-gal-close]");
+  const prevBtn = gallery.querySelector("[data-gal-prev]");
+  const nextBtn = gallery.querySelector("[data-gal-next]");
+  if (!items.length || !box || !boxImg) return;
+
+  let index = 0;
+  let lastFocus = null;
+
+  const show = (i) => {
+    index = (i + items.length) % items.length;
+    const thumb = items[index].querySelector("img");
+    if (!thumb) return;
+
+    // Versi besar kalau ada; kalau tidak, pakai gambar kartunya
+    boxImg.src = items[index].dataset.full || thumb.currentSrc || thumb.src;
+    boxImg.alt = thumb.alt || "";
+
+    if (counter) counter.textContent = index + 1 + " / " + items.length;
+  };
+
+  const openBox = (i) => {
+    lastFocus = document.activeElement;
+    show(i);
+    box.classList.add("is-open");
+    box.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    if (closeBtn) closeBtn.focus();
+  };
+
+  const closeBox = () => {
+    if (!box.classList.contains("is-open")) return;
+    box.classList.remove("is-open");
+    box.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    // Dikosongkan supaya gambar besar tidak menahan memori
+    setTimeout(() => { if (!box.classList.contains("is-open")) boxImg.removeAttribute("src"); }, 320);
+    if (lastFocus) lastFocus.focus();
+  };
+
+  items.forEach((item, i) => item.addEventListener("click", () => openBox(i)));
+
+  if (closeBtn) closeBtn.addEventListener("click", closeBox);
+  if (prevBtn) prevBtn.addEventListener("click", (e) => { e.stopPropagation(); show(index - 1); });
+  if (nextBtn) nextBtn.addEventListener("click", (e) => { e.stopPropagation(); show(index + 1); });
+
+  box.addEventListener("click", (event) => {
+    if (event.target === box) closeBox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!box.classList.contains("is-open")) return;
+    if (event.key === "Escape") closeBox();
+    if (event.key === "ArrowRight") show(index + 1);
+    if (event.key === "ArrowLeft") show(index - 1);
+  });
+
+  /* Geser jari untuk berpindah gambar */
+  let startX = 0;
+  box.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 45) show(dx < 0 ? index + 1 : index - 1);
+  }, { passive: true });
+});

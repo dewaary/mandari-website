@@ -3631,3 +3631,2698 @@ body { background: #1d2923; }
     opacity: 1; translate: 0 0; transition: none;
   }
 }
+
+/* =========================================================
+   page-resort.css — bagian 5: 河畔时光 (By the Riverside)
+   Tempel di bawah bagian AROUND THE ESTATE.
+   Prefiks .pala-rv-
+
+   Susunannya sengaja kebalikan dari section 3:
+   di sini foto di KIRI, teks di KANAN — supaya ritme
+   halaman berselang-seling, bukan dua blok yang sama persis.
+   ========================================================= */
+
+.pala-rv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 380px;
+  border-bottom: 1px solid #e0d8ce;
+  background: #faf8f5;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* ---------------- Kolom kiri: foto ---------------- */
+.pala-rv__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  background: #1e2a18;
+}
+
+/* <img>, bukan background-image, supaya loading="lazy" berfungsi */
+.pala-rv__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Versi lama memakai DUA lapis gelap: satu di dalam background-image
+   dan satu lagi div .riverside-image-overlay. Digabung jadi satu. */
+.pala-rv__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(12, 18, 8, .62) 0%, transparent 58%),
+    linear-gradient(rgba(12, 18, 8, .16), rgba(12, 18, 8, .16));
+}
+
+.pala-rv__caption {
+  position: absolute;
+  z-index: 2;
+  left: 2.5rem;
+  right: 2.5rem;
+  bottom: 2rem;
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  /* Tanpa font-style: italic — font Mandarin tidak punya varian miring,
+     browser memiringkannya paksa dan hasilnya terbaca sebagai teks rusak */
+  letter-spacing: 2px;
+  line-height: 1.7;
+  color: rgba(245, 240, 232, .88);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .4);
+}
+
+/* ---------------- Kolom kanan: teks ---------------- */
+.pala-rv__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3.5rem;
+  border-left: 1px solid #e0d8ce;
+}
+
+.pala-rv__eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-rv__title {
+  margin: 0 0 14px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 5px;
+  color: #2c241f;
+}
+
+.pala-rv__subtitle {
+  margin: 0 0 2rem;
+  max-width: 26em;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 19px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.85;
+  color: #7a7068;
+}
+
+/* ---------------- Daftar kegiatan ---------------- */
+.pala-rv__list { margin: 0; padding: 0; list-style: none; }
+
+.pala-rv__item {
+  padding: .9rem 0;
+  border-top: 1px solid #e0d8ce;
+  font-size: 16px;
+  font-weight: 300;
+  color: #5a5248;
+}
+
+.pala-rv__item:last-child { border-bottom: 1px solid #e0d8ce; }
+
+.pala-rv__note {
+  display: block;
+  margin-top: 3px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 13px;
+  letter-spacing: .5px;
+  color: #a89080;
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-rv.has-reveal .pala-rv__media,
+.pala-rv.has-reveal .pala-rv__content > * {
+  opacity: 0;
+  translate: 0 22px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-rv.is-visible .pala-rv__media,
+.pala-rv.is-visible .pala-rv__content > * { opacity: 1; translate: 0 0; }
+
+.pala-rv.is-visible .pala-rv__content > *:nth-child(1) { transition-delay: .10s; }
+.pala-rv.is-visible .pala-rv__content > *:nth-child(2) { transition-delay: .18s; }
+.pala-rv.is-visible .pala-rv__content > *:nth-child(3) { transition-delay: .26s; }
+.pala-rv.is-visible .pala-rv__content > *:nth-child(4) { transition-delay: .34s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-rv__content { padding: 3rem; }
+  .pala-rv__subtitle { font-size: 18px; }
+  .pala-rv__caption { font-size: 18px; left: 2rem; right: 2rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-rv { grid-template-columns: 1fr; }
+
+  .pala-rv__media { min-height: 260px; }
+
+  .pala-rv__caption {
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    font-size: 16px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+  }
+
+  .pala-rv__content {
+    padding: 2.5rem 1.5rem;
+    border-left: 0;
+    border-top: 1px solid #e0d8ce;
+  }
+
+  .pala-rv__eyebrow { font-size: 11px; letter-spacing: .22em; }
+  .pala-rv__title { letter-spacing: 3px; }
+  .pala-rv__subtitle { font-size: 16px; line-height: 1.75; margin-bottom: 1.5rem; }
+  .pala-rv__item { font-size: 15px; padding: .8rem 0; }
+  .pala-rv__note { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-rv.has-reveal .pala-rv__media,
+  .pala-rv.has-reveal .pala-rv__content > * {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   page-resort.css — bagian 6: 实用信息 (Good to Know)
+   Tempel di bawah bagian BY THE RIVERSIDE.
+   Prefiks .pala-gk-
+   ========================================================= */
+
+.pala-gk {
+  background: #1e2a1e;
+  padding: 4rem 5rem 6rem;
+  margin-bottom: 4rem;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-gk__head {
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(245, 240, 232, .1);
+}
+
+.pala-gk__eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(200, 168, 130, .72);
+}
+
+/* Judul Mandarin ditambahkan — versi Inggris hanya punya eyebrow,
+   dan tanpa <h2> section ini tidak punya sinyal struktur untuk Baidu. */
+.pala-gk__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 5px;
+  color: #f5f0e8;
+}
+
+/* ---------------- Grid ---------------- */
+.pala-gk__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3.5rem;
+}
+
+.pala-gk__item-title {
+  margin: 0 0 .8rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 2px;
+  color: #f5f0e8;
+}
+
+.pala-gk__divider {
+  width: 20px;
+  height: 1px;
+  margin-bottom: .9rem;
+  background: rgba(200, 168, 130, .45);
+}
+
+/* Kontras versi lama terlalu rendah: rgba(245,235,210,.45) di atas
+   #1e2a1e hanya sekitar 3:1, di bawah ambang keterbacaan.
+   Untuk aksara Han yang guratannya rapat, ini lebih terasa lagi. */
+.pala-gk__desc {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: rgba(245, 235, 210, .72);
+}
+
+/* Daftar butir di dalam kolom */
+.pala-gk__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pala-gk__list li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(245, 235, 210, .72);
+}
+
+.pala-gk__list li:last-child { margin-bottom: 0; }
+
+.pala-gk__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .82em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(200, 168, 130, .7);
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-gk.has-reveal .pala-gk__head,
+.pala-gk.has-reveal .pala-gk__grid > * {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-gk.is-visible .pala-gk__head,
+.pala-gk.is-visible .pala-gk__grid > * { opacity: 1; translate: 0 0; }
+
+.pala-gk.is-visible .pala-gk__grid > *:nth-child(1) { transition-delay: .12s; }
+.pala-gk.is-visible .pala-gk__grid > *:nth-child(2) { transition-delay: .22s; }
+.pala-gk.is-visible .pala-gk__grid > *:nth-child(3) { transition-delay: .32s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-gk { padding: 3rem; }
+  .pala-gk__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pala-gk__item-title { font-size: 19px; }
+}
+
+@media (max-width: 768px) {
+  .pala-gk { padding: 2.5rem 1.5rem 3rem; }
+  .pala-gk__head { margin-bottom: 2rem; padding-bottom: 1rem; }
+  .pala-gk__eyebrow { font-size: 11px; letter-spacing: .22em; }
+  .pala-gk__title { letter-spacing: 3px; }
+  .pala-gk__grid { gap: 2rem; }
+  .pala-gk__item-title { font-size: 18px; margin-bottom: .7rem; }
+  /* 14px terlalu kecil untuk aksara Han — guratannya menyatu */
+  .pala-gk__desc,
+  .pala-gk__list li { font-size: 15px; line-height: 1.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-gk.has-reveal .pala-gk__head,
+  .pala-gk.has-reveal .pala-gk__grid > * {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   section-stickybar.css — 底部固定栏 (Sticky Bar)
+   Prefiks .pala-sb-
+
+   Semua !important dari versi lama dibuang. Itu hanya perlu
+   untuk melawan CSS Elementor; di situs statis justru
+   menyulitkan kalau nanti ada yang perlu ditimpa.
+   ========================================================= */
+
+.pala-sb {
+  position: fixed;
+  z-index: 900;                 /* di bawah header (1000) */
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: .9rem 5rem;
+  border-top: 1px solid #e0d8ce;
+  background: rgba(250, 248, 245, .96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(110%);
+  transition: transform .35s ease, opacity .35s ease, visibility .35s;
+}
+
+.pala-sb.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* ---------------- Kiri ---------------- */
+.pala-sb__left { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+
+.pala-sb__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: 21px;
+  font-weight: 300;
+  line-height: 1.35;
+  letter-spacing: 2px;
+  color: #2a2520;
+}
+
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring */
+.pala-sb__sub {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  color: #7a7068;
+}
+
+.pala-sb__sub a {
+  padding-bottom: 1px;
+  border-bottom: 1px solid #8b6b4a;
+  text-decoration: none;
+  color: #8b6b4a;
+  transition: opacity .25s ease;
+}
+
+.pala-sb__sub a:hover { opacity: .7; }
+
+/* ---------------- Tombol ---------------- */
+.pala-sb__actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: .7rem;
+}
+
+.pala-sb__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 190px;
+  padding: .9rem 1.8rem;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.pala-sb__btn--ghost {
+  border: 1px solid #e0d8ce;
+  background: transparent;
+  color: #8b6b4a;
+}
+
+.pala-sb__btn--ghost:hover {
+  border-color: #8b6b4a;
+  background: rgba(139, 107, 74, .04);
+}
+
+.pala-sb__btn--solid {
+  border: 1px solid #8b6b4a;
+  background: #8b6b4a;
+  color: #faf8f5;
+}
+
+.pala-sb__btn--solid:hover { background: #7a5c3a; border-color: #7a5c3a; }
+
+.pala-sb__btn:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 2px; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-sb { padding: .9rem 2rem; gap: 1.2rem; }
+  .pala-sb__btn { min-width: 150px; padding: .85rem 1.2rem; }
+  .pala-sb__title { font-size: 19px; }
+}
+
+@media (max-width: 768px) {
+  .pala-sb {
+    flex-direction: column;
+    align-items: stretch;
+    gap: .9rem;
+    padding: 1rem 1.2rem;
+    /* Ruang untuk home indicator di iPhone */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+
+  /* Versi lama membuat judul mobile (26px) lebih besar daripada
+     desktop (20px) — kemungkinan tertukar. */
+  .pala-sb__title { font-size: 17px; line-height: 1.4; letter-spacing: 1px; }
+  .pala-sb__sub { font-size: 13px; }
+
+  .pala-sb__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: .6rem;
+  }
+
+  .pala-sb__btn {
+    min-width: 0;
+    padding: .9rem .6rem;
+    font-size: 11px;
+    letter-spacing: .1em;
+  }
+}
+
+@media (max-width: 380px) {
+  .pala-sb__sub { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-sb { transition: opacity .2s ease, visibility .2s; }
+  .pala-sb.is-visible { transform: none; }
+  .pala-sb:not(.is-visible) { transform: none; }
+}
+
+
+/* =========================================================
+   page-wedding.css — halaman 婚礼与活动 (Weddings & Events)
+   Prefiks .pala-we-
+
+   PENTING: versi Elementor memakai .hero / .hero-bg / .hero-title
+   yang PERSIS sama dengan hero halaman the-resort. Kalau keduanya
+   digabung ke satu style.css, keduanya saling menimpa.
+
+   1. HERO
+   (section berikutnya ditambahkan di bawah)
+   ========================================================= */
+
+.pala-we-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100svh - var(--pala-header-h, 110px));
+  padding: 0 0 64px;
+  background: #1a2e18;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Foto latar dibuat lebih tinggi dari wadahnya (top:-8%; height:116%)
+   supaya masih ada ruang saat digeser parallax. Versi lama memakai
+   scale(1.05) yang hanya memberi ruang 2,5% — setelah scroll ±150px,
+   tepi atas foto ikut tergeser dan muncul celah kosong. */
+.pala-we-hero__bg {
+  position: absolute;
+  z-index: -2;
+  top: -8%;
+  left: 0;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Overlay gelap di kiri-bawah.
+   Versi lama memakai filter: blur(35px) di atas radial-gradient —
+   gradien sudah halus, jadi blur tidak menambah apa pun secara visual
+   tapi memaksa GPU merender ulang lapisan seukuran layar tiap frame. */
+.pala-we-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 0% 100%,
+      rgba(0, 0, 0, .82) 0%,
+      rgba(0, 0, 0, .52) 34%,
+      rgba(0, 0, 0, .18) 62%,
+      transparent 85%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, .24) 0%,
+      rgba(0, 0, 0, .04) 40%,
+      rgba(0, 0, 0, .42) 100%
+    );
+}
+
+.pala-we-hero__content {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, calc(100% - 160px));
+  margin: 0 auto;
+}
+
+.pala-we-hero__eyebrow {
+  margin: 0 0 20px;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(200, 168, 130, .88);
+}
+
+.pala-we-hero__title {
+  margin: 0 0 20px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(44px, 6vw, 92px);
+  font-weight: 300;
+  /* line-height .95 memotong aksara Han di atas dan bawah */
+  line-height: 1.14;
+  letter-spacing: 8px;
+  color: #f5f0e8;
+}
+
+.pala-we-hero__subtitle {
+  max-width: 30em;
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  /* Tanpa font-style: italic — font Mandarin tidak punya varian miring,
+     browser memiringkannya paksa dan hasilnya terbaca sebagai teks rusak */
+  letter-spacing: 2px;
+  line-height: 1.85;
+  color: rgba(245, 235, 210, .82);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .45);
+}
+
+/* ---------------- Animasi masuk ---------------- */
+.pala-we-hero__bg { animation: pala-we-fade 1.1s ease .1s both; }
+.pala-we-hero__content > * { animation: pala-we-rise 1s ease both; }
+
+.pala-we-hero__eyebrow  { animation-delay: .35s; }
+.pala-we-hero__title    { animation-delay: .48s; }
+.pala-we-hero__subtitle { animation-delay: .61s; }
+
+@keyframes pala-we-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pala-we-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1100px) {
+  .pala-we-hero__content { width: calc(100% - 96px); }
+}
+
+@media (max-width: 768px) {
+  .pala-we-hero {
+    min-height: calc(100svh - var(--pala-header-h, 64px));
+    padding-bottom: 44px;
+  }
+  .pala-we-hero__content { width: calc(100% - 48px); }
+
+  .pala-we-hero::after {
+    background:
+      radial-gradient(
+        ellipse 130% 70% at 0% 100%,
+        rgba(0, 0, 0, .86) 0%,
+        rgba(0, 0, 0, .56) 36%,
+        rgba(0, 0, 0, .18) 66%,
+        transparent 88%
+      ),
+      linear-gradient(to bottom, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .06) 45%, rgba(0, 0, 0, .40) 100%);
+  }
+
+  .pala-we-hero__eyebrow { font-size: 11px; letter-spacing: .2em; margin-bottom: 14px; }
+  .pala-we-hero__title { letter-spacing: 5px; margin-bottom: 16px; }
+  .pala-we-hero__subtitle { font-size: 17px; letter-spacing: 1px; line-height: 1.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-we-hero__bg,
+  .pala-we-hero__content > * { animation: none; }
+  .pala-we-hero__bg { transform: none !important; }
+}
+
+/* =========================================================
+   page-wedding.css — bagian 2: 核心理念 (Core Positioning)
+   Tempel di bawah bagian HERO.
+   Prefiks .pala-wp-
+   ========================================================= */
+
+.pala-wp {
+  padding: 5rem;
+  border-bottom: 1px solid #e0d8ce;
+  background: #faf8f5;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-wp__inner {
+  padding-top: 3rem;
+  border-top: 1px solid #e0d8ce;
+  text-align: center;
+}
+
+/* letter-spacing NEGATIF (-0.015em di versi lama) dipakai untuk
+   merapatkan huruf Latin display. Pada aksara Han efeknya justru
+   membuat karakter hampir bersentuhan — diubah jadi positif.
+   line-height 1 juga memotong aksara Han di atas dan bawah. */
+.pala-wp__main {
+  margin: 0 0 1.5rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(32px, 4.2vw, 48px);
+  font-weight: 300;
+  line-height: 1.28;
+  letter-spacing: 6px;
+  color: #2a2520;
+}
+
+.pala-wp__divider {
+  width: 28px;
+  height: 1px;
+  margin: 0 auto 1.5rem;
+  background: #c8bfb4;
+}
+
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring */
+.pala-wp__sub {
+  max-width: 34em;
+  margin: 0 auto 3rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.95;
+  color: #7a7068;
+}
+
+.pala-wp__body {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid #e0d8ce;
+  text-align: left;
+}
+
+.pala-wp__body p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-wp.has-reveal .pala-wp__inner > * {
+  opacity: 0;
+  translate: 0 24px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-wp.is-visible .pala-wp__inner > * { opacity: 1; translate: 0 0; }
+
+.pala-wp.is-visible .pala-wp__inner > *:nth-child(1) { transition-delay: .05s; }
+.pala-wp.is-visible .pala-wp__inner > *:nth-child(2) { transition-delay: .13s; }
+.pala-wp.is-visible .pala-wp__inner > *:nth-child(3) { transition-delay: .21s; }
+.pala-wp.is-visible .pala-wp__inner > *:nth-child(4) { transition-delay: .29s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 991px) {
+  .pala-wp { padding: 4rem 2rem; }
+  .pala-wp__sub { font-size: 18px; line-height: 1.85; max-width: 30em; }
+  .pala-wp__body { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-wp { padding: 3rem 1.25rem; }
+  .pala-wp__inner { padding-top: 1.8rem; }
+  .pala-wp__main { letter-spacing: 3px; }
+  .pala-wp__divider { margin-bottom: 1rem; }
+
+  /* CATATAN: versi lama memakai -webkit-line-clamp:2 di sini,
+     yang MEMOTONG kalimat di tengah tanpa tombol "selengkapnya".
+     Pembaca mobile hanya melihat separuh kalimat. Dihapus. */
+  .pala-wp__sub {
+    font-size: 17px;
+    line-height: 1.85;
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .pala-wp__body { grid-template-columns: 1fr; gap: 1.6rem; padding-top: 1.8rem; }
+  .pala-wp__body p { font-size: 15px; line-height: 1.9; }
+}
+
+@media (max-width: 480px) {
+  .pala-wp { padding: 2.5rem 1rem; }
+  .pala-wp__sub { font-size: 16px; }
+  /* 14px terlalu kecil untuk aksara Han — guratannya mulai menyatu */
+  .pala-wp__body p { font-size: 15px; line-height: 1.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-wp.has-reveal .pala-wp__inner > * {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   page-wedding.css — bagian 3: 影片 (Video)
+   Tempel di bawah bagian CORE POSITIONING.
+   Prefiks .pala-wvid-
+   ========================================================= */
+
+.pala-wvid {
+  padding: 4rem 5rem 4.5rem;
+  border-bottom: 1px solid #1a2418;
+  background: #1e2a1e;
+  text-align: center;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-wvid__eyebrow {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(200, 168, 130, .72);
+}
+
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring.
+   Kontras juga dinaikkan: rgba(245,235,210,.4) di atas #1e2a1e hanya
+   sekitar 3:1, di bawah ambang keterbacaan. */
+.pala-wvid__caption {
+  max-width: 30em;
+  margin: 0 auto 2.4rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.8;
+  color: rgba(245, 235, 210, .78);
+}
+
+/* ---------------- Bingkai thumbnail ---------------- */
+.pala-wvid__frame {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(245, 240, 232, .12);
+  background: #0f1a10;
+  cursor: pointer;
+  transition: transform .25s ease, border-color .25s ease;
+}
+
+.pala-wvid__frame:hover { transform: scale(1.01); border-color: rgba(245, 240, 232, .28); }
+.pala-wvid__frame:focus-visible { outline: 2px solid #cdb88a; outline-offset: 4px; }
+
+.pala-wvid__thumb {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pala-wvid__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, .08));
+}
+
+/* ---------------- Tombol play ---------------- */
+.pala-wvid__play {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.pala-wvid__circle {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.pala-wvid__frame:hover .pala-wvid__circle,
+.pala-wvid__frame:focus-visible .pala-wvid__circle {
+  transform: scale(1.08);
+  border-color: rgba(255, 255, 255, .75);
+  background: rgba(255, 255, 255, .08);
+}
+
+.pala-wvid__circle svg { width: 20px; height: 20px; margin-left: 3px; fill: rgba(255, 255, 255, .9); }
+
+.pala-wvid__hint {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  bottom: 16px;
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: rgba(245, 240, 232, .78);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, .55);
+}
+
+/* ---------------- Popup ---------------- */
+.pala-wvid__popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, .86);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility .35s;
+}
+
+.pala-wvid__popup.is-open { opacity: 1; visibility: visible; }
+
+.pala-wvid__popup-inner {
+  position: relative;
+  width: min(1100px, 100%);
+  aspect-ratio: 16 / 9;
+  transform: translateY(20px) scale(.96);
+  transition: transform .35s ease;
+}
+
+.pala-wvid__popup.is-open .pala-wvid__popup-inner { transform: translateY(0) scale(1); }
+
+.pala-wvid__popup iframe,
+.pala-wvid__popup video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  border-radius: 6px;
+  background: #000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+}
+
+/* Tombol tutup */
+.pala-wvid__close {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.pala-wvid__close svg { width: 17px; height: 17px; }
+.pala-wvid__close:hover { background: rgba(255, 255, 255, .2); transform: rotate(90deg); }
+.pala-wvid__close:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+/* ---------------- Animasi masuk ---------------- */
+.pala-wvid.has-reveal > * {
+  opacity: 0;
+  translate: 0 22px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-wvid.is-visible > * { opacity: 1; translate: 0 0; }
+.pala-wvid.is-visible > *:nth-child(2) { transition-delay: .09s; }
+.pala-wvid.is-visible > *:nth-child(3) { transition-delay: .18s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-wvid { padding: 3.5rem 2rem 4rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-wvid { padding: 3rem 1.5rem 3.5rem; }
+  .pala-wvid__caption { font-size: 18px; line-height: 1.75; margin-bottom: 1.8rem; }
+  .pala-wvid__circle { width: 56px; height: 56px; }
+  .pala-wvid__hint { font-size: 11px; bottom: 12px; }
+
+  .pala-wvid__popup { padding: 1rem; }
+  .pala-wvid__popup-inner { width: 100%; }
+
+  /* Di layar pendek, tombol tutup di atas bingkai bisa keluar layar */
+  .pala-wvid__close { top: -46px; right: 50%; transform: translateX(50%); }
+  .pala-wvid__close:hover { transform: translateX(50%) rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-wvid__frame,
+  .pala-wvid__circle,
+  .pala-wvid__popup-inner { transition: none; }
+  .pala-wvid.has-reveal > * { opacity: 1; translate: 0 0; transition: none; }
+}
+
+
+
+
+.pala-vn {
+  background: #f5f1e8;
+  color: #2a2520;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pala-vn__inner {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 5rem 5vw 6rem;
+}
+
+.pala-vn__eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+/* letter-spacing negatif dan line-height .98 di versi lama dibuat
+   untuk huruf Latin display. Pada aksara Han keduanya merusak:
+   karakter hampir bersentuhan dan terpotong atas-bawah. */
+.pala-vn__title {
+  margin: 0 0 3rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(34px, 5vw, 66px);
+  font-weight: 300;
+  line-height: 1.22;
+  letter-spacing: 7px;
+  color: #2a2520;
+}
+
+.pala-vn__title .pala-vn__indent {
+  display: block;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ---------------- Grid ---------------- */
+.pala-vn__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #e0d8ce;
+}
+
+.pala-vn__list { border-right: 1px solid #e0d8ce; }
+
+.pala-vn__item { border-bottom: 1px solid #e0d8ce; }
+.pala-vn__item:last-child { border-bottom: 0; }
+.pala-vn__item.is-active { background: #faf8f5; }
+
+/* Tombol, bukan div dengan onclick — supaya bisa diakses keyboard */
+.pala-vn__head {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .25s ease;
+}
+
+.pala-vn__head:hover { background: rgba(139, 107, 74, .04); }
+.pala-vn__head:focus-visible { outline: 2px solid #8b6b4a; outline-offset: -3px; }
+
+.pala-vn__number {
+  flex: 0 0 auto;
+  min-width: 2.5rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 2rem;
+  line-height: 1;
+  color: #e0d8ce;
+  transition: color .3s ease;
+}
+
+.pala-vn__item.is-active .pala-vn__number { color: #8b6b4a; }
+
+.pala-vn__head-text { flex: 1; min-width: 0; }
+
+.pala-vn__tag {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #8b6b4a;
+  opacity: .45;
+  transition: opacity .3s ease;
+}
+
+.pala-vn__item.is-active .pala-vn__tag { opacity: 1; }
+
+.pala-vn__name {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 2px;
+  color: #7a7068;
+  transition: color .3s ease;
+}
+
+.pala-vn__item.is-active .pala-vn__name { color: #2a2520; }
+
+/* ---------------- Isi accordion ----------------
+   max-height dipasang lewat JS (scrollHeight), bukan angka tetap.
+   Versi lama memakai 500px — teks Mandarin memang lebih ringkas,
+   tapi angka tetap tetap berisiko memotong isi. */
+.pala-vn__content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .4s ease, opacity .3s ease;
+}
+
+.pala-vn__item.is-active .pala-vn__content { opacity: 1; }
+
+.pala-vn__content-inner {
+  padding: 0 2rem 1.8rem calc(2rem + 2.5rem + 1.2rem);
+}
+
+.pala-vn__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.pala-vn__stat { display: flex; flex-direction: column; gap: 3px; }
+
+.pala-vn__stat-label {
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #a89080;
+}
+
+.pala-vn__stat-value { font-size: 15px; color: #5a5248; }
+
+.pala-vn__divider {
+  width: 20px;
+  height: 1px;
+  margin-bottom: 1rem;
+  background: #e0d8ce;
+}
+
+.pala-vn__desc {
+  margin: 0 0 1.2rem;
+  max-width: 34em;
+  font-size: 15px;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+.pala-vn__cta {
+  display: inline-block;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #8b6b4a;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #8b6b4a;
+  transition: color .2s ease, border-color .2s ease;
+}
+
+.pala-vn__cta:hover { color: #2a2520; border-color: #2a2520; }
+
+/* ---------------- Panel foto ---------------- */
+.pala-vn__panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 500px;
+  background: #1e2a1e;
+}
+
+.pala-vn__image {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease, visibility .5s;
+}
+
+.pala-vn__image.is-active { opacity: 1; visibility: visible; }
+
+/* <img>, bukan background-image, supaya loading="lazy" berfungsi.
+   Empat foto besar yang dimuat sekaligus terasa berat lewat GFW. */
+.pala-vn__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pala-vn__label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(to top, rgba(12, 18, 8, .78) 0%, transparent 100%);
+}
+
+.pala-vn__label-venue {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(200, 168, 130, .88);
+}
+
+.pala-vn__label-name {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 21px;
+  letter-spacing: 2px;
+  color: rgba(245, 240, 232, .95);
+}
+
+.pala-vn__counter {
+  position: absolute;
+  z-index: 3;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 12px;
+  letter-spacing: .12em;
+  color: rgba(245, 240, 232, .72);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .5);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Animasi masuk ---------------- */
+.pala-vn.has-reveal .pala-vn__eyebrow,
+.pala-vn.has-reveal .pala-vn__title,
+.pala-vn.has-reveal .pala-vn__grid {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-vn.is-visible .pala-vn__eyebrow,
+.pala-vn.is-visible .pala-vn__title,
+.pala-vn.is-visible .pala-vn__grid { opacity: 1; translate: 0 0; }
+
+.pala-vn.is-visible .pala-vn__title { transition-delay: .09s; }
+.pala-vn.is-visible .pala-vn__grid { transition-delay: .18s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-vn__content-inner { padding-left: calc(2rem + 2.5rem); }
+  .pala-vn__name { font-size: 21px; }
+  .pala-vn__panel { min-height: 420px; }
+}
+
+@media (max-width: 768px) {
+  .pala-vn__inner { padding: 3rem 1.2rem 4rem; }
+  .pala-vn__title { letter-spacing: 4px; margin-bottom: 2rem; }
+  .pala-vn__grid { grid-template-columns: 1fr; }
+  .pala-vn__list { border-right: 0; }
+
+  /* Foto pindah ke atas: tamu melihat tempatnya dulu, baru daftarnya */
+  .pala-vn__panel { order: -1; min-height: 320px; }
+
+  .pala-vn__head { padding: 1.3rem 1.2rem; gap: .9rem; }
+  .pala-vn__number { font-size: 1.6rem; min-width: 2rem; }
+  .pala-vn__content-inner { padding: 0 1.2rem 1.5rem 1.2rem; }
+  .pala-vn__stats { gap: 1.2rem; }
+  .pala-vn__desc { font-size: 15px; line-height: 1.9; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-vn__content,
+  .pala-vn__image { transition: none; }
+  .pala-vn.has-reveal .pala-vn__eyebrow,
+  .pala-vn.has-reveal .pala-vn__title,
+  .pala-vn.has-reveal .pala-vn__grid {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   page-wedding.css — bagian 5: 我们已准备就绪 (Services)
+   Tempel di bawah bagian THE VENUES.
+   Prefiks .pala-ws-
+   ========================================================= */
+
+.pala-ws {
+  background: #f5f1e8;
+  padding: 3.5rem 5rem 4rem;
+  border-bottom: 1px solid #e0d8ce;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* ---------------- Header ---------------- */
+.pala-ws__head {
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0d8ce;
+}
+
+.pala-ws__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+/* letter-spacing negatif di versi lama dibuat untuk huruf Latin.
+   Pada aksara Han membuat karakter hampir bersentuhan. */
+.pala-ws__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 5px;
+  color: #2a2520;
+}
+
+/* ---------------- Baris layanan ---------------- */
+.pala-ws__row {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  border-top: 1px solid #f0ebe4;
+  transition: transform .25s ease;
+}
+
+.pala-ws__row:last-child { border-bottom: 1px solid #f0ebe4; }
+.pala-ws__row:hover { transform: translateX(4px); }
+
+/* font-weight 700 pada serif ringan seperti Cormorant terlihat
+   terlalu berat, dan untuk aksara Han browser sering menebalkan
+   secara paksa karena tidak ada varian bold-nya. Diturunkan ke 400
+   dengan letter-spacing sebagai pembeda. */
+.pala-ws__row-title {
+  margin: 0;
+  padding-right: 2rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 2px;
+  color: #2a2520;
+}
+
+.pala-ws__row-desc {
+  margin: 0;
+  /* max-width: 46em; */
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: #6b645c;
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-ws.has-reveal .pala-ws__head,
+.pala-ws.has-reveal .pala-ws__row {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity .7s ease, translate .7s ease;
+}
+
+.pala-ws.is-visible .pala-ws__head,
+.pala-ws.is-visible .pala-ws__row { opacity: 1; translate: 0 0; }
+
+.pala-ws.is-visible .pala-ws__row:nth-of-type(1) { transition-delay: .08s; }
+.pala-ws.is-visible .pala-ws__row:nth-of-type(2) { transition-delay: .16s; }
+.pala-ws.is-visible .pala-ws__row:nth-of-type(3) { transition-delay: .24s; }
+.pala-ws.is-visible .pala-ws__row:nth-of-type(4) { transition-delay: .32s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-ws { padding: 3rem 2rem 3.5rem; }
+  .pala-ws__row { grid-template-columns: 200px 1fr; gap: 1.2rem; }
+  .pala-ws__row-title { font-size: 18px; padding-right: 1rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-ws { padding: 3rem 1.5rem 3.5rem; }
+  .pala-ws__head { margin-bottom: 1.5rem; }
+  .pala-ws__title { letter-spacing: 3px; }
+
+  .pala-ws__row {
+    grid-template-columns: 1fr;
+    gap: .7rem;
+    padding: 1.4rem 0;
+  }
+
+  /* Versi lama membuat judul baris mobile (1.25rem = 20px) hampir
+     sama dengan judul section (2rem), sehingga hierarkinya hilang */
+  .pala-ws__row-title { font-size: 18px; padding-right: 0; }
+
+  /* .92rem ≈ 14.7px — untuk aksara Han guratannya mulai menyatu */
+  .pala-ws__row-desc { font-size: 15px; line-height: 1.9; }
+
+  /* Geser saat hover tidak berlaku di layar sentuh */
+  .pala-ws__row:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-ws__row { transition: none; }
+  .pala-ws__row:hover { transform: none; }
+  .pala-ws.has-reveal .pala-ws__head,
+  .pala-ws.has-reveal .pala-ws__row {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   page-wedding.css — bagian 6: 容纳人数与尺寸 (Capacity Table)
+   Tempel di bawah bagian SERVICES.
+   Prefiks .pala-cp-
+
+   Versi lama mendefinisikan .cap-table thead th:first-child dan
+   .cap-table tbody td DUA KALI dengan nilai yang bertentangan
+   (text-align: right lalu center). Di sini ditulis sekali saja.
+   ========================================================= */
+
+.pala-cp-wrap { background: #faf8f5; margin-bottom: 5rem; }
+.pala-cp {
+  background: #faf8f5; 
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 3rem 5rem;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* ---------------- Header ----------------
+   Di versi lama header ini blok terpisah dengan padding-left 5rem,
+   sementara tabelnya padding 2.5rem — jadi keduanya tidak sejajar.
+   Sekarang keduanya di dalam container yang sama. */
+.pala-cp__head {
+  padding: 3.5rem 0 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #e0d8ce;
+}
+
+.pala-cp__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-cp__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: 5px;
+  color: #2a2520;
+}
+
+/* ---------------- Wadah tabel ---------------- */
+.pala-cp__wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.pala-cp__table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+}
+
+/* ---------------- Kepala tabel ---------------- */
+.pala-cp__table thead th {
+  padding: .8rem .6rem;
+  border-bottom: 1px solid #e0d8ce;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #a89080;
+  white-space: nowrap;
+}
+
+.pala-cp__table thead th:first-child { text-align: left; }
+.pala-cp__table thead th:not(:first-child) { text-align: center; }
+
+/* ---------------- Baris kelompok ---------------- */
+.pala-cp__group td {
+  padding: 1.4rem .6rem .3rem;
+  border: 0;
+}
+
+.pala-cp__group-label {
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #8b6b4a;
+}
+
+/* ---------------- Isi tabel ---------------- */
+.pala-cp__table tbody td {
+  padding: .9rem .6rem;
+  border-bottom: 1px solid #f5f0e8;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  color: #7a7068;
+  white-space: nowrap;
+}
+
+.pala-cp__table tbody td:first-child {
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 19px;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #2a2520;
+}
+
+/* .cap-num dipakai di HTML versi lama tapi HANYA punya aturan di
+   media query mobile — di desktop angkanya tidak dibedakan sama
+   sekali. Sekarang diberi gaya di kedua ukuran. */
+.pala-cp__num {
+  font-size: 21px;
+  font-weight: 300;
+  color: #2a2520;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Petunjuk geser (mobile) ---------------- */
+.pala-cp__hint {
+  display: none;
+  margin: 12px 0 0;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-align: center;
+  color: #a89080;
+}
+
+/* ---------------- Animasi masuk ---------------- */
+.pala-cp.has-reveal .pala-cp__head,
+.pala-cp.has-reveal .pala-cp__wrap {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity .7s ease, translate .7s ease;
+}
+
+.pala-cp.is-visible .pala-cp__head,
+.pala-cp.is-visible .pala-cp__wrap { opacity: 1; translate: 0 0; }
+.pala-cp.is-visible .pala-cp__wrap { transition-delay: .1s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-cp { padding: 0 2rem 4rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-cp { padding: 0 1.5rem 4rem; }
+  .pala-cp__head { padding-top: 2.5rem; }
+  .pala-cp__title { letter-spacing: 3px; }
+
+  .pala-cp__hint { display: block; }
+
+  .pala-cp__table thead th { font-size: 10px; padding: .8rem .5rem; }
+  .pala-cp__table tbody td { font-size: 15px; padding: 1rem .5rem; }
+  .pala-cp__table tbody td:first-child { font-size: 17px; min-width: 170px; }
+  .pala-cp__num { font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-cp.has-reveal .pala-cp__head,
+  .pala-cp.has-reveal .pala-cp__wrap {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   section-modal.css — 活动咨询表单 (Modal)
+   Prefiks .pala-mo-
+   Semua !important dari versi lama dibuang.
+   ========================================================= */
+
+.pala-mo { position: fixed; inset: 0; z-index: 9500; pointer-events: none;  }
+.pala-mo * { box-sizing: border-box; }
+
+/* ---------------- Overlay ---------------- */
+.pala-mo__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(24, 22, 20, .48);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .35s ease, visibility .35s;
+}
+.pala-mo.is-open {
+  pointer-events: auto;        /* ← tambahkan */
+}
+
+.pala-mo.is-open .pala-mo__overlay { opacity: 1; visibility: visible; }
+
+/* ---------------- Kotak ---------------- */
+.pala-mo__box {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  padding: 48px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #e2d8cc;
+  background: #faf8f5;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  transform: translateY(40px);
+  transition: transform .5s cubic-bezier(.22, .61, .36, 1);
+}
+
+.pala-mo.is-open .pala-mo__box { transform: translateY(0); }
+
+.pala-mo__box::-webkit-scrollbar { width: 4px; }
+.pala-mo__box::-webkit-scrollbar-thumb { background: #c7b8a8; }
+
+/* ---------------- Tombol tutup ---------------- */
+.pala-mo__close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #8b6b4a;
+  color: #f7f3ed;
+  cursor: pointer;
+  transition: background .3s ease, transform .25s ease;
+}
+
+.pala-mo__close svg { width: 16px; height: 16px; }
+.pala-mo__close:hover { background: #7a5c3a; transform: rotate(90deg); }
+.pala-mo__close:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 3px; }
+
+/* ---------------- Header ---------------- */
+.pala-mo__top { margin-bottom: 30px; padding-right: 48px; }
+
+.pala-mo__eyebrow {
+  margin: 0 0 12px;
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: #8b6b4a;
+}
+
+.pala-mo__title {
+  margin: 0 0 14px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 300;
+  /* line-height 1 memotong aksara Han di atas dan bawah */
+  line-height: 1.28;
+  letter-spacing: 4px;
+  color: #2a2520;
+}
+
+.pala-mo__desc {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: #6f655d;
+}
+
+/* ---------------- Form ---------------- */
+.pala-mo__form { display: flex; flex-direction: column; gap: 18px; }
+
+.pala-mo__group { position: relative; display: flex; flex-direction: column; gap: 8px; }
+
+.pala-mo__group label {
+  font-size: 11px;
+  letter-spacing: .16em;
+  color: #8b6b4a;
+}
+
+.pala-mo__optional {
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: #a89080;
+}
+
+.pala-mo__group input,
+.pala-mo__group select,
+.pala-mo__group textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid #ddd2c6;
+  border-radius: 0;
+  background-color: #faf8f5;
+  box-shadow: none;
+  outline: none;
+  font-family: inherit;
+  /* 16px, bukan 14px: di iOS Safari, input di bawah 16px membuat
+     halaman otomatis di-zoom saat kolom difokus */
+  font-size: 16px;
+  color: #2a2520;
+  transition: border-color .3s ease;
+}
+
+.pala-mo__group select {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 52px;
+  padding-right: 48px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b6b4a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+}
+
+.pala-mo__group textarea { min-height: 120px; resize: vertical; line-height: 1.7; }
+
+.pala-mo__group input::placeholder,
+.pala-mo__group textarea::placeholder { color: #9a9087; }
+
+.pala-mo__group input:focus,
+.pala-mo__group select:focus,
+.pala-mo__group textarea:focus { border-color: #8b6b4a; }
+
+/* Perangkap spam — disembunyikan dari mata dan dari pembaca layar */
+.pala-mo__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------------- Pesan kesalahan ---------------- */
+.pala-mo__error {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #b14c4c;
+}
+
+.pala-mo__group.has-error input,
+.pala-mo__group.has-error select,
+.pala-mo__group.has-error textarea { border-color: #b14c4c; }
+
+/* Pesan kesalahan umum, menggantikan alert() */
+.pala-mo__notice {
+  margin: 0;
+  padding: 13px 16px;
+  border: 1px solid #e3c9c9;
+  background: #fbf1f1;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #9a3f3f;
+}
+
+.pala-mo__notice[hidden] { display: none; }
+
+/* ---------------- Tombol kirim ---------------- */
+.pala-mo__submit {
+  position: relative;
+  width: 100%;
+  margin-top: 6px;
+  padding: 17px;
+  border: 0;
+  background: #8b6b4a;
+  color: #faf8f5;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: .18em;
+  cursor: pointer;
+  transition: background .3s ease, opacity .3s ease;
+}
+
+.pala-mo__submit:hover { background: #735537; }
+.pala-mo__submit:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 3px; }
+.pala-mo__submit.is-loading { opacity: .8; pointer-events: none; }
+.pala-mo__submit .pala-mo__loading { display: none; }
+.pala-mo__submit.is-loading .pala-mo__text { display: none; }
+.pala-mo__submit.is-loading .pala-mo__loading { display: inline-block; }
+
+/* ---------------- Layar berhasil ---------------- */
+.pala-mo__success { display: none; padding: 20px 0 10px; text-align: center; }
+.pala-mo__success.is-active { display: block; }
+
+.pala-mo__success-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 22px;
+  border-radius: 999px;
+  background: #8b6b4a;
+  color: #faf8f5;
+}
+
+.pala-mo__success-icon svg { width: 30px; height: 30px; }
+
+.pala-mo__success-title {
+  margin: 14px 0 16px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 300;
+  line-height: 1.28;
+  letter-spacing: 4px;
+  color: #2a2520;
+}
+
+.pala-mo__success-desc {
+  max-width: 26em;
+  margin: 0 auto 28px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #6f655d;
+}
+
+.pala-mo__success-btn {
+  padding: 16px 34px;
+  border: 0;
+  background: #8b6b4a;
+  color: #faf8f5;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: .18em;
+  cursor: pointer;
+  transition: background .3s ease;
+}
+
+.pala-mo__success-btn:hover { background: #735537; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 768px) {
+  .pala-mo__overlay { align-items: flex-end; padding: 0; }
+
+  .pala-mo__box {
+    max-width: 100%;
+    max-height: 92svh;
+    padding: 32px 22px calc(32px + env(safe-area-inset-bottom));
+    border: 0;
+    border-radius: 22px 22px 0 0;
+  }
+
+  .pala-mo__title { letter-spacing: 2px; }
+  .pala-mo__top { padding-right: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-mo__overlay,
+  .pala-mo__box,
+  .pala-mo__close { transition: none; }
+  .pala-mo__close:hover { transform: none; }
+}
+
+.pala-hr-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100svh - var(--pala-header-h, 110px));
+  padding: 0 0 64px;
+  background: #1a2e18;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* Foto dibuat lebih tinggi dari wadahnya supaya masih ada ruang
+   saat digeser parallax. scale(1.05) di versi lama hanya memberi
+   ruang 2,5% — setelah scroll ±150px muncul celah di tepi atas. */
+.pala-hr-hero__bg {
+  position: absolute;
+  z-index: -2;
+  top: -8%;
+  left: 0;
+  width: 100%;
+  height: 116%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* filter: blur(35px) di versi lama dibuang — gradien sudah halus,
+   blur tidak menambah apa pun secara visual tapi memaksa GPU
+   merender ulang lapisan seukuran layar tiap frame. */
+.pala-hr-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 90% 80% at 0% 100%,
+      rgba(0, 0, 0, .82) 0%,
+      rgba(0, 0, 0, .52) 34%,
+      rgba(0, 0, 0, .18) 62%,
+      transparent 85%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, .24) 0%,
+      rgba(0, 0, 0, .04) 40%,
+      rgba(0, 0, 0, .42) 100%
+    );
+}
+
+.pala-hr-hero__content {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, calc(100% - 160px));
+  margin: 0 auto;
+}
+
+.pala-hr-hero__eyebrow {
+  margin: 0 0 20px;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: rgba(200, 168, 130, .88);
+}
+
+.pala-hr-hero__title {
+  margin: 0 0 20px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(44px, 6vw, 92px);
+  font-weight: 300;
+  /* line-height .95 memotong aksara Han di atas dan bawah */
+  line-height: 1.14;
+  letter-spacing: 8px;
+  color: #f5f0e8;
+}
+
+.pala-hr-hero__subtitle {
+  max-width: 30em;
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", serif;
+  font-size: 20px;
+  font-weight: 400;
+  /* Tanpa font-style: italic — font Mandarin tidak punya varian miring */
+  letter-spacing: 2px;
+  line-height: 1.85;
+  color: rgba(245, 235, 210, .82);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .45);
+}
+
+/* ---------------- Animasi masuk ---------------- */
+.pala-hr-hero__bg { animation: pala-hr-fade 1.1s ease .1s both; }
+.pala-hr-hero__content > * { animation: pala-hr-rise 1s ease both; }
+
+.pala-hr-hero__eyebrow  { animation-delay: .35s; }
+.pala-hr-hero__title    { animation-delay: .48s; }
+.pala-hr-hero__subtitle { animation-delay: .61s; }
+
+@keyframes pala-hr-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pala-hr-rise {
+  from { opacity: 0; transform: translateY(26px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1100px) {
+  .pala-hr-hero__content { width: calc(100% - 96px); }
+}
+
+@media (max-width: 768px) {
+  .pala-hr-hero {
+    min-height: calc(100svh - var(--pala-header-h, 64px));
+    padding-bottom: 44px;
+  }
+  .pala-hr-hero__content { width: calc(100% - 48px); }
+
+  .pala-hr-hero::after {
+    background:
+      radial-gradient(
+        ellipse 130% 70% at 0% 100%,
+        rgba(0, 0, 0, .86) 0%,
+        rgba(0, 0, 0, .56) 36%,
+        rgba(0, 0, 0, .18) 66%,
+        transparent 88%
+      ),
+      linear-gradient(to bottom, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .06) 45%, rgba(0, 0, 0, .40) 100%);
+  }
+
+  .pala-hr-hero__eyebrow { font-size: 11px; letter-spacing: .2em; margin-bottom: 14px; }
+  .pala-hr-hero__title { letter-spacing: 5px; margin-bottom: 16px; }
+  .pala-hr-hero__subtitle { font-size: 17px; letter-spacing: 1px; line-height: 1.75; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-hr-hero__bg,
+  .pala-hr-hero__content > * { animation: none; }
+  .pala-hr-hero__bg { transform: none !important; }
+}
+
+/* =========================================================
+   page-hura.css — bagian 2: Hura 餐厅 (Core Positioning)
+   Tempel di bawah bagian HERO.
+   Prefiks .pala-hp-
+
+   PENTING: versi Elementor memakai .positioning-block / .pos-main /
+   .pos-sub / .pos-divider — nama yang PERSIS sama dengan section 2
+   halaman wedding-events. Kalau digabung, keduanya saling menimpa.
+   ========================================================= */
+
+.pala-hp {
+  padding: 4.5rem 3rem 5rem;
+  border-bottom: 1px solid #e0d8ce;
+  background: #faf8f5;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-hp__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 3rem;
+  border-top: 1px solid #e0d8ce;
+  text-align: center;
+}
+
+/* letter-spacing negatif dan line-height 1 di versi lama dibuat untuk
+   huruf Latin display. Pada aksara Han keduanya merusak: karakter
+   hampir bersentuhan dan terpotong di atas-bawah. */
+.pala-hp__title {
+  margin: 0 0 1.5rem;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 300;
+  line-height: 1.28;
+  letter-spacing: 6px;
+  color: #2a2520;
+}
+
+.pala-hp__divider {
+  width: 28px;
+  height: 1px;
+  margin: 0 auto 1.8rem;
+  background: #c8bfb4;
+}
+
+/* Lebar diatur dengan satuan em, bukan px tetap.
+   Versi lama menyempit drastis di layar kecil (920 → 480 → 320 → 280px);
+   pada 280px dengan font 16px, satu baris hanya memuat sekitar 17 aksara
+   Han, sehingga teksnya jadi kolom tinggi dan kurus. */
+.pala-hp__body {
+  max-width: 46em;
+  margin: 0 auto;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-hp.has-reveal .pala-hp__inner > * {
+  opacity: 0;
+  translate: 0 22px;
+  transition: opacity .8s ease, translate .8s ease;
+}
+
+.pala-hp.is-visible .pala-hp__inner > * { opacity: 1; translate: 0 0; }
+.pala-hp.is-visible .pala-hp__inner > *:nth-child(2) { transition-delay: .1s; }
+.pala-hp.is-visible .pala-hp__inner > *:nth-child(3) { transition-delay: .18s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 991px) {
+  .pala-hp { padding: 3.5rem 2rem 4rem; }
+  .pala-hp__inner { padding-top: 2.4rem; }
+  .pala-hp__body { font-size: 16px; line-height: 1.95; }
+}
+
+@media (max-width: 768px) {
+  .pala-hp { padding: 3rem 1.5rem 3.5rem; }
+  .pala-hp__inner { padding-top: 1.8rem; }
+  .pala-hp__title { letter-spacing: 3px; margin-bottom: 1.2rem; }
+  .pala-hp__divider { margin-bottom: 1.4rem; }
+  .pala-hp__body { max-width: 100%; font-size: 15px; line-height: 1.95; }
+}
+
+@media (max-width: 480px) {
+  .pala-hp { padding: 2.5rem 1.2rem 3rem; }
+  /* 280px di versi lama terlalu sempit — teks jadi kolom kurus */
+  .pala-hp__body { font-size: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-hp.has-reveal .pala-hp__inner > * {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+.pala-hres {
+  padding: 5rem 3rem 5.5rem;
+  background: #13301f;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  text-align: center;
+}
+
+.pala-hres__inner { max-width: 1500px; margin: 0 auto; }
+
+/* ---------------- Judul ---------------- */
+.pala-hres__title {
+  display: inline-block;
+  margin: 0 0 1.8rem;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(245, 240, 232, .55);
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 6px;
+  /* letter-spacing menambah ruang di kanan aksara terakhir —
+     digeser balik supaya garis bawahnya tetap terlihat di tengah */
+  text-indent: 6px;
+  color: #f5f0e8;
+}
+
+.pala-hres__desc {
+  max-width: 62em;
+  margin: 0 auto 3rem;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: rgba(245, 240, 232, .8);
+}
+
+/* ---------------- Kartu ---------------- */
+.pala-hres__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.pala-hres__card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: #fff;
+  color: #13301f;
+  text-align: left;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Kartu yang bisa diklik saja yang bergerak saat disentuh kursor */
+a.pala-hres__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
+}
+
+a.pala-hres__card:focus-visible {
+  outline: 2px solid #cdb88a;
+  outline-offset: 3px;
+}
+
+.pala-hres__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  color: #13301f;
+}
+
+.pala-hres__icon svg { width: 100%; height: 100%; }
+
+.pala-hres__text { min-width: 0; }
+
+.pala-hres__label {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .5px;
+  color: #13301f;
+}
+
+.pala-hres__value {
+  display: block;
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: .2px;
+  color: #3d4a41;
+  /* Alamat email panjang; dipatahkan daripada meluber keluar kartu */
+  overflow-wrap: anywhere;
+}
+
+/* Kartu tanpa baris kedua — labelnya dibuat sejajar tengah */
+.pala-hres__card--single .pala-hres__label { font-size: 18px; }
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-hres.has-reveal .pala-hres__title,
+.pala-hres.has-reveal .pala-hres__desc,
+.pala-hres.has-reveal .pala-hres__card {
+  opacity: 0;
+  translate: 0 20px;
+  transition: opacity .7s ease, translate .7s ease;
+}
+
+.pala-hres.is-visible .pala-hres__title,
+.pala-hres.is-visible .pala-hres__desc,
+.pala-hres.is-visible .pala-hres__card { opacity: 1; translate: 0 0; }
+
+.pala-hres.is-visible .pala-hres__desc { transition-delay: .08s; }
+.pala-hres.is-visible .pala-hres__card:nth-child(1) { transition-delay: .16s; }
+.pala-hres.is-visible .pala-hres__card:nth-child(2) { transition-delay: .24s; }
+.pala-hres.is-visible .pala-hres__card:nth-child(3) { transition-delay: .32s; }
+.pala-hres.is-visible .pala-hres__card:nth-child(4) { transition-delay: .40s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1200px) {
+  .pala-hres__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+}
+
+@media (max-width: 768px) {
+  .pala-hres { padding: 3.5rem 1.5rem 4rem; }
+  .pala-hres__title { letter-spacing: 4px; text-indent: 4px; margin-bottom: 1.4rem; }
+  .pala-hres__desc { font-size: 15px; margin-bottom: 2.2rem; }
+  .pala-hres__grid { grid-template-columns: 1fr; gap: 14px; }
+  .pala-hres__card { padding: 18px 20px; gap: 15px; }
+  .pala-hres__icon { width: 30px; height: 30px; }
+  .pala-hres__label { font-size: 16px; }
+  .pala-hres__value { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-hres__card { transition: none; }
+  a.pala-hres__card:hover { transform: none; }
+  .pala-hres.has-reveal .pala-hres__title,
+  .pala-hres.has-reveal .pala-hres__desc,
+  .pala-hres.has-reveal .pala-hres__card {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+/* =========================================================
+   page-hura.css — bagian 4: 菜单 (Menu Flipbook)
+   Tempel di bawah bagian RESERVE YOUR TABLE.
+   Prefiks .pala-menu-
+
+   Catatan: versi Elementor memakai selector global `*{box-sizing}`
+   yang bocor ke SELURUH halaman. Di sini semuanya di-scope.
+   ========================================================= */
+
+.pala-menu {
+  /* Rasio halaman menu — sesuaikan kalau proporsi gambarnya berbeda.
+     1.5692 = rasio dari versi lama. */
+  --pw: 470px;
+  --ph: calc(var(--pw) * 1.5692);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  /* min-height:100vh di versi lama dibuang — itu untuk halaman
+     penuh, bukan satu section di tengah halaman lain. */
+  padding: 4.5rem 1rem 5rem;
+  background: #f5f1e8;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.pala-menu *,
+.pala-menu *::before,
+.pala-menu *::after { box-sizing: border-box; }
+
+/* ---------------- Judul ---------------- */
+.pala-menu__head { margin-bottom: 2.2rem; text-align: center; }
+
+.pala-menu__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-menu__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 6px;
+  /* letter-spacing menambah ruang setelah aksara terakhir —
+     digeser balik supaya judul tetap benar-benar di tengah */
+  text-indent: 6px;
+  color: #2a2520;
+}
+
+/* ---------------- Panggung ---------------- */
+.pala-menu__scene { perspective: 3000px; max-width: 100%; }
+
+.pala-menu__book {
+  position: relative;
+  width: calc(var(--pw) * 2);
+  height: var(--ph);
+  transform: translateX(0);
+  transform-style: preserve-3d;
+  transition: transform .6s ease;
+}
+
+.pala-menu__book.at-start { transform: translateX(calc(var(--pw) / -2)); }
+.pala-menu__book.at-end   { transform: translateX(calc(var(--pw) / 2)); }
+
+.pala-menu__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: -26px;
+  width: 80%;
+  height: 34px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, .26), transparent 70%);
+  filter: blur(4px);
+}
+
+/* ---------------- Lembar ---------------- */
+.pala-menu__leaf {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--pw);
+  height: var(--ph);
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform .85s cubic-bezier(.42, 0, .18, 1);
+  cursor: pointer;
+}
+
+.pala-menu__leaf.is-flipped { transform: rotateY(-180deg); }
+
+.pala-menu__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #f1ece1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.pala-menu__face img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.pala-menu__face--front { transform: rotateY(0); }
+.pala-menu__face--back  { transform: rotateY(180deg); }
+
+/* Bayangan lipatan di sisi punggung buku */
+.pala-menu__face::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8%;
+  max-width: 40px;
+  pointer-events: none;
+}
+
+.pala-menu__face--front::after {
+  left: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, .20), transparent);
+}
+
+.pala-menu__face--back::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(0, 0, 0, .20), transparent);
+}
+
+/* Halaman kosong di akhir kalau jumlah halaman ganjil.
+   Versi lama memakai var(--green) yang tidak pernah didefinisikan. */
+.pala-menu__face--blank { background: #e8e2d6; }
+
+/* Kilau saat halaman berbalik */
+.pala-menu__gloss {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .4) 50%, transparent 65%);
+  transition: opacity .35s;
+}
+
+.pala-menu__leaf.is-turning .pala-menu__gloss { opacity: 1; }
+
+/* ---------------- Kontrol ---------------- */
+.pala-menu__controls {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 3vw, 18px);
+  margin-top: clamp(24px, 4vw, 38px);
+  padding: 9px 16px;
+  border: 1px solid rgba(201, 176, 121, .3);
+  border-radius: 999px;
+  background: #043323;
+}
+
+.pala-menu__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #c9b079;
+  border-radius: 50%;
+  background: transparent;
+  color: #c9b079;
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease, opacity .25s ease;
+}
+
+.pala-menu__btn svg { width: 15px; height: 15px; }
+.pala-menu__btn:hover:not(:disabled) { background: #c9b079; color: #043323; }
+.pala-menu__btn:focus-visible { outline: 2px solid #c9b079; outline-offset: 3px; }
+.pala-menu__btn:disabled { opacity: .3; cursor: default; }
+
+.pala-menu__info {
+  min-width: 92px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-align: center;
+  color: #f1ece1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pala-menu__note {
+  margin: 14px 0 0;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-align: center;
+  color: #a89080;
+}
+
+/* ---------------- Responsif ----------------
+   Di bawah 1024px hanya satu halaman tampil, bukan dua. */
+@media (max-width: 1024px) {
+  .pala-menu { --pw: min(86vw, 520px); }
+  .pala-menu__scene { perspective: 2200px; }
+
+  .pala-menu__book,
+  .pala-menu__book.at-start,
+  .pala-menu__book.at-end {
+    width: var(--pw);
+    transform: translateX(0);
+  }
+
+  .pala-menu__leaf { left: 0; }
+  .pala-menu__face::after { width: 24px; }
+}
+
+@media (max-width: 480px) {
+  .pala-menu { --pw: min(92vw, 420px); padding: 3rem 1rem 3.5rem; }
+  .pala-menu__title { letter-spacing: 4px; text-indent: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-menu__book,
+  .pala-menu__leaf,
+  .pala-menu__gloss { transition: none; }
+}
+
+
+
+.pala-gal {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-top: 4.5rem;
+  background: #faf8f5;
+  font-family: 'Jost', "PingFang SC", "Microsoft YaHei", sans-serif;
+  box-sizing: border-box;
+}
+
+.pala-gal__inner {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* ---------------- Judul ---------------- */
+.pala-gal__head { margin-bottom: 2.2rem; text-align: center; }
+
+.pala-gal__eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-gal__title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', "Songti SC", "SimSun", serif;
+  font-size: clamp(28px, 3.4vw, 44px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 6px;
+  text-indent: 6px;
+  color: #2a2520;
+}
+
+/* ---------------- Grid ---------------- */
+.pala-gal__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 180px;
+  grid-auto-flow: dense;
+  gap: 12px;
+}
+
+.pala-gal__item {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: #e8e2d6;
+  cursor: pointer;
+}
+
+.pala-gal__item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.pala-gal__item:hover img { transform: scale(1.08); }
+
+.pala-gal__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, .15);
+  transition: opacity .4s ease;
+}
+
+.pala-gal__item:hover::after { opacity: 1; }
+.pala-gal__item:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 3px; }
+
+/* Variasi ukuran */
+.pala-gal__item--large { grid-column: span 2; grid-row: span 3; }
+.pala-gal__item--half  { grid-column: span 1; grid-row: span 3; }
+.pala-gal__item--tall  { grid-row: span 2; }
+.pala-gal__item--wide  { grid-column: span 2; grid-row: span 1; }
+
+/* ---------------- Lightbox ---------------- */
+.pala-gal__box {
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, .94);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+}
+
+.pala-gal__box.is-open { opacity: 1; visibility: visible; }
+
+.pala-gal__box img {
+  max-width: 88%;
+  max-height: 86%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Tombol lightbox */
+.pala-gal__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.pala-gal__btn svg { width: 17px; height: 17px; }
+.pala-gal__btn:hover { background: rgba(255, 255, 255, .2); }
+.pala-gal__btn:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+.pala-gal__btn--close { top: 24px; right: 28px; }
+.pala-gal__btn--close:hover { transform: rotate(90deg); }
+.pala-gal__btn--prev { top: 50%; left: 24px; transform: translateY(-50%); }
+.pala-gal__btn--next { top: 50%; right: 24px; transform: translateY(-50%); }
+
+.pala-gal__counter {
+  position: absolute;
+  bottom: 26px;
+  left: 0;
+  right: 0;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-align: center;
+  color: rgba(255, 255, 255, .68);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 992px) {
+  .pala-gal { padding: 3.5rem 2rem 4rem; }
+  .pala-gal__grid { grid-auto-rows: 160px; }
+}
+
+@media (max-width: 768px) {
+  .pala-gal { padding: 3rem 1.2rem 3.5rem; }
+  .pala-gal__title { letter-spacing: 4px; text-indent: 4px; }
+
+  .pala-gal__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 150px;
+    gap: 8px;
+  }
+
+  /* Di 2 kolom, "large" yang span 2 kolom + 3 baris jadi terlalu
+     mendominasi — dikecilkan supaya ritmenya tetap terbaca */
+  .pala-gal__item--large { grid-row: span 2; }
+  .pala-gal__item--half  { grid-row: span 2; }
+
+  /* Tombol lightbox digeser ke bawah supaya bisa dijangkau ibu jari */
+  .pala-gal__btn { width: 42px; height: 42px; }
+  .pala-gal__btn--close { top: 16px; right: 16px; }
+  .pala-gal__btn--prev { top: auto; bottom: 20px; left: 22%; transform: none; }
+  .pala-gal__btn--next { top: auto; bottom: 20px; right: 22%; transform: none; }
+  .pala-gal__counter { bottom: 33px; }
+  .pala-gal__box img { max-width: 94%; max-height: 74%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-gal__item img,
+  .pala-gal__item::after,
+  .pala-gal__box { transition: none; }
+  .pala-gal__item:hover img { transform: none; }
+  .pala-gal__btn--close:hover { transform: none; }
+}

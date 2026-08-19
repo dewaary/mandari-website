@@ -17,7 +17,6 @@
 </head>
 
 <body>
-
   <?php include 'header.php'; ?>
 
 
@@ -419,9 +418,118 @@
 </section>
 <!-- =========== END SECTION 4: 庄园周边体验 =========== -->
 
+<!-- ============= SECTION 5: 河畔时光 (BY THE RIVERSIDE) =============
+     Perbedaan dari versi Inggris:
+     - TIDAK ada <link> ke fonts.googleapis.com
+     - Foto memakai <img> (bukan CSS background-image) supaya
+       loading="lazy" bekerja.
+     - Nama kelas di-scope .pala-rv- : versi Elementor memakai
+       .block-eyebrow / .block-subtitle / .service-item yang PERSIS
+       sama dengan section 3, jadi kalau digabung akan saling menimpa.
+     - id="riverside" dipasang supaya titik 河畔草坪 di peta bisa
+       diarahkan ke section ini.
+     ================================================================= -->
+<section class="pala-rv" id="riverside" aria-labelledby="pala-rv-title">
 
-  <?php include 'footer.php'; ?>
+  <!-- ---------- Kiri: foto ---------- -->
+  <div class="pala-rv__media">
+    <img src="assets/resort/slider/the-river-side.png"
+         alt="帕克里桑河畔"
+         width="1000" height="760" loading="lazy" decoding="async">
+    <p class="pala-rv__caption">帕克里桑河，自古流淌至今。</p>
+  </div>
 
+  <!-- ---------- Kanan: teks ---------- -->
+  <div class="pala-rv__content">
+    <p class="pala-rv__eyebrow">By the Riverside</p>
+    <h2 class="pala-rv__title" id="pala-rv-title">河畔时光</h2>
+    <p class="pala-rv__subtitle">静止、修习，以及流水之声。</p>
+
+    <ul class="pala-rv__list">
+      <li class="pala-rv__item">河畔茶叙</li>
+      <li class="pala-rv__item">瑜伽与冥想</li>
+      <li class="pala-rv__item">
+        气功与太极
+        <span class="pala-rv__note">晨间时段 · 需提前预约</span>
+      </li>
+    </ul>
+  </div>
+
+</section>
+<!-- =========== END SECTION 5: 河畔时光 =========== -->
+
+<section class="pala-gk" aria-labelledby="pala-gk-title">
+
+  <div class="pala-gk__head">
+    <p class="pala-gk__eyebrow">Good to Know</p>
+    <h2 class="pala-gk__title" id="pala-gk-title">实用信息</h2>
+  </div>
+
+  <div class="pala-gk__grid">
+
+    <!-- ---------- 抵达方式 ---------- -->
+    <div>
+      <h3 class="pala-gk__item-title">抵达方式</h3>
+      <div class="pala-gk__divider" aria-hidden="true"></div>
+      <p class="pala-gk__desc">
+        距离伍拉·赖国际机场约 1.5 小时车程。<br>
+        可安排专车接送。
+      </p>
+    </div>
+
+    <!-- ---------- 庄园设施 ---------- -->
+    <div>
+      <h3 class="pala-gk__item-title">庄园设施</h3>
+      <div class="pala-gk__divider" aria-hidden="true"></div>
+      <ul class="pala-gk__list">
+        <li>全区覆盖 Starlink 卫星 Wi-Fi</li>
+        <li>提供私人停车位</li>
+        <li>专属管家服务与 24 小时安保</li>
+        <li>可应要求配合各类饮食需求</li>
+      </ul>
+    </div>
+
+    <!-- ---------- 入住与退房 ---------- -->
+    <div>
+      <h3 class="pala-gk__item-title">入住与退房</h3>
+      <div class="pala-gk__divider" aria-hidden="true"></div>
+      <ul class="pala-gk__list">
+        <li>入住时间：15:00 起</li>
+        <li>退房时间：12:00 前</li>
+        <li>可根据当日房况安排提前入住或延迟退房</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
+<!-- =========== END SECTION 6: 实用信息 =========== -->
+<div class="pala-sb" role="complementary" aria-label="预订" aria-hidden="true">
+
+  <!-- Kiri -->
+  <div class="pala-sb__left">
+    <p class="pala-sb__title">寻得静谧之乐，不妨多留几日。</p>
+    <p class="pala-sb__sub">
+      正在筹划庆典？
+      <a href="wedding-events.php">查看婚礼与活动 →</a>
+    </p>
+  </div>
+
+  <!-- Tombol -->
+  <div class="pala-sb__actions">
+    <a class="pala-sb__btn pala-sb__btn--ghost" href="contact.php">联系我们</a>
+
+    <a class="pala-sb__btn pala-sb__btn--solid"
+       href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%B8%95%E6%8B%89%E4%B9%8C%E5%B8%83%E5%BA%A6%E5%81%87%E6%9D%91&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%BB%A5%E4%B8%8B%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E6%84%8F%E5%90%91%E5%88%AB%E5%A2%85%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">
+      预订咨询
+    </a>
+  </div>
+
+</div>
+<!-- =============== END STICKY BAR =============== -->
+
+<!-- FOOTER -->
+  <?php  ?>
   <script src="js/script.js"></script>
 </body>
 </html>
