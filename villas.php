@@ -7,7 +7,7 @@
   <title>别墅 | 帕拉乌布度假村 · 巴厘岛乌布私人泳池别墅</title>
   <meta name="description" content="帕拉乌布度假村六栋私人泳池别墅：卡图尔、巴图尔、塞拉雅 A、塞拉雅 B、桑香、阿贡。可容纳 2 至 10 位宾客，均配私人泳池与森林河谷景观。">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <!-- <link rel="stylesheet" href="css/page-villas.css"> -->
 </head>
 
@@ -388,6 +388,6 @@
 
   <?php include 'footer.php'; ?>
 
-  <script src="js/script.js"></script>
+ <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
 </body>
 </html>

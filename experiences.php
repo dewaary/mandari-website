@@ -7,7 +7,7 @@
   <title>体验 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="从巴厘料理课、稻田体验到古农卡威石窟寺与巴图尔火山日出——帕拉乌布度假村周边的文化与自然体验。">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <link rel="stylesheet" href="css/page-experiences.css">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
@@ -617,6 +617,6 @@
 
   <?php  ?>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
 </body>
 </html>

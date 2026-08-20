@@ -7,7 +7,7 @@
   <title>婚礼与活动 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="帕拉乌布度假村包场婚礼与私人活动：河畔草坪、屋顶露台、活动草坪与 Hura 餐厅场地，可容纳 200 位宾客。">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <link rel="stylesheet" href="css/page-wedding.css">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
@@ -631,6 +631,6 @@
 
   <?php  ?>
 
-  <script src="js/script.js"></script>
+<script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
 </body>
 </html>

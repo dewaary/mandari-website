@@ -30,7 +30,7 @@ if (!isset($tpr_progress))   { $tpr_progress   = '60%'; }
   <!-- Halaman kosong sebaiknya tidak diindeks — hapus baris ini saat halaman jadi -->
   <meta name="robots" content="noindex, follow">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <link rel="stylesheet" href="css/page-coming-soon.css">
 </head>
 

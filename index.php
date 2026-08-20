@@ -6,7 +6,7 @@
   <title>帕拉乌布度假村 | 巴厘岛乌布私人泳池别墅</title>
   <meta name="description" content="帕拉乌布度假村位于巴厘岛乌布，六栋私人泳池别墅，农场餐饮与丛林景观。在线查询空房与房价。">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <link rel="stylesheet" href="css/section-film.css">
 </head>
 
@@ -673,7 +673,7 @@
   <!-- FOOTER -->
   <?php include 'footer.php'; ?>
 
-  <script src="js/script.js"></script>
+ <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
   <script src="js/section-film.js"></script>
 </body>
 </html>

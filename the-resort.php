@@ -8,7 +8,7 @@
   <title>度假村 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="帕拉乌布度假村坐落于巴厘岛乌布圣河帕克里桑之上，六栋私人别墅，由巴厘岛建筑师 Popo Danes 设计。">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
   <link rel="stylesheet" href="css/page-resort.css">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP).
@@ -530,6 +530,6 @@
 
 <!-- FOOTER -->
   <?php  ?>
-  <script src="js/script.js"></script>
+ <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
 </body>
 </html>
