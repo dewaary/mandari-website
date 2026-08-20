@@ -2217,3 +2217,56 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", refresh);
   refresh();
 });
+
+
+/* =========================================================
+   Blok kartu 直订礼遇 — tempel di script.js.
+
+   Perilaku:
+   - Muncul 2 detik setelah seluruh halaman selesai dimuat,
+     SETIAP kunjungan (tidak diingat, tidak disimpan).
+   - Bukan modal: tidak mengunci gulir, tidak menahan fokus.
+     Tamu bisa terus membaca sambil kartunya terlihat.
+   - Setelah ditutup, tombol mengambang muncul supaya kartunya
+     bisa dibuka lagi kapan saja.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const offer = document.querySelector(".pala-of");
+  if (!offer) return;
+
+  const fab = offer.querySelector("[data-of-fab]");
+  const box = offer.querySelector("[data-of-box]");
+  const closeBtn = offer.querySelector("[data-of-close]");
+  if (!box) return;
+
+  const DELAY = 2000;
+
+  const open = () => {
+    offer.classList.add("is-open");
+    box.setAttribute("aria-hidden", "false");
+  };
+
+  const close = () => {
+    offer.classList.remove("is-open");
+    box.setAttribute("aria-hidden", "true");
+    /* Fokus dipindah ke tombol mengambang supaya pengguna keyboard
+       tidak tersesat di elemen yang baru saja disembunyikan */
+    fab?.focus();
+  };
+
+  fab?.addEventListener("click", open);
+  closeBtn?.addEventListener("click", close);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && offer.classList.contains("is-open")) close();
+  });
+
+  /* Ditunggu sampai window 'load' — 2 detik dihitung setelah
+     gambar dan berkas lain selesai, bukan setelah HTML saja.
+     Di koneksi lewat GFW selisihnya bisa beberapa detik. */
+  const start = () => setTimeout(open, DELAY);
+
+  if (document.readyState === "complete") start();
+  else window.addEventListener("load", start, { once: true });
+});

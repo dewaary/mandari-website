@@ -288,56 +288,57 @@ $villa_book = 'mailto:enquiry@thepalaubudresort.com'
       </section>
    <?php endif; ?>
 
-<?php
-  $lainnya = array_values(array_filter(
+   <?php
+   $lainnya = array_values(array_filter(
       TPR_VILLAS,
       fn($v) => $v['slug'] !== ($villa['slug'] ?? '')
-  ));
-?>
-<?php if (!empty($lainnya)): ?>
-<section class="pala-ov" aria-labelledby="pala-ov-title">
+   ));
+   ?>
+   <?php if (!empty($lainnya)): ?>
+      <section class="pala-ov" aria-labelledby="pala-ov-title">
 
-  <h2 class="pala-ov__title" id="pala-ov-title">其他别墅</h2>
+         <h2 class="pala-ov__title" id="pala-ov-title">其他别墅</h2>
 
-  <div class="pala-ov__slider">
+         <div class="pala-ov__slider">
 
-    <button class="pala-ov__nav pala-ov__nav--prev" type="button" aria-label="上一个">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M15 5l-7 7 7 7"/>
-      </svg>
-    </button>
+            <button class="pala-ov__nav pala-ov__nav--prev" type="button" aria-label="上一个">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 5l-7 7 7 7" />
+               </svg>
+            </button>
 
-    <button class="pala-ov__nav pala-ov__nav--next" type="button" aria-label="下一个">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M9 5l7 7-7 7"/>
-      </svg>
-    </button>
+            <button class="pala-ov__nav pala-ov__nav--next" type="button" aria-label="下一个">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 5l7 7-7 7" />
+               </svg>
+            </button>
 
-    <div class="pala-ov__track" tabindex="0" role="group" aria-label="其他别墅">
-      <?php foreach ($lainnya as $v): ?>
-        <div class="pala-ov__slide">
-          <a class="pala-ov__card" href="<?php echo tpr_url($v['url']); ?>">
-            <img src="<?php echo tpr_file('assets/villas/other/' . $v['slug'] . '.webp'); ?>"
-                 alt="<?php echo $v['name_cn']; ?>别墅"
-                 width="800" height="680" loading="lazy" decoding="async">
-            <p class="pala-ov__name">
-              <?php echo $v['type']; ?> · <?php echo $v['name_cn']; ?>
-              <small><?php echo $v['name_latin']; ?></small>
-            </p>
-          </a>
-        </div>
-      <?php endforeach; ?>
-    </div>
+            <div class="pala-ov__track" tabindex="0" role="group" aria-label="其他别墅">
+               <?php foreach ($lainnya as $v): ?>
+                  <div class="pala-ov__slide">
+                     <a class="pala-ov__card" href="<?php echo tpr_url($v['url']); ?>">
+                        <img src="<?php echo tpr_file('assets/villas/other/' . $v['slug'] . '.webp'); ?>"
+                           alt="<?php echo $v['name_cn']; ?>别墅"
+                           width="800" height="680" loading="lazy" decoding="async">
+                        <p class="pala-ov__name">
+                           <?php echo $v['type']; ?> · <?php echo $v['name_cn']; ?>
+                           <small><?php echo $v['name_latin']; ?></small>
+                        </p>
+                     </a>
+                  </div>
+               <?php endforeach; ?>
+            </div>
 
-  </div>
-</section>
-<?php endif; ?>
-<!-- =========== END SECTION 6: 其他别墅 =========== -->
+         </div>
+      </section>
+   <?php endif; ?>
+   <!-- =========== END SECTION 6: 其他别墅 =========== -->
 
 
    <?php require TPR_ROOT . '/footer.php'; ?>
+   <?php require TPR_ROOT . '/villa-offer.php'; ?>
 
    <script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>

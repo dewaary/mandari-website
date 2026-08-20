@@ -8490,3 +8490,220 @@ a.pala-cm__item:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px;
   .pala-ov__card img { transition: none; }
   .pala-ov__card:hover img { transform: none; }
 }
+
+/* =========================================================
+   section-offer.css — 直订礼遇 (kartu penawaran di pojok)
+   Prefiks .pala-of-
+
+   Bukan modal: tidak ada lapisan gelap dan tidak mengunci
+   gulir halaman. Tamu tetap bisa membaca sambil kartunya
+   terlihat, dan menutupnya kalau tidak berminat.
+   ========================================================= */
+
+.pala-of *,
+.pala-of *::before,
+.pala-of *::after { box-sizing: border-box; }
+
+/* ---------------- Tombol mengambang ----------------
+   Muncul setelah kartu ditutup, supaya tamu bisa membukanya lagi */
+.pala-of__fab {
+  position: fixed;
+  z-index: 880;                  /* di bawah sticky bar (900) */
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  border: 1px solid rgba(205, 184, 138, .55);
+  border-radius: 50%;
+  background: #043323;
+  color: #cdb88a;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .26);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(.85);
+  transition: opacity .3s ease, visibility .3s, transform .3s ease, background .25s ease;
+}
+
+.pala-of__fab svg { width: 23px; height: 23px; }
+
+/* Tombol hanya terlihat saat kartunya tertutup */
+.pala-of:not(.is-open) .pala-of__fab {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.pala-of__fab:hover { background: #0a4a33; transform: scale(1.06); }
+.pala-of__fab:focus-visible { outline: 2px solid #cdb88a; outline-offset: 4px; }
+
+/* ---------------- Kartu ---------------- */
+.pala-of__box {
+  position: fixed;
+  z-index: 890;
+  right: 24px;
+  bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  width: min(560px, calc(100vw - 32px));
+  overflow: hidden;
+  border-radius: 6px;
+  background: #fbf9f5;
+  box-shadow: 0 14px 44px rgba(0, 0, 0, .22);
+
+  opacity: 0;
+  visibility: hidden;
+  /* Meluncur masuk dari kanan — arah yang sama dengan posisinya,
+     jadi terasa datang dari tepi layar, bukan muncul begitu saja */
+  transform: translateX(24px);
+  transition: opacity .4s ease, visibility .4s, transform .4s cubic-bezier(.22, .61, .36, 1);
+}
+
+.pala-of.is-open .pala-of__box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* ---------------- Isi ---------------- */
+.pala-of__body {
+  padding: 2rem 1.6rem 1.7rem;
+  font-family: var(--tpr-sans);
+}
+
+.pala-of__eyebrow {
+  margin: 0 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #b08d4f;
+}
+
+.pala-of__title {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 300;
+  /* line-height 1.65 — aksara Han butuh ruang antarbaris lebih lega
+     daripada huruf Latin pada ukuran sekecil ini */
+  line-height: 1.65;
+  letter-spacing: .3px;
+  color: #3d4a41;
+}
+
+.pala-of__list {
+  margin: 0 0 1.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.pala-of__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #2a3a31;
+}
+
+.pala-of__list li:last-child { margin-bottom: 0; }
+
+.pala-of__check {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: #b08d4f;
+}
+
+.pala-of__btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 3px;
+  background: #1c3327;
+  font-family: var(--tpr-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #f1ece1;
+  transition: background .25s ease;
+}
+
+.pala-of__btn:hover { background: #2a4a37; }
+.pala-of__btn:focus-visible { outline: 2px solid #b08d4f; outline-offset: 3px; }
+
+/* ---------------- Foto ---------------- */
+.pala-of__media { position: relative; background: #1d2923; }
+
+.pala-of__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ---------------- Tombol tutup ---------------- */
+.pala-of__close {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(90, 82, 72, .55);
+  color: #fbf9f5;
+  cursor: pointer;
+  transition: background .25s ease;
+}
+
+.pala-of__close svg { width: 12px; height: 12px; }
+.pala-of__close:hover { background: rgba(60, 54, 46, .85); }
+.pala-of__close:focus-visible { outline: 2px solid #b08d4f; outline-offset: 3px; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 620px) {
+  .pala-of__box {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    width: auto;
+    /* Foto disembunyikan: pada lebar ponsel, sisa 180px untuk foto
+       membuat kolom teksnya terlalu sempit untuk aksara Han */
+    grid-template-columns: 1fr;
+  }
+
+  .pala-of__media { display: none; }
+  .pala-of__body { padding: 2.1rem 1.3rem 1.4rem; }
+  .pala-of__title { font-size: 16px; }
+  .pala-of__btn { display: block; text-align: center; }
+
+  .pala-of__fab { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  .pala-of__fab svg { width: 21px; height: 21px; }
+}
+
+/* Di layar pendek, kartu bisa menutupi terlalu banyak isi */
+@media (max-height: 520px) {
+  .pala-of__box { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-of__box,
+  .pala-of__fab,
+  .pala-of__close { transition: opacity .2s ease, visibility .2s; }
+  .pala-of__box { transform: none; }
+  .pala-of.is-open .pala-of__box { transform: none; }
+}
