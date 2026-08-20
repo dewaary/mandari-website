@@ -1,4 +1,7 @@
-<?php $tpr_active = 'experiences'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'experiences';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,23 +10,23 @@
   <title>体验 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="从巴厘料理课、稻田体验到古农卡威石窟寺与巴图尔火山日出——帕拉乌布度假村周边的文化与自然体验。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-experiences.css">
+<link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/page-experiences.css'); ?>">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
-  <link rel="preload" as="image" href="assets/experiences/images/hero.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="<?php echo TPR_BASE; ?>/assets/experiences/images/hero.webp" fetchpriority="high">
 </head>
 
 <body>
 
-  <?php include 'header.php'; ?>
+  	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-ex-hero" aria-labelledby="pala-ex-hero-title" data-hero-parallax>
 
     <img class="pala-ex-hero__bg"
-         src="assets/experience/hero-experience.png"
+         src="<?php echo TPR_BASE; ?>/assets/experience/hero-experience.png"
          alt=""
          aria-hidden="true"
          fetchpriority="high"
@@ -338,7 +341,7 @@
   <!-- ---------- 01 · 宁静日 ---------- -->
   <div class="pala-fest__block">
     <button class="pala-fest__head" type="button">
-      <img class="pala-fest__img" src="assets/experience/festival/1.png"
+      <img class="pala-fest__img" src="<?php echo TPR_BASE; ?>/assets/experience/festival/1.png"
            alt="Ogoh-Ogoh 巡游" width="1600" height="900" loading="lazy" decoding="async">
       <span class="pala-fest__overlay"></span>
       <span class="pala-fest__num" aria-hidden="true">01</span>
@@ -393,7 +396,7 @@
   <!-- ---------- 02 · 加隆安节与库宁安节 ---------- -->
   <div class="pala-fest__block">
     <button class="pala-fest__head" type="button">
-      <img class="pala-fest__img" src="assets/experience/festival/2.png"
+      <img class="pala-fest__img" src="<?php echo TPR_BASE; ?>/assets/experience/festival/2.png"
            alt="加隆安节的 penjor 竹饰" width="1600" height="900" loading="lazy" decoding="async">
       <span class="pala-fest__overlay"></span>
       <span class="pala-fest__num" aria-hidden="true">02</span>
@@ -449,7 +452,7 @@
   <!-- ---------- 03 · 巴厘艺术节 ---------- -->
   <div class="pala-fest__block">
     <button class="pala-fest__head" type="button">
-      <img class="pala-fest__img" src="assets/experience/festival/3.png"
+      <img class="pala-fest__img" src="<?php echo TPR_BASE; ?>/assets/experience/festival/3.png"
            alt="巴厘艺术节表演" width="1600" height="900" loading="lazy" decoding="async">
       <span class="pala-fest__overlay"></span>
       <span class="pala-fest__num" aria-hidden="true">03</span>
@@ -527,7 +530,7 @@
   <div class="pala-cta__cards">
 
     <figure class="pala-cta__card">
-      <img src="assets/experience/cta/1.jpg" alt="佩内格利普兰传统村落"
+      <img src="<?php echo TPR_BASE; ?>/assets/experience/cta/1.jpg" alt="佩内格利普兰传统村落"
            width="600" height="800" loading="lazy" decoding="async">
       <figcaption class="pala-cta__card-info">
         <span class="pala-cta__card-region">巴厘岛北部</span>
@@ -539,7 +542,7 @@
     </figure>
 
     <figure class="pala-cta__card">
-      <img src="assets/experience/cta/2.jpg" alt="古农卡威石窟寺"
+      <img src="<?php echo TPR_BASE; ?>/assets/experience/cta/2.jpg" alt="古农卡威石窟寺"
            width="600" height="800" loading="lazy" decoding="async">
       <figcaption class="pala-cta__card-info">
         <span class="pala-cta__card-region">文化古迹</span>
@@ -551,7 +554,7 @@
     </figure>
 
     <figure class="pala-cta__card">
-      <img src="assets/experience/cta/3.jpg" alt="巴图尔火山日出"
+      <img src="<?php echo TPR_BASE; ?>/assets/experience/cta/3.jpg" alt="巴图尔火山日出"
            width="600" height="800" loading="lazy" decoding="async">
       <figcaption class="pala-cta__card-info">
         <span class="pala-cta__card-region">日出</span>
@@ -563,7 +566,7 @@
     </figure>
 
     <figure class="pala-cta__card">
-      <img src="assets/experience/cta/4.jpg" alt="蒂尔塔冈加水宫"
+      <img src="<?php echo TPR_BASE; ?>/assets/experience/cta/4.jpg" alt="蒂尔塔冈加水宫"
            width="600" height="800" loading="lazy" decoding="async">
       <figcaption class="pala-cta__card-info">
         <span class="pala-cta__card-region">巴厘岛东部</span>
@@ -598,13 +601,13 @@
     <p class="pala-sb__title">入住帕拉乌布</p>
     <p class="pala-sb__sub">
       寻找属于您的静谧之乐。
-      <a href="villas.php">查看别墅 →</a>
+      <a href="<?php echo tpr_url('villas'); ?>">查看别墅 →</a>
     </p>
   </div>
 
   <!-- Tombol -->
   <div class="pala-sb__actions">
-    <a class="pala-sb__btn pala-sb__btn--ghost" href="contact.php">联系我们</a>
+    <a class="pala-sb__btn pala-sb__btn--ghost" href="<?php echo tpr_url('contact'); ?>">联系我们</a>
 
     <a class="pala-sb__btn pala-sb__btn--solid"
        href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%B8%95%E6%8B%89%E4%B9%8C%E5%B8%83%E5%BA%A6%E5%81%87%E6%9D%91&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%BB%A5%E4%B8%8B%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E6%84%8F%E5%90%91%E5%88%AB%E5%A2%85%EF%BC%9A%0D%0A%E6%84%9F%E5%85%B4%E8%B6%A3%E7%9A%84%E4%BD%93%E9%AA%8C%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">
@@ -617,6 +620,6 @@
 
   <?php  ?>
 
-  <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+ <script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

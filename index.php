@@ -1,3 +1,7 @@
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'home';
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -6,14 +10,14 @@
   <title>帕拉乌布度假村 | 巴厘岛乌布私人泳池别墅</title>
   <meta name="description" content="帕拉乌布度假村位于巴厘岛乌布，六栋私人泳池别墅，农场餐饮与丛林景观。在线查询空房与房价。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/section-film.css">
+ <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/section-film.css'); ?>">
 </head>
 
 <body>
 
   <!-- HEADER -->
-<?php $tpr_active = 'home'; include 'header.php'; ?>
+  	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ===================== SECTION 1: HERO =====================
@@ -23,8 +27,8 @@
   <section
     class="pala-hero"
     aria-label="帕拉乌布度假村预订"
-    data-video-src="assets/videos/full.mp4"
-    data-poster-src="assets/images/hero-poster.webp"
+    data-video-src="<?php echo TPR_BASE; ?>/assets/videos/full.mp4"
+    data-poster-src="<?php echo TPR_BASE; ?>/assets/images/hero-poster.webp"
   >
     <div class="pala-hero__media" aria-hidden="true">
       <img class="pala-hero__poster" alt="" hidden>
@@ -190,7 +194,7 @@
         <h4 class="pala-contact__label">电话 / 微信</h4>
         <p>
           <span class="pala-contact__qr">
-            <img src="assets/images/wechat-qr.jpg" alt="微信二维码" loading="lazy">
+            <img src="<?php echo TPR_BASE; ?>/assets/images/wechat-qr.jpg" alt="微信二维码" loading="lazy">
           </span>
           <a href="tel:+628113888565">+62 811-3888-565</a>
           <span class="pala-contact__sub">微信号：Pala Ubud</span>
@@ -209,7 +213,7 @@
         <p>
           <!-- Nama file jangan pakai kurung penuh 【】 — akan jadi %E3%80%90
                di URL dan sering bermasalah di browser dalam aplikasi WeChat. -->
-          <a href="assets/docs/pala-ubud-factsheet-cn.pdf" target="_blank" rel="noopener">
+          <a href="<?php echo TPR_BASE; ?>/assets/docs/pala-ubud-factsheet-cn.pdf" target="_blank" rel="noopener">
             下载 PDF
           </a>
           <span class="pala-contact__sub">约 2 MB</span>
@@ -224,7 +228,7 @@
 <section class="pala-villas" aria-labelledby="pala-villas-title">
 
   <!-- Foto latar. Kompres dulu: WebP, lebar 2000px, target < 250 KB -->
-  <img class="pala-villas__bg" src="assets/home/images/banner-villa.jpeg" alt="Banner Villa" aria-hidden="true">
+  <img class="pala-villas__bg" src="<?php echo TPR_BASE; ?>/assets/home/images/banner-villa.jpeg" alt="Banner Villa" aria-hidden="true">
 
   <div class="pala-villas__inner">
 
@@ -241,7 +245,7 @@
           不受打扰地思考，不慌不忙地行动，与所爱之人相伴，温柔地回到自己。
           我们相信，最有意义的奢华并非环绕你的事物，而是它让你感受到什么。
         </p>
-        <a href="villas.php" class="pala-villas__cta">了解更多</a>
+        <a href="<?php echo tpr_url('villas'); ?>" class="pala-villas__cta">了解更多</a>
       </div>
     </div>
 
@@ -263,8 +267,8 @@
       <div class="pala-villas__track" tabindex="0" role="group" aria-label="别墅列表">
 
         <div class="pala-villas__slide">
-          <a href="villa-catur.php" class="pala-card">
-            <img src="assets/home/images/card-villa-catur.webp" alt="卡图尔别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/catur'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-catur.webp" alt="卡图尔别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">蜜月别墅</div>
@@ -277,8 +281,8 @@
         </div>
 
          <div class="pala-villas__slide">
-          <a href="villa-catur.php" class="pala-card">
-            <img src="assets/home/images/card-villa-batur.jpg" alt="卡图尔别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/catur'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-batur.jpg" alt="卡图尔别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">蜜月别墅</div>
@@ -292,8 +296,8 @@
 
 
         <div class="pala-villas__slide">
-          <a href="villa-seraya-a.php" class="pala-card">
-            <img src="assets/home/images/card-villa-seraya-a.webp" alt="塞拉雅 A 别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/seraya-a'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-seraya-a.webp" alt="塞拉雅 A 别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">无边泳池别墅</div>
@@ -306,8 +310,8 @@
         </div>
 
         <div class="pala-villas__slide">
-          <a href="villa-seraya-b.php" class="pala-card">
-            <img src="assets/home/images/card-villa-seraya-b.webp" alt="塞拉雅 B 别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/seraya-b'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-seraya-b.webp" alt="塞拉雅 B 别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">疗愈别墅</div>
@@ -320,8 +324,8 @@
         </div>
 
         <div class="pala-villas__slide">
-          <a href="villa-sanghyang.php" class="pala-card">
-            <img src="assets/home/images/card-villa-sanghyang.webp" alt="桑香别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/sanghyang'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-sanghyang.webp" alt="桑香别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">家庭别墅</div>
@@ -334,8 +338,8 @@
         </div>
 
         <div class="pala-villas__slide">
-          <a href="villa-agung.php" class="pala-card">
-            <img src="assets/home/images/card-villa-agung.webp" alt="阿贡别墅" width="600" height="460" loading="lazy" decoding="async">
+          <a href="<?php echo tpr_url('villas/agung'); ?>" class="pala-card">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-agung.webp" alt="阿贡别墅" width="600" height="460" loading="lazy" decoding="async">
             <div class="pala-card__overlay">
               <div>
                 <div class="pala-card__type">尊尚别墅</div>
@@ -359,19 +363,19 @@
     <!-- KIRI: kolase foto -->
     <div class="pala-events__photos">
       <div class="pala-events__photo pala-events__photo--1">
-        <img src="assets/home/images/card-event-hura.webp" alt="别墅中的婚礼布置" width="480" height="640" loading="lazy" decoding="async">
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-event-hura.webp" alt="别墅中的婚礼布置" width="480" height="640" loading="lazy" decoding="async">
       </div>
       <div class="pala-events__photo pala-events__photo--2">
-        <img src="assets/home/images/card-event-agung.jpg" alt="户外晚宴长桌" width="440" height="560" loading="lazy" decoding="async">
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-event-agung.jpg" alt="户外晚宴长桌" width="440" height="560" loading="lazy" decoding="async">
       </div>
       <div class="pala-events__photo pala-events__photo--3">
-        <img src="assets/home/images/card-event-hura1.webp" alt="庆典细节" width="360" height="440" loading="lazy" decoding="async">
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-event-hura1.webp" alt="庆典细节" width="360" height="440" loading="lazy" decoding="async">
       </div>
       <div class="pala-events__photo pala-events__photo--4">
-        <img src="assets/home/images/card-event-sanghyang.webp" alt="家庭聚会" width="560" height="360" loading="lazy" decoding="async">
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-event-sanghyang.webp" alt="家庭聚会" width="560" height="360" loading="lazy" decoding="async">
       </div>
       <div class="pala-events__photo pala-events__photo--5">
-        <img src="assets/home/images/card-event-river.jpg" alt="企业团队活动" width="560" height="360" loading="lazy" decoding="async">
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-event-river.jpg" alt="企业团队活动" width="560" height="360" loading="lazy" decoding="async">
       </div>
     </div>
 
@@ -392,13 +396,13 @@
       </p>
 
       <div class="pala-events__links">
-        <a href="wedding-events.php">婚礼</a>
-        <a href="wedding-events.php">家庭聚会</a>
-        <a href="wedding-events.php">静修与疗愈</a>
-        <a href="wedding-events.php">企业活动</a>
+        <a href="<?php echo tpr_url('weddings'); ?>">婚礼</a>
+        <a href="<?php echo tpr_url('weddings'); ?>">家庭聚会</a>
+        <a href="<?php echo tpr_url('weddings'); ?>">静修与疗愈</a>
+        <a href="<?php echo tpr_url('weddings'); ?>">企业活动</a>
       </div>
 
-      <a href="wedding-events.php" class="pala-events__cta">筹划您的活动</a>
+      <a href="<?php echo tpr_url('weddings'); ?>" class="pala-events__cta">筹划您的活动</a>
 
     </div>
 
@@ -408,7 +412,7 @@
 <section class="pala-hura" aria-labelledby="pala-hura-title">
 
   <!-- Ganti dengan foto Hura, WebP, lebar 2000px, target < 250 KB -->
-  <img class="pala-hura__bg" src="assets/home/images/hura-banner-image.jpeg" alt="" aria-hidden="true">
+  <img class="pala-hura__bg" src="<?php echo TPR_BASE; ?>/assets/home/images/hura-banner-image.jpeg" alt="" aria-hidden="true">
 
   <div class="pala-hura__content">
     <div class="pala-hura__inner">
@@ -431,7 +435,7 @@
         日常生活里安静的脉搏。它比任何言语都更能告诉你：你身处一个真实的地方，而且，欢迎你留下。
       </p>
 
-      <a href="hura-restaurant.php" class="pala-hura__cta">预订餐位</a>
+      <a href="<?php echo tpr_url('dining'); ?>" class="pala-hura__cta">预订餐位</a>
 
     </div>
   </div>
@@ -470,7 +474,7 @@
         地貌也依旧保留着真正古老的模样。巴厘文化在这里成形，也在这里静静延续。
       </p>
 
-      <a href="experiences.php" class="pala-beyond__cta">探索体验</a>
+      <a href="<?php echo tpr_url('experiences'); ?>" class="pala-beyond__cta">探索体验</a>
 
     </div>
 
@@ -478,7 +482,7 @@
     <div class="pala-beyond__gallery">
 
       <figure class="pala-beyond__card">
-        <img src="assets/home/images/card-experience-1.jpg" alt="佩内格利普兰传统村落"
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-experience-1.jpg" alt="佩内格利普兰传统村落"
              width="800" height="600" loading="lazy" decoding="async">
         <figcaption class="pala-beyond__info">
           <span class="pala-beyond__region">巴厘岛北部</span>
@@ -487,7 +491,7 @@
       </figure>
 
       <figure class="pala-beyond__card">
-        <img src="assets/home/images/card-experience-2.jpg" alt="古农卡威石窟寺"
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-experience-2.jpg" alt="古农卡威石窟寺"
              width="800" height="600" loading="lazy" decoding="async">
         <figcaption class="pala-beyond__info">
           <span class="pala-beyond__region">文化古迹</span>
@@ -496,7 +500,7 @@
       </figure>
 
       <figure class="pala-beyond__card">
-        <img src="assets/home/images/card-expereience-3.jpg" alt="巴图尔火山日出"
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-expereience-3.jpg" alt="巴图尔火山日出"
              width="800" height="600" loading="lazy" decoding="async">
         <figcaption class="pala-beyond__info">
           <span class="pala-beyond__region">日出</span>
@@ -505,7 +509,7 @@
       </figure>
 
       <figure class="pala-beyond__card">
-        <img src="assets/home/images/card-experience-4.jpg" alt="蒂尔塔冈加水宫"
+        <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-experience-4.jpg" alt="蒂尔塔冈加水宫"
              width="800" height="600" loading="lazy" decoding="async">
         <figcaption class="pala-beyond__info">
           <span class="pala-beyond__region">巴厘岛东部</span>
@@ -671,9 +675,9 @@
 <!-- =============== END SECTION 7: 宾客之声 =============== -->
 
   <!-- FOOTER -->
-  <?php include 'footer.php'; ?>
+ <?php require TPR_ROOT . '/footer.php'; ?>
 
- <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
-  <script src="js/section-film.js"></script>
+ 
+<script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

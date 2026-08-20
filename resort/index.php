@@ -1,5 +1,8 @@
 
-<?php $tpr_active = 'resort'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'resort';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -8,23 +11,23 @@
   <title>度假村 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="帕拉乌布度假村坐落于巴厘岛乌布圣河帕克里桑之上，六栋私人别墅，由巴厘岛建筑师 Popo Danes 设计。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-resort.css">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/page-resort.css'); ?>">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP).
        Di-preload supaya unduhannya mulai bersamaan dengan CSS. -->
-  <link rel="preload" as="image" href="assets/resort/images/hero.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="<?php echo TPR_BASE; ?>/assets/resort/images/hero.webp" fetchpriority="high">
 </head>
 
 <body>
-  <?php include 'header.php'; ?>
+  	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-rs-hero" aria-labelledby="pala-rs-hero-title">
 
     <img class="pala-rs-hero__bg"
-         src="assets/home/images/resort-banner.webp"
+         src="<?php echo TPR_BASE; ?>/assets/home/images/resort-banner.webp"
          alt=""
          aria-hidden="true"
          fetchpriority="high"
@@ -92,7 +95,7 @@
     <div class="pala-mp__wrapper" data-mp-wrapper>
 
       <img class="pala-mp__image"
-           src="assets/masterplan.png"
+           src="<?php echo TPR_BASE; ?>/assets/masterplan.png"
            alt="帕拉乌布度假村平面图"
            width="1300" height="900" loading="lazy" decoding="async">
 
@@ -285,7 +288,7 @@
   </div>
 
   <div class="pala-wv__media">
-    <img src="assets/home/images/banner-villa.jpeg"
+    <img src="<?php echo TPR_BASE; ?>/assets/home/images/banner-villa.jpeg"
          alt="别墅内的私人用餐与管家服务"
          width="1000" height="750" loading="lazy" decoding="async">
   </div>
@@ -336,9 +339,9 @@
   <!-- ---------- Kartu ---------- -->
   <div class="pala-ae__track" data-ae-track tabindex="0" role="group" aria-label="体验列表">
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/1.png" alt="巴厘料理课"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/1.png" alt="巴厘料理课"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">文化与美食</span>
         <h3 class="pala-ae__name">巴厘料理课</h3>
@@ -348,9 +351,9 @@
       </div>
     </a>
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/2.jpg" alt="稻田体验"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/2.jpg" alt="稻田体验"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">自然</span>
         <h3 class="pala-ae__name">稻田体验</h3>
@@ -360,9 +363,9 @@
       </div>
     </a>
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/3.jpg" alt="供品制作"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/3.jpg" alt="供品制作"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">文化</span>
         <h3 class="pala-ae__name">供品制作</h3>
@@ -372,9 +375,9 @@
       </div>
     </a>
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/4.webp" alt="巴厘舞蹈表演"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/4.webp" alt="巴厘舞蹈表演"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">表演</span>
         <h3 class="pala-ae__name">巴厘舞蹈</h3>
@@ -384,9 +387,9 @@
       </div>
     </a>
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/5.png" alt="颂钵疗愈"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/5.png" alt="颂钵疗愈"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">疗愈</span>
         <h3 class="pala-ae__name">颂钵疗愈</h3>
@@ -396,9 +399,9 @@
       </div>
     </a>
 
-    <a class="pala-ae__card" href="experiences.php">
+    <a class="pala-ae__card" href="<?php echo tpr_url('experiences'); ?>">
       <div class="pala-ae__media">
-        <img src="assets/resort/slider/6.jpeg" alt="果阿加尔巴古迹"
+        <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/6.jpeg" alt="果阿加尔巴古迹"
              width="700" height="520" loading="lazy" decoding="async">
         <span class="pala-ae__tag">圣地 · 就在门外</span>
         <h3 class="pala-ae__name">果阿加尔巴</h3>
@@ -412,7 +415,7 @@
 
   <!-- ---------- Footer ---------- -->
   <div class="pala-ae__footer">
-    <a class="pala-ae__link" href="experiences.php">查看全部体验</a>
+    <a class="pala-ae__link" href="<?php echo tpr_url('experiences'); ?>">查看全部体验</a>
   </div>
 
 </section>
@@ -433,7 +436,7 @@
 
   <!-- ---------- Kiri: foto ---------- -->
   <div class="pala-rv__media">
-    <img src="assets/resort/slider/the-river-side.png"
+    <img src="<?php echo TPR_BASE; ?>/assets/resort/slider/the-river-side.png"
          alt="帕克里桑河畔"
          width="1000" height="760" loading="lazy" decoding="async">
     <p class="pala-rv__caption">帕克里桑河，自古流淌至今。</p>
@@ -511,13 +514,13 @@
     <p class="pala-sb__title">寻得静谧之乐，不妨多留几日。</p>
     <p class="pala-sb__sub">
       正在筹划庆典？
-      <a href="wedding-events.php">查看婚礼与活动 →</a>
+      <a href="<?php echo tpr_url('weddings'); ?>">查看婚礼与活动 →</a>
     </p>
   </div>
 
   <!-- Tombol -->
   <div class="pala-sb__actions">
-    <a class="pala-sb__btn pala-sb__btn--ghost" href="contact.php">联系我们</a>
+    <a class="pala-sb__btn pala-sb__btn--ghost" href="<?php echo tpr_url('contact'); ?>">联系我们</a>
 
     <a class="pala-sb__btn pala-sb__btn--solid"
        href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%B8%95%E6%8B%89%E4%B9%8C%E5%B8%83%E5%BA%A6%E5%81%87%E6%9D%91&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E4%BB%A5%E4%B8%8B%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E6%84%8F%E5%90%91%E5%88%AB%E5%A2%85%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">
@@ -530,6 +533,6 @@
 
 <!-- FOOTER -->
   <?php  ?>
- <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+<script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

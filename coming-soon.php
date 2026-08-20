@@ -30,14 +30,14 @@ if (!isset($tpr_progress))   { $tpr_progress   = '60%'; }
   <!-- Halaman kosong sebaiknya tidak diindeks — hapus baris ini saat halaman jadi -->
   <meta name="robots" content="noindex, follow">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-coming-soon.css">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/page-coming-soon.css'); ?>">
 </head>
 
 <!-- Tanpa hero, jadi header langsung solid -->
 <body class="pala-page--solid-header">
 
-  <?php include 'header.php'; ?>
+	<?php require TPR_ROOT . '/header.php'; ?>
 
   <main class="pala-soon">
     <div class="pala-soon__inner">
@@ -83,14 +83,14 @@ if (!isset($tpr_progress))   { $tpr_progress   = '60%'; }
       </div>
 
       <div class="pala-soon__actions">
-        <a href="index.php" class="pala-soon__btn pala-soon__btn--solid">返回首页</a>
-        <a href="contact.php" class="pala-soon__btn pala-soon__btn--ghost">联系我们</a>
+        <a href="<?php echo tpr_url(); ?>" class="pala-soon__btn pala-soon__btn--solid">返回首页</a>
+        <a href="<?php echo tpr_url('contact'); ?>" class="pala-soon__btn pala-soon__btn--ghost">联系我们</a>
       </div>
 
     </div>
   </main>
 
-  <?php include 'footer.php'; ?>
+ <?php require TPR_ROOT . '/footer.php'; ?>
 
 </body>
 </html>

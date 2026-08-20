@@ -1,4 +1,7 @@
-<?php $tpr_active = 'hura'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'hura';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,23 +10,23 @@
   <title>Hura 餐厅 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="Hura 餐厅位于帕拉乌布度假村，本地种植、简单烹调、慢慢品尝。可整体包场，用于婚礼与私人晚宴。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-hura.css">
+<link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/page-hura.css'); ?>">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
-  <link rel="preload" as="image" href="assets/hura-page/hura-hero.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="<?php echo TPR_BASE; ?>/assets/hura-page/hura-hero.jpg" fetchpriority="high">
 </head>
 
 <body>
 
-  <?php include 'header.php'; ?>
+  	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-hr-hero" aria-labelledby="pala-hr-hero-title" data-hero-parallax>
 
     <img class="pala-hr-hero__bg"
-         src="assets/hura-page/hura-hero.jpg"
+         src="<?php echo TPR_BASE; ?>/assets/hura-page/hura-hero.jpg"
          alt=""
          aria-hidden="true"
          fetchpriority="high"
@@ -156,7 +159,7 @@
 <section class="pala-menu"
          aria-labelledby="pala-menu-title"
          tabindex="0"
-         data-base="assets/hura-page/menu/"
+         data-base="<?php echo TPR_BASE; ?>/assets/hura-page/menu/"
          data-pages="1.webp, 2.webp, 3.webp, 4.webp, 5.webp,
                      6.webp, 7.webp, 8.webp, 9.webp, 10.webp,
                      11.webp, 12.webp, 13.webp, 14.webp, 15.webp, 16.webp">
@@ -206,50 +209,50 @@
     <div class="pala-gal__grid">
 
       <button class="pala-gal__item pala-gal__item--large" type="button"
-              data-full="assets/hura-page/gallery/1.webp" aria-label="查看大图：餐厅全景">
-        <img src="assets/hura-page/gallery/1.webp" alt="Hura 餐厅全景"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/1.webp" aria-label="查看大图：餐厅全景">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/1.webp" alt="Hura 餐厅全景"
              width="900" height="900" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/2.webp" aria-label="查看大图：脆皮鸭">
-        <img src="assets/hura-page/gallery/2.webp" alt="脆皮鸭"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/2.webp" aria-label="查看大图：脆皮鸭">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/2.webp" alt="脆皮鸭"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--half" type="button"
-              data-full="assets/hura-page/gallery/3.webp" aria-label="查看大图：用餐区">
-        <img src="assets/hura-page/gallery/3.webp" alt="用餐区"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/3.webp" aria-label="查看大图：用餐区">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/3.webp" alt="用餐区"
              width="600" height="900" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/6.webp" aria-label="查看大图：活动场地">
-        <img src="assets/hura-page/gallery/6.webp" alt="活动场地"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/6.webp" aria-label="查看大图：活动场地">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/6.webp" alt="活动场地"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/5.webp" aria-label="查看大图：晚餐布置">
-        <img src="assets/hura-page/gallery/5.webp" alt="晚餐布置"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/5.webp" aria-label="查看大图：晚餐布置">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/5.webp" alt="晚餐布置"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
         <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/4.webp" aria-label="查看大图：餐厅外观">
-        <img src="assets/hura-page/gallery/4.webp" alt="Hura 餐厅外观"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/4.webp" aria-label="查看大图：餐厅外观">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/4.webp" alt="Hura 餐厅外观"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/7.webp" aria-label="查看大图：酒架">
-        <img src="assets/hura-page/gallery/7.webp" alt="酒架"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/7.webp" aria-label="查看大图：酒架">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/7.webp" alt="酒架"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
       <button class="pala-gal__item pala-gal__item--tall" type="button"
-              data-full="assets/hura-page/gallery/8.webp" aria-label="查看大图：菜品">
-        <img src="assets/hura-page/gallery/8.webp" alt="菜品"
+              data-full="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/8.webp" aria-label="查看大图：菜品">
+        <img src="<?php echo TPR_BASE; ?>/assets/hura-page/gallery/8.webp" alt="菜品"
              width="600" height="800" loading="lazy" decoding="async">
       </button>
 
@@ -508,8 +511,8 @@
 </section>
 <!-- =========== END SECTION 6: 常见问题 =========== -->
 
-  <?php include 'footer.php'; ?>
+ <?php require TPR_ROOT . '/footer.php'; ?>
 
- <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+<script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

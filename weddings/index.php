@@ -1,4 +1,7 @@
-<?php $tpr_active = 'wedding'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'wedding';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,23 +10,23 @@
   <title>婚礼与活动 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="帕拉乌布度假村包场婚礼与私人活动：河畔草坪、屋顶露台、活动草坪与 Hura 餐厅场地，可容纳 200 位宾客。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-wedding.css">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/page-wedding.css'); ?>">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
-  <link rel="preload" as="image" href="assets/wedding/images/hero.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="<?php echo TPR_BASE; ?>/assets/wedding/images/hero.webp" fetchpriority="high">
 </head>
 
 <body>
 
-  <?php include 'header.php'; ?>
+ 	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-we-hero" aria-labelledby="pala-we-hero-title">
 
     <img class="pala-we-hero__bg"
-         src="assets/wedding-events/images/hero-wedding-events.png"
+         src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/hero-wedding-events.png"
          alt=""
          aria-hidden="true"
          fetchpriority="high"
@@ -89,7 +92,7 @@
 
   <button class="pala-wvid__frame" type="button" data-wvid-frame aria-label="播放影片">
     <img class="pala-wvid__thumb"
-         src="assets/wedding/images/video-thumb.webp"
+         src="<?php echo TPR_BASE; ?>/assets/wedding/images/video-thumb.webp"
          alt="帕拉乌布度假村婚礼影片"
          width="1400" height="788" loading="lazy" decoding="async">
 
@@ -170,7 +173,7 @@
                 专业厨房与独立服务通道。
               </p>
 
-              <a class="pala-vn__cta" href="contact.php">查看场地详情</a>
+              <a class="pala-vn__cta" href="<?php echo tpr_url('contact'); ?>">查看场地详情</a>
             </div>
           </div>
         </div>
@@ -205,7 +208,7 @@
                 屋顶露台自然承接一天的节奏。
               </p>
 
-              <a class="pala-vn__cta" href="contact.php">查看场地详情</a>
+              <a class="pala-vn__cta" href="<?php echo tpr_url('contact'); ?>">查看场地详情</a>
             </div>
           </div>
         </div>
@@ -244,7 +247,7 @@
                 适合小型婚礼与晚宴。
               </p>
 
-              <a class="pala-vn__cta" href="contact.php">查看场地详情</a>
+              <a class="pala-vn__cta" href="<?php echo tpr_url('contact'); ?>">查看场地详情</a>
             </div>
           </div>
         </div>
@@ -283,7 +286,7 @@
                 适合仪式与河畔晚宴。
               </p>
 
-              <a class="pala-vn__cta" href="contact.php">查看场地详情</a>
+              <a class="pala-vn__cta" href="<?php echo tpr_url('contact'); ?>">查看场地详情</a>
             </div>
           </div>
         </div>
@@ -296,7 +299,7 @@
         <span class="pala-vn__counter" data-vn-counter aria-live="polite">01 / 04</span>
 
         <div class="pala-vn__image is-active">
-          <img src="assets/wedding-events/images/main-lawn-agung.png" alt="阿贡别墅主草坪"
+          <img src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/main-lawn-agung.png" alt="阿贡别墅主草坪"
                width="1200" height="900" decoding="async">
           <div class="pala-vn__label">
             <span class="pala-vn__label-venue">阿贡别墅</span>
@@ -305,7 +308,7 @@
         </div>
 
         <div class="pala-vn__image">
-          <img src="assets/wedding-events/images/rooftop-deck.jpg" alt="桑香别墅屋顶露台"
+          <img src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/rooftop-deck.jpg" alt="桑香别墅屋顶露台"
                width="1200" height="900" loading="lazy" decoding="async">
           <div class="pala-vn__label">
             <span class="pala-vn__label-venue">桑香别墅</span>
@@ -314,7 +317,7 @@
         </div>
 
         <div class="pala-vn__image">
-          <img src="assets/wedding-events/images/hura.png" alt="Hura 餐厅与草坪"
+          <img src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/hura.png" alt="Hura 餐厅与草坪"
                width="1200" height="900" loading="lazy" decoding="async">
           <div class="pala-vn__label">
             <span class="pala-vn__label-venue">Hura 餐厅</span>
@@ -323,7 +326,7 @@
         </div>
 
         <div class="pala-vn__image">
-          <img src="assets/wedding-events/images/riverside.jpg" alt="森林河畔场地"
+          <img src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/riverside.jpg" alt="森林河畔场地"
                width="1200" height="900" loading="lazy" decoding="async">
           <div class="pala-vn__label">
             <span class="pala-vn__label-venue">森林河畔</span>
@@ -492,18 +495,18 @@
     <p class="pala-sb__title">您的庆典由此开始</p>
     <p class="pala-sb__sub">
       计划入住？
-      <a href="the-resort.php">探索度假村 →</a>
+      <a href="<?php echo tpr_url('resort'); ?>">探索度假村 →</a>
     </p>
   </div>
 
   <!-- Tombol -->
   <div class="pala-sb__actions">
     <a class="pala-sb__btn pala-sb__btn--ghost"
-       href="assets/docs/pala-ubud-factsheet-cn.pdf" target="_blank" rel="noopener">
+       href="<?php echo TPR_BASE; ?>/assets/docs/pala-ubud-factsheet-cn.pdf" target="_blank" rel="noopener">
       下载资料手册
     </a>
 
-    <a class="pala-sb__btn pala-sb__btn--solid" href="contact.php" data-mo-open>
+    <a class="pala-sb__btn pala-sb__btn--solid" href="<?php echo tpr_url('contact'); ?>" data-mo-open>
   活动咨询
 </a>
   </div>
@@ -631,6 +634,6 @@
 
   <?php  ?>
 
-<script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+<script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

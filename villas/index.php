@@ -1,4 +1,7 @@
-<?php $tpr_active = 'villas'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'villas';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,13 +10,13 @@
   <title>别墅 | 帕拉乌布度假村 · 巴厘岛乌布私人泳池别墅</title>
   <meta name="description" content="帕拉乌布度假村六栋私人泳池别墅：卡图尔、巴图尔、塞拉雅 A、塞拉雅 B、桑香、阿贡。可容纳 2 至 10 位宾客，均配私人泳池与森林河谷景观。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <!-- <link rel="stylesheet" href="css/page-villas.css"> -->
+  <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
+  <!-- <link rel="stylesheet" href="<?php echo tpr_asset('css/page-villas.css'); ?>"> -->
 </head>
 
 <body>
 
-  <?php include 'header.php'; ?>
+ 	<?php require TPR_ROOT . '/header.php'; ?>
 
   <!-- ============ SPRITE IKON ============
        Didefinisikan sekali, dipakai berulang lewat <use>.
@@ -124,7 +127,7 @@
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-vp-hero" aria-labelledby="pala-vp-hero-title">
-    <img class="pala-vp-hero__bg" src="assets/home/images/banner-villa.jpeg" alt="" aria-hidden="true">
+    <img class="pala-vp-hero__bg" src="<?php echo TPR_BASE; ?>/assets/home/images/banner-villa.jpeg" alt="" aria-hidden="true">
   </section>
 
 
@@ -135,8 +138,8 @@
 
         <!-- ---------- 卡图尔 ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-catur.php">
-            <img src="assets/home/images/card-villa-catur.webp" alt="卡图尔别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/catur'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-catur.webp" alt="卡图尔别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -153,7 +156,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-catur.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/catur'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%8D%A1%E5%9B%BE%E5%B0%94%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E5%8D%A1%E5%9B%BE%E5%B0%94%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -161,8 +164,8 @@
 
         <!-- ---------- 巴图尔 ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-batur.php">
-            <img src="assets/home/images/card-villa-batur.jpg" alt="巴图尔别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/batur'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-batur.jpg" alt="巴图尔别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -179,7 +182,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-batur.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/batur'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%B7%B4%E5%9B%BE%E5%B0%94%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E5%B7%B4%E5%9B%BE%E5%B0%94%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -187,8 +190,8 @@
 
         <!-- ---------- 塞拉雅 A ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-seraya-a.php">
-            <img src="assets/home/images/card-villa-seraya-a.webp" alt="塞拉雅 A 别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/seraya-a'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-seraya-a.webp" alt="塞拉雅 A 别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -204,7 +207,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-seraya-a.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/seraya-a'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%A1%9E%E6%8B%89%E9%9B%85%20A%20%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E5%A1%9E%E6%8B%89%E9%9B%85%20A%20%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -212,8 +215,8 @@
 
         <!-- ---------- 塞拉雅 B ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-seraya-b.php">
-            <img src="assets/home/images/card-villa-seraya-b.webp" alt="塞拉雅 B 别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/seraya-b'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-seraya-b.webp" alt="塞拉雅 B 别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -229,7 +232,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-seraya-b.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/seraya-b'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E5%A1%9E%E6%8B%89%E9%9B%85%20B%20%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E5%A1%9E%E6%8B%89%E9%9B%85%20B%20%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -237,8 +240,8 @@
 
         <!-- ---------- 桑香 ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-sanghyang.php">
-            <img src="assets/home/images/card-villa-sanghyang.webp" alt="桑香别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/sanghyang'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-sanghyang.webp" alt="桑香别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -256,7 +259,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-sanghyang.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/sanghyang'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E6%A1%91%E9%A6%99%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E6%A1%91%E9%A6%99%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -264,8 +267,8 @@
 
         <!-- ---------- 阿贡 ---------- -->
         <article class="pala-vp-card">
-          <a class="pala-vp-card__media" href="villa-agung.php">
-            <img src="assets/home/images/card-villa-agung.webp" alt="阿贡别墅"
+          <a class="pala-vp-card__media" href="<?php echo tpr_url('villas/agung'); ?>">
+            <img src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-agung.webp" alt="阿贡别墅"
                  width="800" height="686" loading="lazy" decoding="async">
           </a>
           <div class="pala-vp-card__body">
@@ -283,7 +286,7 @@
             </ul>
 
             <div class="pala-vp-card__actions">
-              <a class="pala-vp-btn pala-vp-btn--ghost" href="villa-agung.php">查看详情</a>
+              <a class="pala-vp-btn pala-vp-btn--ghost" href="<?php echo tpr_url('villas/agung'); ?>">查看详情</a>
               <a class="pala-vp-btn pala-vp-btn--solid" href="mailto:enquiry@thepalaubudresort.com?subject=%E9%A2%84%E8%AE%A2%E5%92%A8%E8%AF%A2%20%C2%B7%20%E9%98%BF%E8%B4%A1%E5%88%AB%E5%A2%85&body=%E6%82%A8%E5%A5%BD%EF%BC%8C%E6%88%91%E6%83%B3%E5%92%A8%E8%AF%A2%E9%98%BF%E8%B4%A1%E5%88%AB%E5%A2%85%E7%9A%84%E9%A2%84%E8%AE%A2%EF%BC%9A%0D%0A%0D%0A%E5%85%A5%E4%BD%8F%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E9%80%80%E6%88%BF%E6%97%A5%E6%9C%9F%EF%BC%9A%0D%0A%E5%85%A5%E4%BD%8F%E4%BA%BA%E6%95%B0%EF%BC%9A%0D%0A%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A">立即预订</a>
             </div>
           </div>
@@ -386,8 +389,8 @@
   </section>
 
 
-  <?php include 'footer.php'; ?>
+ <?php require TPR_ROOT . '/footer.php'; ?>
 
- <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+<script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

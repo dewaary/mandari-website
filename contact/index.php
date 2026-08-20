@@ -1,4 +1,7 @@
-<?php $tpr_active = 'contact'; ?>
+<?php
+require $_SERVER['DOCUMENT_ROOT'] . '/cn/config.php';
+$tpr_active = 'contact';   // sesuaikan per halaman
+?>
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -7,23 +10,22 @@
   <title>联系我们 | 帕拉乌布度假村 · 巴厘岛乌布</title>
   <meta name="description" content="联系帕拉乌布度假村：预订咨询、婚礼与活动筹划、行程安排。电话 +62 811-3888-565，邮箱 enquiry@thepalaubudresort.com。">
 
-  <link rel="stylesheet" href="css/style.css?v=<?php echo filemtime('css/style.css'); ?>">
-  <link rel="stylesheet" href="css/page-contact.css?v=<?php echo filemtime('css/page-contact.css'); ?>">
+ <link rel="stylesheet" href="<?php echo tpr_asset('css/style.css'); ?>">
 
   <!-- Foto hero adalah elemen terbesar di layar pertama (LCP) -->
-  <link rel="preload" as="image" href="assets/contact/images/hero.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="<?php echo TPR_BASE; ?>/assets/contact/images/hero.webp" fetchpriority="high">
 </head>
 
 <body>
 
-  <?php include 'header.php'; ?>
+  	<?php require TPR_ROOT . '/header.php'; ?>
 
 
   <!-- ==================== 1. HERO ==================== -->
   <section class="pala-ct-hero" aria-labelledby="pala-ct-hero-title">
 
     <img class="pala-ct-hero__bg"
-         src="assets/home/images/card-villa-agung.webp"
+         src="<?php echo TPR_BASE; ?>/assets/home/images/card-villa-agung.webp"
          alt=""
          aria-hidden="true"
          fetchpriority="high"
@@ -66,7 +68,7 @@
 
     <!-- ---------- Peta ---------- -->
     <div class="pala-cm__map">
-      <img src="assets/contact/images/map.webp"
+      <img src="<?php echo TPR_BASE; ?>/assets/contact/images/map.webp"
            alt="帕拉乌布度假村位置图 · 巴厘岛乌布 Jl. Kelusu"
            width="1600" height="700" loading="lazy" decoding="async">
 
@@ -195,7 +197,7 @@
       <div class="pala-cf__grid">
 
         <div class="pala-cf__media">
-          <img src="assets/wedding-events/images/main-lawn-agung.png" alt="别墅客房"
+          <img src="<?php echo TPR_BASE; ?>/assets/wedding-events/images/main-lawn-agung.png" alt="别墅客房"
                width="1000" height="1120" loading="lazy" decoding="async">
         </div>
 
@@ -273,7 +275,7 @@
       <div class="pala-cf__grid">
 
         <div class="pala-cf__media">
-          <img src="assets/contact/tab1-image.webp" alt="草坪婚礼布置"
+          <img src="<?php echo TPR_BASE; ?>/assets/contact/tab1-image.webp" alt="草坪婚礼布置"
                width="1000" height="1120" loading="lazy" decoding="async">
         </div>
 
@@ -369,8 +371,8 @@
   <!-- Section berikutnya ditulis di sini -->
 
 
-  <?php include 'footer.php'; ?>
+ <?php require TPR_ROOT . '/footer.php'; ?>
 
-  <script src="js/script.js?v=<?php echo filemtime('js/script.js'); ?>"></script>
+  <script src="<?php echo tpr_asset('js/script.js'); ?>"></script>
 </body>
 </html>

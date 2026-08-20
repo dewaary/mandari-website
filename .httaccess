@@ -1,0 +1,126 @@
+# =========================================================
+# .htaccess — letakkan di public_html/cn/
+#
+# Dengan struktur folder + index.php, server sudah otomatis
+# melayani /cn/villas/ dari /cn/villas/index.php. Jadi TIDAK
+# perlu aturan rewrite untuk URL sama sekali.
+#
+# Berkas ini hanya mengurus: pengalihan URL lama, kompresi,
+# cache, dan penguncian berkas yang tidak boleh diakses langsung.
+# =========================================================
+
+RewriteEngine On
+RewriteBase /cn/
+
+# ---------------------------------------------------------
+# 1. Alihkan URL .php lama ke URL folder yang baru (301)
+#    Supaya tautan yang terlanjur tersebar tidak mati.
+# ---------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/cn/index\.php[\s?]           [NC]
+RewriteRule ^ /cn/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villas\.php[\s?]          [NC]
+RewriteRule ^ /cn/villas/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-catur\.php[\s?]     [NC]
+RewriteRule ^ /cn/villas/catur/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-batur\.php[\s?]     [NC]
+RewriteRule ^ /cn/villas/batur/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-seraya-a\.php[\s?]  [NC]
+RewriteRule ^ /cn/villas/seraya-a/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-seraya-b\.php[\s?]  [NC]
+RewriteRule ^ /cn/villas/seraya-b/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-sanghyang\.php[\s?] [NC]
+RewriteRule ^ /cn/villas/sanghyang/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/villa-agung\.php[\s?]     [NC]
+RewriteRule ^ /cn/villas/agung/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/the-resort\.php[\s?]      [NC]
+RewriteRule ^ /cn/resort/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/wedding-events\.php[\s?]  [NC]
+RewriteRule ^ /cn/weddings/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/hura-restaurant\.php[\s?] [NC]
+RewriteRule ^ /cn/dining/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/experiences\.php[\s?]     [NC]
+RewriteRule ^ /cn/experiences/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/contact\.php[\s?]         [NC]
+RewriteRule ^ /cn/contact/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/term-conditions\.php[\s?] [NC]
+RewriteRule ^ /cn/terms/ [R=301,L]
+
+RewriteCond %{THE_REQUEST} \s/cn/privacy-policy\.php[\s?]  [NC]
+RewriteRule ^ /cn/privacy/ [R=301,L]
+
+# ---------------------------------------------------------
+# 2. Sembunyikan /index.php di URL
+#    /cn/villas/index.php -> /cn/villas/
+#    Tanpa ini satu halaman punya dua alamat, dan Baidu
+#    menganggapnya duplikat.
+# ---------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/cn/(.*)index\.php[\s?] [NC]
+RewriteRule ^ /cn/%1 [R=301,L]
+
+# ---------------------------------------------------------
+# 3. Tambahkan garis miring di akhir untuk folder
+#    /cn/villas -> /cn/villas/
+# ---------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.*)$ /cn/$1/ [R=301,L]
+
+# ---------------------------------------------------------
+# 4. Kompresi — memangkas CSS dan JS sampai sekitar 75%.
+#    Untuk koneksi lewat GFW, ini terasa.
+# ---------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css
+  AddOutputFilterByType DEFLATE application/javascript text/javascript
+  AddOutputFilterByType DEFLATE image/svg+xml application/json
+</IfModule>
+
+# ---------------------------------------------------------
+# 5. Cache
+#    CSS dan JS pendek — penanda ?v= dari tpr_asset() sudah
+#    memastikan versi baru langsung terpakai.
+# ---------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css               "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType image/webp             "access plus 6 months"
+  ExpiresByType image/jpeg             "access plus 6 months"
+  ExpiresByType image/png              "access plus 6 months"
+  ExpiresByType image/svg+xml          "access plus 6 months"
+  ExpiresByType video/mp4              "access plus 6 months"
+</IfModule>
+
+# ---------------------------------------------------------
+# 6. Video harus mendukung range request, kalau tidak
+#    -movflags +faststart saat encoding jadi percuma
+# ---------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(mp4|webm)$">
+    Header set Accept-Ranges bytes
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------
+# 7. Kunci berkas yang tidak boleh dibuka langsung lewat URL
+# ---------------------------------------------------------
+<FilesMatch "^(header|footer|config|coming-soon)\.php$">
+  Require all denied
+</FilesMatch>
+
+# Matikan daftar isi folder
+Options -Indexes
