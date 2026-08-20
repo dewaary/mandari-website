@@ -7294,3 +7294,561 @@ a.pala-hres__card:focus-visible {
   .pala-cta__card img { transition: none; }
   .pala-cta__card:hover img { transform: none; }
 }
+
+
+.pala-ct-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(100svh - var(--pala-header-h, 110px));
+  padding: 0 0 72px;
+  background: #1d2923;
+  font-family: var(--tpr-sans);
+  color: #fff;
+}
+
+.pala-ct-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pala-ct-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 22, 16, .28) 0%,
+    rgba(6, 22, 16, .08) 42%,
+    rgba(6, 22, 16, .74) 100%
+  );
+}
+
+.pala-ct-hero__inner {
+  width: min(1200px, calc(100% - 80px));
+  margin: 0 auto;
+}
+
+.pala-ct-hero__eyebrow {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .82);
+}
+
+.pala-ct-hero__title {
+  margin: 0 0 18px;
+  font-family: var(--tpr-serif);
+  font-size: clamp(40px, 5.2vw, 82px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 8px;
+  color: #fff;
+}
+
+.pala-ct-hero__lead {
+  max-width: 34em;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .4px;
+  color: rgba(255, 255, 255, .9);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1000px) {
+  .pala-ct-hero__inner { width: calc(100% - 48px); }
+}
+
+@media (max-width: 720px) {
+  .pala-ct-hero {
+    min-height: calc(100svh - var(--pala-header-h, 64px));
+    padding-bottom: 48px;
+  }
+  .pala-ct-hero__inner { width: calc(100% - 40px); }
+  .pala-ct-hero__title { letter-spacing: 5px; }
+  .pala-ct-hero__lead { font-size: 15px; line-height: 1.95; }
+}
+
+/* =========================================================
+   page-contact.css — bagian 2: 我们的位置 (Map + Contact Cards)
+   Tempel di bawah bagian HERO.
+   Prefiks .pala-cm-
+   ========================================================= */
+
+.pala-cm {
+  padding: 4.5rem 3rem 5rem;
+  background: #13301f;
+  text-align: center;
+  font-family: var(--tpr-sans);
+}
+
+.pala-cm *,
+.pala-cm *::before,
+.pala-cm *::after { box-sizing: border-box; }
+
+.pala-cm__inner { max-width: 1500px; margin: 0 auto; }
+
+/* ---------------- Judul ---------------- */
+.pala-cm__title {
+  display: inline-block;
+  margin: 0 0 1.6rem;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(245, 240, 232, .55);
+  font-family: var(--tpr-serif);
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 6px;
+  /* letter-spacing menambah ruang setelah aksara terakhir —
+     digeser balik supaya garis bawahnya tetap terlihat di tengah */
+  text-indent: 6px;
+  color: #f5f0e8;
+}
+
+.pala-cm__sub {
+  max-width: 44em;
+  margin: 0 auto 2.8rem;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: rgba(245, 240, 232, .8);
+}
+
+/* ---------------- Peta ---------------- */
+.pala-cm__map {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  border-radius: 4px;
+  background: #e8e4dc;
+}
+
+.pala-cm__map img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+}
+
+/* Kartu alamat di atas peta, seperti panel Google Maps */
+.pala-cm__card {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: min(340px, calc(100% - 36px));
+  padding: 18px 20px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+  text-align: left;
+}
+
+.pala-cm__card-name {
+  margin: 0 0 8px;
+  font-family: var(--tpr-serif);
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 1px;
+  color: #13301f;
+}
+
+.pala-cm__card-addr {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #4a5550;
+}
+
+.pala-cm__card-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pala-cm__card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid #13301f;
+  border-radius: 999px;
+  background: transparent;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: .04em;
+  text-decoration: none;
+  color: #13301f;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+.pala-cm__card-btn svg { width: 13px; height: 13px; flex: 0 0 auto; }
+.pala-cm__card-btn:hover { background: #13301f; color: #fff; }
+.pala-cm__card-btn:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 2px; }
+
+/* Pesan setelah alamat disalin */
+.pala-cm__copied {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #287233;
+}
+
+.pala-cm__copied[hidden] { display: none; }
+
+/* ---------------- Kartu kontak ---------------- */
+.pala-cm__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.pala-cm__item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 24px;
+  border-radius: 6px;
+  background: #fff;
+  color: #13301f;
+  text-align: left;
+  text-decoration: none;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* Hanya kartu yang bisa diklik yang bergerak saat disentuh kursor */
+a.pala-cm__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .22);
+}
+
+a.pala-cm__item:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+.pala-cm__icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  color: #13301f;
+}
+
+.pala-cm__icon svg { width: 100%; height: 100%; }
+
+.pala-cm__label {
+  display: block;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: .5px;
+  color: #13301f;
+}
+
+.pala-cm__value {
+  display: block;
+  margin-top: 3px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: #3d4a41;
+  /* Alamat email panjang — dipatahkan daripada meluber keluar kartu */
+  overflow-wrap: anywhere;
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1100px) {
+  .pala-cm__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+}
+
+@media (max-width: 768px) {
+  .pala-cm { padding: 3.5rem 1.5rem 4rem; }
+  .pala-cm__title { letter-spacing: 4px; text-indent: 4px; }
+  .pala-cm__sub { margin-bottom: 2.2rem; }
+
+  .pala-cm__map img { aspect-ratio: 4 / 3; }
+
+  /* Kartu alamat pindah ke bawah peta — di layar sempit,
+     menutupi peta membuat lokasinya tidak terlihat sama sekali */
+  .pala-cm__map { border-radius: 4px 4px 0 0; margin-bottom: 0; }
+  .pala-cm__card {
+    position: static;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-radius: 0 0 4px 4px;
+    box-shadow: none;
+  }
+
+  .pala-cm__grid { grid-template-columns: 1fr; gap: 14px; }
+  .pala-cm__item { padding: 18px 20px; gap: 15px; }
+  .pala-cm__icon { width: 30px; height: 30px; }
+  .pala-cm__label { font-size: 16px; }
+  .pala-cm__value { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-cm__item { transition: none; }
+  a.pala-cm__item:hover { transform: none; }
+}
+
+/* =========================================================
+   page-contact.css — bagian 3: 在线咨询 (Tabbed Forms)
+   Tempel di bawah bagian MAP.
+   Prefiks .pala-cf-
+   ========================================================= */
+
+.pala-cf {
+  padding: 4.5rem 3rem 5.5rem;
+  background: #13301f;
+  font-family: var(--tpr-sans);
+}
+
+.pala-cf *,
+.pala-cf *::before,
+.pala-cf *::after { box-sizing: border-box; }
+
+.pala-cf__inner { max-width: 1500px; margin: 0 auto; }
+
+/* ---------------- Judul ---------------- */
+.pala-cf__head { text-align: center; margin-bottom: 2rem; }
+
+.pala-cf__title {
+  display: inline-block;
+  margin: 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(245, 240, 232, .55);
+  font-family: var(--tpr-serif);
+  font-size: clamp(30px, 3.6vw, 48px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 6px;
+  text-indent: 6px;
+  color: #f5f0e8;
+}
+
+/* ---------------- Tab ---------------- */
+.pala-cf__tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 2.4rem;
+}
+
+.pala-cf__tab {
+  padding: 11px 26px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  font-family: var(--tpr-serif);
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  color: rgba(245, 240, 232, .75);
+  cursor: pointer;
+  transition: background .25s ease, color .25s ease;
+}
+
+.pala-cf__tab:hover { color: #f5f0e8; }
+.pala-cf__tab.is-active { background: #f1ece1; color: #13301f; }
+.pala-cf__tab:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+/* ---------------- Panel ---------------- */
+.pala-cf__panel { display: none; }
+.pala-cf__panel.is-active { display: block; }
+
+.pala-cf__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.pala-cf__media { position: relative; min-height: 560px; background: #e8e4dc; }
+
+.pala-cf__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pala-cf__body { padding: 2.6rem 2.8rem 2.8rem; }
+
+.pala-cf__form-title {
+  margin: 0 0 1.8rem;
+  font-family: var(--tpr-serif);
+  font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 3px;
+  color: #13301f;
+}
+
+/* ---------------- Kolom isian ---------------- */
+.pala-cf__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.6rem;
+}
+
+.pala-cf__group { position: relative; margin-bottom: 1.4rem; }
+
+.pala-cf__group label {
+  display: block;
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .06em;
+  color: #3d4a41;
+}
+
+.pala-cf__req { color: #b14c4c; }
+
+.pala-cf__optional {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  color: #8a9089;
+}
+
+.pala-cf__group input,
+.pala-cf__group select,
+.pala-cf__group textarea {
+  width: 100%;
+  padding: 10px 2px;
+  border: 0;
+  border-bottom: 1px solid #d5d9d4;
+  border-radius: 0;
+  background: transparent;
+  outline: none;
+  font-family: inherit;
+  /* 16px, bukan 14px: di iOS Safari input di bawah 16px membuat
+     halaman otomatis di-zoom saat kolom difokus */
+  font-size: 16px;
+  color: #13301f;
+  transition: border-color .25s ease;
+}
+
+.pala-cf__group select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 28px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2313301f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  background-size: 12px;
+}
+
+.pala-cf__group textarea { min-height: 110px; resize: vertical; line-height: 1.7; }
+
+.pala-cf__group input::placeholder,
+.pala-cf__group textarea::placeholder { color: #a3a9a4; }
+
+.pala-cf__group input:focus,
+.pala-cf__group select:focus,
+.pala-cf__group textarea:focus { border-color: #13301f; }
+
+/* Perangkap spam — disembunyikan dari mata dan dari pembaca layar */
+.pala-cf__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ---------------- Pesan ---------------- */
+.pala-cf__error {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #b14c4c;
+}
+
+.pala-cf__group.has-error input,
+.pala-cf__group.has-error select,
+.pala-cf__group.has-error textarea { border-color: #b14c4c; }
+
+.pala-cf__notice {
+  margin: 0 0 1.4rem;
+  padding: 12px 15px;
+  border: 1px solid #e3c9c9;
+  border-radius: 3px;
+  background: #fbf1f1;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #9a3f3f;
+}
+
+.pala-cf__notice[hidden] { display: none; }
+
+.pala-cf__notice--ok {
+  border-color: #c5ddc9;
+  background: #f0f7f1;
+  color: #2b6b38;
+}
+
+/* ---------------- Tombol kirim ---------------- */
+.pala-cf__submit {
+  margin-top: .6rem;
+  padding: 14px 34px;
+  border: 0;
+  border-radius: 999px;
+  background: #13301f;
+  color: #f1ece1;
+  font-family: var(--tpr-serif);
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background .25s ease, opacity .25s ease;
+}
+
+.pala-cf__submit:hover { background: #1c4a2e; }
+.pala-cf__submit:focus-visible { outline: 2px solid #8b6b4a; outline-offset: 3px; }
+.pala-cf__submit.is-loading { opacity: .75; pointer-events: none; }
+.pala-cf__submit .pala-cf__loading { display: none; }
+.pala-cf__submit.is-loading .pala-cf__text { display: none; }
+.pala-cf__submit.is-loading .pala-cf__loading { display: inline; }
+
+/* Keterangan pengganti reCAPTCHA */
+.pala-cf__note {
+  margin: 1.2rem 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #7a827c;
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1000px) {
+  .pala-cf__grid { grid-template-columns: 1fr; }
+  /* Foto pindah ke atas: tamu melihat tempatnya dulu, baru mengisi */
+  .pala-cf__media { min-height: 260px; }
+  .pala-cf__body { padding: 2.2rem 1.8rem 2.4rem; }
+}
+
+@media (max-width: 768px) {
+  .pala-cf { padding: 3.5rem 1.5rem 4rem; }
+  .pala-cf__title { letter-spacing: 4px; text-indent: 4px; }
+  .pala-cf__tab { padding: 10px 20px; font-size: 15px; }
+  .pala-cf__body { padding: 1.8rem 1.4rem 2rem; }
+  /* Dua kolom terlalu sempit di ponsel */
+  .pala-cf__row { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-cf__tab,
+  .pala-cf__submit { transition: none; }
+}

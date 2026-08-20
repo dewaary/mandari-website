@@ -1828,3 +1828,213 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 150);
   });
 });
+
+/* =========================================================
+   Blok "salin alamat" — tempel di script.js.
+
+   Kenapa ada tombol salin alamat:
+   Sopir taksi dan ojek di Bali membaca alamat dalam huruf Latin,
+   bukan aksara Han. Tamu Tiongkok biasanya perlu menunjukkan atau
+   mengirimkan alamat Latin itu ke sopir. Menyalinnya jauh lebih
+   praktis daripada mengetik ulang di ponsel.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.querySelector("[data-copy-address]");
+  if (!button) return;
+
+  const notice = document.querySelector("[data-copy-notice]");
+  const text = (button.dataset.copyAddress || "").trim();
+  if (!text) return;
+
+  const flash = (message) => {
+    if (!notice) return;
+    notice.textContent = message;
+    notice.hidden = false;
+    clearTimeout(flash.timer);
+    flash.timer = setTimeout(() => { notice.hidden = true; }, 3000);
+  };
+
+  button.addEventListener("click", async () => {
+    /* navigator.clipboard hanya tersedia di HTTPS. Di browser dalam
+       aplikasi WeChat kadang juga tidak ada, jadi disiapkan cadangan. */
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        flash("地址已复制");
+        return;
+      }
+      throw new Error("clipboard tidak tersedia");
+    } catch (_) {
+      const field = document.createElement("textarea");
+      field.value = text;
+      field.setAttribute("readonly", "");
+      field.style.position = "fixed";
+      field.style.left = "-9999px";
+      document.body.appendChild(field);
+      field.select();
+
+      let ok = false;
+      try { ok = document.execCommand("copy"); } catch (__) { ok = false; }
+      field.remove();
+
+      flash(ok ? "地址已复制" : "复制失败，请长按地址手动复制");
+    }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".pala-cf");
+  if (!section) return;
+
+  const ENDPOINT = "send-inquiry.php";
+  const FALLBACK_EMAIL = "enquiry@thepalaubudresort.com";
+
+  /* ---------------- Tab ---------------- */
+  const tabs = Array.from(section.querySelectorAll("[data-cf-tab]"));
+  const panels = Array.from(section.querySelectorAll("[data-cf-panel]"));
+
+  const showPanel = (key) => {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.cfTab === key;
+      tab.classList.toggle("is-active", on);
+      tab.setAttribute("aria-selected", String(on));
+    });
+    panels.forEach((panel) => {
+      panel.classList.toggle("is-active", panel.dataset.cfPanel === key);
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => showPanel(tab.dataset.cfTab));
+  });
+
+  /* Panah kiri/kanan untuk berpindah tab, sesuai pola tab standar */
+  section.querySelector("[data-cf-tablist]")?.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    const at = tabs.findIndex((t) => t.classList.contains("is-active"));
+    const next = event.key === "ArrowRight"
+      ? (at + 1) % tabs.length
+      : (at - 1 + tabs.length) % tabs.length;
+    showPanel(tabs[next].dataset.cfTab);
+    tabs[next].focus();
+  });
+
+  /* ---------------- Formulir ---------------- */
+  section.querySelectorAll("[data-cf-form]").forEach((form) => {
+    const submit = form.querySelector("[data-cf-submit]");
+    const notice = form.querySelector("[data-cf-notice]");
+    const startedAt = form.querySelector('input[name="started_at"]');
+
+    /* Waktu halaman dibuka — dipakai server untuk menolak kiriman
+       yang datang terlalu cepat (ciri bot) */
+    if (startedAt) startedAt.value = String(Math.floor(Date.now() / 1000));
+
+    /* Tanggal paling awal = hari ini */
+    const dateInput = form.querySelector('input[type="date"]');
+    if (dateInput) {
+      const today = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      dateInput.min = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+    }
+
+    /* Telepon: hanya angka, spasi, tanda hubung, dan + */
+    const phoneInput = form.querySelector('input[type="tel"]');
+    if (phoneInput) {
+      phoneInput.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9+\s-]/g, "");
+      });
+    }
+
+    const showError = (input, message) => {
+      const group = input.closest(".pala-cf__group");
+      if (!group) return;
+      group.classList.add("has-error");
+      if (group.querySelector(".pala-cf__error")) return;
+      const el = document.createElement("p");
+      el.className = "pala-cf__error";
+      el.textContent = message;
+      group.appendChild(el);
+    };
+
+    const clearErrors = () => {
+      form.querySelectorAll(".pala-cf__group").forEach((g) => g.classList.remove("has-error"));
+      form.querySelectorAll(".pala-cf__error").forEach((e) => e.remove());
+      if (notice) notice.hidden = true;
+    };
+
+    const showNotice = (message, ok) => {
+      if (!notice) return;
+      notice.textContent = message;
+      notice.classList.toggle("pala-cf__notice--ok", Boolean(ok));
+      notice.hidden = false;
+      notice.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+
+    /* Validasi di browser hanya untuk kenyamanan —
+       validasi sebenarnya ada di send-inquiry.php */
+    const validate = () => {
+      let ok = true;
+      const f = form.elements;
+
+      const check = (input, condition, message) => {
+        if (!input) return;
+        if (!condition) { showError(input, message); ok = false; }
+      };
+
+      // Array.from supaya aksara Han dihitung sebagai satu karakter
+      check(f.name, Array.from((f.name?.value || "").trim()).length >= 2, "请填写您的姓名");
+      check(f.phone, (f.phone?.value || "").replace(/\D/g, "").length >= 7, "请填写有效的联系电话");
+      check(f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((f.email?.value || "").trim()), "请填写有效的邮箱地址");
+
+      if (f.subject) check(f.subject, (f.subject.value || "").trim().length >= 2, "请填写咨询主题");
+      if (f.event)   check(f.event, f.event.value !== "", "请选择活动类型");
+      if (f.date)    check(f.date, f.date.value !== "", "请选择意向日期");
+      if (f.guests)  check(f.guests, Number(f.guests.value) >= 1, "请填写宾客人数");
+      if (f.notes)   check(f.notes, Array.from((f.notes.value || "").trim()).length >= 5, "请简单描述您的活动");
+
+      return ok;
+    };
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      if (!validate()) {
+        form.querySelector(".pala-cf__group.has-error")
+          ?.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      submit.classList.add("is-loading");
+      submit.disabled = true;
+
+      try {
+        const response = await fetch(ENDPOINT, { method: "POST", body: new FormData(form) });
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok || !data.ok) {
+          if (data.errors) {
+            Object.entries(data.errors).forEach(([key, message]) => {
+              const input = form.elements[key];
+              if (input) showError(input, message);
+            });
+            showNotice("请检查上方标红的项目。");
+          } else {
+            showNotice(data.message || `发送失败，请直接发送邮件至 ${FALLBACK_EMAIL}`);
+          }
+          return;
+        }
+
+        form.reset();
+        if (startedAt) startedAt.value = String(Math.floor(Date.now() / 1000));
+        showNotice("已收到您的咨询，我们的团队将在 24 小时内与您联系。", true);
+      } catch (_) {
+        showNotice(`网络连接失败，请稍后重试，或直接发送邮件至 ${FALLBACK_EMAIL}`);
+      } finally {
+        submit.classList.remove("is-loading");
+        submit.disabled = false;
+      }
+    });
+  });
+});
