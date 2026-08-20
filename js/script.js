@@ -1646,3 +1646,185 @@ document.addEventListener("DOMContentLoaded", () => {
     if (Math.abs(dx) > 45) show(dx < 0 ? index + 1 : index - 1);
   }, { passive: true });
 });
+
+/* =========================================================
+   Blok kalender iklim — tempel di script.js.
+
+   Perbedaan terbesar dari versi Elementor:
+
+   Isi 12 bulan tidak lagi disimpan di dalam array JavaScript.
+   Di versi lama, seluruh teks — deskripsi iklim, saran menginap,
+   nama festival — hanya ada di dalam `const months = [...]`, jadi
+   TIDAK SATU KALIMAT PUN terbaca Baiduspider. Padahal ini konten
+   paling bernilai di halaman: panduan bulan demi bulan tentang
+   kapan datang ke Bali.
+
+   Sekarang isinya ditulis di HTML (tersembunyi lewat CSS), dan
+   file ini hanya memindahkannya ke panel saat bulan diklik.
+
+   Perbaikan lain:
+   - <div> onclick jadi <button>, bisa dipilih dengan keyboard
+   - max-height panel dihitung dari isinya, bukan tetap 700px
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const cal = document.querySelector(".pala-cal");
+  if (!cal) return;
+
+  const months = Array.from(cal.querySelectorAll(".pala-cal__month"));
+  const panel = cal.querySelector("[data-cal-panel]");
+  const nameEl = cal.querySelector("[data-cal-name]");
+  const tagEl = cal.querySelector("[data-cal-tag]");
+  const climateEl = cal.querySelector("[data-cal-climate]");
+  const palaEl = cal.querySelector("[data-cal-pala]");
+  const festEl = cal.querySelector("[data-cal-festival]");
+  const festText = cal.querySelector("[data-cal-festival-text]");
+  if (!months.length || !panel) return;
+
+  /* Warna per jenis bulan */
+  const TAG_COLOR = {
+    wet: "#287233",
+    sweet: "#d4bc8c",
+    peak: "#2a2520",
+    festival: "#2a2520",
+  };
+
+  let activeIndex = null;
+
+  const closePanel = () => {
+    panel.style.maxHeight = "0px";
+    months.forEach((m) => {
+      m.classList.remove("is-active");
+      m.setAttribute("aria-expanded", "false");
+    });
+    activeIndex = null;
+  };
+
+  const openPanel = (index) => {
+    const button = months[index];
+    const source = cal.querySelector("#" + button.dataset.calSource);
+    if (!source) return;
+
+    months.forEach((m) => {
+      m.classList.remove("is-active");
+      m.setAttribute("aria-expanded", "false");
+    });
+    button.classList.add("is-active");
+    button.setAttribute("aria-expanded", "true");
+    activeIndex = index;
+
+    const type = button.dataset.calType || "wet";
+    const color = TAG_COLOR[type] || "#2a2520";
+
+    nameEl.textContent = source.dataset.name || "";
+
+    tagEl.textContent = source.dataset.tag || "";
+    tagEl.style.background = color + "22";
+    tagEl.style.color = color;
+    tagEl.style.border = "1px solid " + color + "55";
+
+    const climate = source.querySelector("[data-climate]");
+    const pala = source.querySelector("[data-pala]");
+    const festival = source.querySelector("[data-festival]");
+
+    climateEl.textContent = climate ? climate.textContent.trim() : "";
+    palaEl.textContent = pala ? pala.textContent.trim() : "";
+
+    if (festival && festText) {
+      festText.textContent = festival.textContent.trim();
+      festEl.hidden = false;
+    } else if (festEl) {
+      festEl.hidden = true;
+    }
+
+    /* Tinggi dihitung dari isinya. Versi lama memakai 700px tetap,
+       yang bisa memotong teks atau menyisakan ruang kosong. */
+    const inner = panel.firstElementChild;
+    panel.style.maxHeight = (inner ? inner.scrollHeight : 700) + "px";
+  };
+
+  months.forEach((button, index) => {
+    button.setAttribute("aria-expanded", "false");
+    button.addEventListener("click", () => {
+      if (activeIndex === index) closePanel();
+      else openPanel(index);
+    });
+  });
+
+  /* Tinggi dihitung ulang saat lebar berubah — jumlah baris teks
+     berubah dan panel bisa terpotong */
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    if (activeIndex === null) return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => openPanel(activeIndex), 150);
+  });
+});
+
+/* =========================================================
+   Blok kalender festival — tempel di script.js.
+
+   Perbaikan dari versi Elementor:
+
+   1. <div> onclick jadi <button> — versi lama memasang listener
+      pada seluruh .fest-block, jadi mengklik TEKS di dalam panel
+      yang sudah terbuka ikut menutupnya. Termasuk saat tamu
+      menyeret untuk menyeleksi teks. Sekarang hanya bagian
+      foto/judul yang bisa diklik.
+
+   2. max-height dihitung dari isinya, bukan tetap 800px.
+
+   3. Panel yang sedang terbuka dihitung ulang saat lebar berubah.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".pala-fest");
+  if (!section) return;
+
+  const blocks = Array.from(section.querySelectorAll(".pala-fest__block"));
+  if (!blocks.length) return;
+
+  const setHeight = (block, open) => {
+    const text = block.querySelector(".pala-fest__text");
+    if (!text) return;
+    const inner = text.firstElementChild;
+    text.style.maxHeight = open && inner ? inner.scrollHeight + "px" : "0px";
+  };
+
+  const closeAll = () => {
+    blocks.forEach((block) => {
+      block.classList.remove("is-open");
+      setHeight(block, false);
+      const head = block.querySelector(".pala-fest__head");
+      if (head) head.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  blocks.forEach((block) => {
+    const head = block.querySelector(".pala-fest__head");
+    if (!head) return;
+
+    head.setAttribute("aria-expanded", "false");
+
+    head.addEventListener("click", () => {
+      const wasOpen = block.classList.contains("is-open");
+      closeAll();
+      if (wasOpen) return;
+
+      block.classList.add("is-open");
+      head.setAttribute("aria-expanded", "true");
+      setHeight(block, true);
+    });
+  });
+
+  /* Tinggi dihitung ulang saat lebar berubah — jumlah baris teks
+     berubah dan isinya bisa terpotong */
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const open = blocks.find((b) => b.classList.contains("is-open"));
+      if (open) setHeight(open, true);
+    }, 150);
+  });
+});
