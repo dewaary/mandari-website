@@ -58,3 +58,26 @@ define('TPR_BOOK_URL',
     . '%E6%84%8F%E5%90%91%E5%88%AB%E5%A2%85%EF%BC%9A%0D%0A'
     . '%E8%81%94%E7%B3%BB%E7%94%B5%E8%AF%9D%EF%BC%9A%0D%0A%0D%0A'
 );
+
+const TPR_INCLUSIONS = [
+    '每日早餐（按入住人数）',
+    '免费停车',
+    '吹风机',
+    '浴袍与拖鞋',
+    '保险箱',
+    '专属管家服务与安保',
+    '免费 Wi-Fi（Starlink 卫星直连）',
+    '空调',
+    '高级洗漱用品',
+    '别墅内茶与咖啡',
+    '每日客房清洁及夜床服务',
+];
+
+const TPR_VILLAS = [
+    ['slug' => 'catur', 'type' => '蜜月别墅', 'name_cn' => '卡图尔', 'name_latin' => 'Catur', 'url' => 'villas/catur'],
+    ['slug' => 'batur', 'type' => '静谧别墅', 'name_cn' => '巴图尔', 'name_latin' => 'Batur', 'url' => 'villas/batur'],
+    ['slug' => 'seraya-a', 'type' => '无边泳池别墅', 'name_cn' => '塞拉雅 A', 'name_latin' => 'Seraya A', 'url' => 'villas/seraya-a'],
+    ['slug' => 'seraya-b', 'type' => '疗愈别墅', 'name_cn' => '塞拉雅 B', 'name_latin' => 'Seraya B', 'url' => 'villas/seraya-b'],
+    ['slug' => 'sanghyang', 'type' => '家庭别墅', 'name_cn' => '桑香', 'name_latin' => 'Sanghyang', 'url' => 'villas/sanghyang'],
+    ['slug' => 'agung', 'type' => '尊尚别墅', 'name_cn' => '阿贡', 'name_latin' => 'Agung', 'url' => 'villas/agung'],
+];

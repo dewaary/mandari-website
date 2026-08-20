@@ -7852,3 +7852,641 @@ a.pala-cm__item:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px;
   .pala-cf__tab,
   .pala-cf__submit { transition: none; }
 }
+
+/* =========================================================
+   page-villa-detail.css — halaman detail villa
+   Dipakai bersama oleh Catur, Batur, Sanghyang, Agung,
+   Seraya A, dan Seraya B. Isinya diatur lewat variabel PHP
+   di atas tiap halaman, jadi berkas ini tidak perlu digandakan.
+
+   Prefiks .pala-vd-
+
+   1. HERO + PENGANTAR
+   (section berikutnya ditambahkan di bawah)
+   ========================================================= */
+
+/* ---------------- Hero: setengah layar ---------------- */
+.pala-vd-hero {
+  position: relative;
+  width: 100%;
+  /* Setengah layar, bukan penuh — halaman ini tentang isi villanya,
+     bukan kesan pertama. Tamu yang sampai ke sini sudah tertarik. */
+ height: clamp(360px, 58svh, 640px);
+  overflow: hidden;
+  background: #1d2923;
+}
+
+.pala-vd-hero img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+/* ---------------- Pengantar ---------------- */
+.pala-vd-intro {
+  padding: 4.5rem 3rem 4rem;
+  background: #f1ece1;
+  font-family: var(--tpr-sans);
+  color: #2a2520;
+}
+
+.pala-vd-intro__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 4rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* --------- Kolom kiri: nama & harga --------- */
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring,
+   browser memiringkannya paksa dan hasilnya terbaca sebagai teks rusak */
+.pala-vd-type {
+  margin: 0 0 .6rem;
+  font-family: var(--tpr-serif);
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  color: #7a7068;
+}
+
+.pala-vd-name {
+  margin: 0 0 1.2rem;
+  font-family: var(--tpr-serif);
+  font-size: clamp(44px, 5.4vw, 76px);
+  font-weight: 300;
+  /* line-height 1 memotong aksara Han di atas dan bawah */
+  line-height: 1.15;
+  letter-spacing: 4px;
+  color: #2a2520;
+}
+
+.pala-vd-name small {
+  display: block;
+  margin-top: 6px;
+  font-size: .42em;
+  letter-spacing: 3px;
+  opacity: .6;
+}
+
+.pala-vd-tagline {
+  margin: 0 0 .7rem;
+  font-family: var(--tpr-serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+  color: #7a7068;
+}
+
+.pala-vd-specs {
+  margin: 0 0 2.4rem;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  line-height: 1.7;
+  color: #5a5248;
+}
+
+.pala-vd-price {
+  margin: 0 0 .4rem;
+  font-size: 15px;
+  font-weight: 300;
+  color: #5a5248;
+}
+
+.pala-vd-price b {
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  color: #2a2520;
+}
+
+.pala-vd-price-note {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #9b8d7c;
+}
+
+/* --------- Kolom kanan: deskripsi --------- */
+.pala-vd-desc {
+  margin: 0 0 2.2rem;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+.pala-vd-cta {
+  display: inline-block;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #b08d4f;
+  font-family: var(--tpr-serif);
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: #b08d4f;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.pala-vd-cta:hover { color: #2a2520; border-color: #2a2520; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1000px) {
+  .pala-vd-intro { padding: 3.5rem 2rem 3.5rem; }
+  .pala-vd-intro__inner { grid-template-columns: 1fr; gap: 2.4rem; }
+  .pala-vd-specs { margin-bottom: 1.6rem; }
+}
+
+@media (max-width: 720px) {
+ .pala-vd-hero { height: clamp(280px, 46svh, 420px); }
+  .pala-vd-intro { padding: 2.8rem 1.5rem 3rem; }
+  .pala-vd-type { font-size: 18px; }
+  .pala-vd-name { letter-spacing: 2px; }
+  .pala-vd-tagline { font-size: 18px; }
+  .pala-vd-specs { font-size: 15px; }
+  .pala-vd-price b { font-size: 24px; }
+  .pala-vd-desc { font-size: 15px; line-height: 1.95; }
+}
+
+/* =========================================================
+   page-villa-detail.css — bagian 3: 影片 (Villa Video)
+   Tempel di bawah bagian PENGANTAR.
+   Prefiks .pala-vv-
+   ========================================================= */
+
+.pala-vv {
+  position: relative;
+  width: 100%;
+  height: clamp(320px, 52svh, 620px);
+  overflow: hidden;
+  background: #1d2923;
+  font-family: var(--tpr-sans);
+}
+
+.pala-vv__poster,
+.pala-vv__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.pala-vv__poster[hidden] { display: none; }
+
+/* Video muncul menimpa poster setelah siap diputar,
+   supaya tidak ada kedipan hitam di antaranya */
+.pala-vv__video {
+  opacity: 0;
+  transition: opacity .6s ease;
+}
+
+.pala-vv.is-playing .pala-vv__video { opacity: 1; }
+
+/* ---------------- Kontrol putar/jeda ---------------- */
+.pala-vv__controls {
+  position: absolute;
+  z-index: 3;
+  right: 22px;
+  bottom: 22px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+.pala-vv__controls[hidden] { display: none; }
+
+.pala-vv:hover .pala-vv__controls,
+.pala-vv:focus-within .pala-vv__controls { opacity: 1; transform: translateY(0); }
+
+.pala-vv__btn {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .42);
+  border-radius: 50%;
+  background: rgba(3, 43, 34, .55);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background .2s ease;
+}
+
+.pala-vv__btn svg { width: 17px; height: 17px; }
+.pala-vv__btn:hover { background: rgba(3, 43, 34, .85); }
+.pala-vv__btn:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+/* ---------------- Tombol tonton lengkap ---------------- */
+.pala-vv__full {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 26px 13px 16px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 999px;
+  background: rgba(4, 24, 16, .42);
+  color: #f5f0e8;
+  font-family: var(--tpr-serif);
+  font-size: 16px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.pala-vv__full[hidden] { display: none; }
+
+.pala-vv__full:hover {
+  border-color: #cdb88a;
+  background: rgba(4, 24, 16, .72);
+  transform: translate(-50%, -50%) scale(1.03);
+}
+
+.pala-vv__full:focus-visible { outline: 2px solid #cdb88a; outline-offset: 4px; }
+
+.pala-vv__full-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, .4);
+  border-radius: 50%;
+}
+
+.pala-vv__full-icon svg { width: 14px; height: 14px; margin-left: 2px; fill: currentColor; }
+
+/* ---------------- Popup video lengkap ---------------- */
+.pala-vv__popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, .9);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s;
+}
+
+.pala-vv__popup.is-open { opacity: 1; visibility: visible; }
+
+.pala-vv__popup-inner {
+  position: relative;
+  width: min(1100px, 100%);
+  aspect-ratio: 16 / 9;
+}
+
+.pala-vv__popup iframe,
+.pala-vv__popup video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  border-radius: 6px;
+  background: #000;
+}
+
+.pala-vv__close {
+  position: absolute;
+  top: -48px;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.pala-vv__close svg { width: 16px; height: 16px; }
+.pala-vv__close:hover { background: rgba(255, 255, 255, .24); transform: rotate(90deg); }
+.pala-vv__close:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 720px) {
+  .pala-vv { height: clamp(260px, 42svh, 400px); }
+
+  /* Di layar sentuh, kontrol tidak bisa di-hover — selalu terlihat */
+  .pala-vv__controls { opacity: 1; transform: none; right: 14px; bottom: 14px; }
+  .pala-vv__btn { width: 38px; height: 38px; }
+
+  .pala-vv__full { padding: 11px 20px 11px 13px; font-size: 15px; letter-spacing: 1px; }
+  .pala-vv__full-icon { width: 30px; height: 30px; }
+
+  .pala-vv__popup { padding: 1rem; }
+  .pala-vv__close { top: -46px; right: 50%; transform: translateX(50%); }
+  .pala-vv__close:hover { transform: translateX(50%) rotate(90deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-vv__video { display: none; }
+  .pala-vv__controls { display: none; }
+  .pala-vv__full,
+  .pala-vv__popup { transition: none; }
+}
+
+/* =========================================================
+   page-villa-detail.css — bagian 4: 别墅特色 & 房价包含
+   Tempel di bawah bagian VIDEO.
+   Prefiks .pala-vf-
+   ========================================================= */
+
+.pala-vf {
+  padding: 4.5rem 3rem 5rem;
+  background: #f5f1e8;
+  font-family: var(--tpr-sans);
+  color: #2a2520;
+}
+
+.pala-vf__inner { max-width: 1500px; margin: 0 auto; }
+
+/* ---------------- Judul kelompok ---------------- */
+.pala-vf__title {
+  margin: 0 0 1.1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #b8734a;
+  font-family: var(--tpr-serif);
+  font-size: clamp(26px, 2.8vw, 36px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 3px;
+  color: #2a2520;
+}
+
+/* Kelompok kedua dan seterusnya diberi jarak dari yang di atasnya */
+.pala-vf__group + .pala-vf__group { margin-top: 3.2rem; }
+
+/* ---------------- Daftar ---------------- */
+.pala-vf__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: .55rem 3rem;
+}
+
+/* Satu kolom untuk daftar pendek, dua kolom untuk yang panjang.
+   Ditentukan lewat kelas, bukan jumlah otomatis, supaya pembagian
+   kirinya tetap terisi lebih dulu — sama seperti versi Inggris. */
+.pala-vf__list--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: column;
+  grid-template-rows: repeat(6, auto);
+}
+
+.pala-vf__list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.9;
+  letter-spacing: .3px;
+  color: #6b645c;
+}
+
+.pala-vf__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .82em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #b08d4f;
+}
+
+/* ---------------- Animasi masuk ----------------
+   .has-reveal hanya ditambahkan JavaScript, jadi kalau JS gagal
+   dimuat section tetap terlihat normal. */
+.pala-vf.has-reveal .pala-vf__group {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity .7s ease, translate .7s ease;
+}
+
+.pala-vf.is-visible .pala-vf__group { opacity: 1; translate: 0 0; }
+.pala-vf.is-visible .pala-vf__group:nth-child(2) { transition-delay: .1s; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 900px) {
+  .pala-vf { padding: 3.5rem 2rem 4rem; }
+  .pala-vf__list { gap: .5rem 2rem; }
+}
+
+@media (max-width: 680px) {
+  .pala-vf { padding: 3rem 1.5rem 3.5rem; }
+  .pala-vf__title { letter-spacing: 2px; }
+  .pala-vf__group + .pala-vf__group { margin-top: 2.4rem; }
+
+  /* Dua kolom terlalu sempit di ponsel — teks seperti
+     "免费 Wi-Fi（Starlink 卫星直连）" akan terpecah tidak rapi */
+  .pala-vf__list--two {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    grid-template-rows: none;
+  }
+
+  .pala-vf__list li { font-size: 15px; line-height: 1.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-vf.has-reveal .pala-vf__group {
+    opacity: 1; translate: 0 0; transition: none;
+  }
+}
+
+.pala-vf__floor {
+  display: inline-block;
+  min-width: 5.5em;
+  margin-right: 1rem;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: .12em;
+  color: #2a2520;
+}
+
+@media (max-width: 680px) {
+  .pala-vf__floor { display: block; min-width: 0; margin: 0 0 2px; }
+}
+
+/* =========================================================
+   page-villa-detail.css — bagian 6: 其他别墅 (Other Villas)
+   Tempel di bawah bagian GALLERY.
+   Prefiks .pala-ov-
+
+   Tanpa Swiper. Memakai CSS scroll-snap bawaan browser,
+   karena cdn.jsdelivr.net tidak andal diakses dari Tiongkok.
+   ========================================================= */
+
+.pala-ov {
+  padding: 4rem 0 4.5rem;
+  background: #f1ece1;
+  font-family: var(--tpr-sans);
+}
+
+.pala-ov__title {
+  margin: 0 0 2rem;
+  font-family: var(--tpr-serif);
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 5px;
+  text-indent: 5px;
+  text-align: center;
+  color: #7a7068;
+}
+
+/* ---------------- Slider ---------------- */
+.pala-ov__slider { position: relative; }
+
+.pala-ov__track {
+  --gap: 20px;
+  display: flex;
+  gap: var(--gap);
+  padding: 0 clamp(20px, 4vw, 60px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pala-ov__track::-webkit-scrollbar { display: none; }
+
+.pala-ov__slide {
+  flex: 0 0 calc((100% - var(--gap) * 3) / 2.8);
+  scroll-snap-align: start;
+}
+
+/* ---------------- Kartu ---------------- */
+.pala-ov__card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 4.2;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #1d2923;
+  text-decoration: none;
+}
+
+.pala-ov__card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .7s ease;
+}
+
+.pala-ov__card:hover img { transform: scale(1.05); }
+.pala-ov__card:focus-visible { outline: 2px solid #b08d4f; outline-offset: 3px; }
+
+.pala-ov__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(6, 16, 10, .82) 0%,
+    rgba(6, 16, 10, .38) 26%,
+    rgba(6, 16, 10, 0) 52%
+  );
+}
+
+.pala-ov__name {
+  position: absolute;
+  z-index: 2;
+  left: 0; right: 0; bottom: 0;
+  margin: 0;
+  font-family: var(--tpr-serif);
+  font-size: 23px; 
+  padding: 0 24px 22px;
+  font-weight: 400;
+  /* line-height 1.35, bukan 1 — aksara Han terpotong pada nilai rapat */
+  line-height: 1.35;
+  letter-spacing: 1.5px;
+  color: #f5f0e8;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .45);
+}
+
+.pala-ov__name small {
+  display: block;
+  margin-top: 3px;
+  font-size: .72em;
+  letter-spacing: 1px;
+  opacity: .78;
+}
+
+/* ---------------- Tombol navigasi ---------------- */
+.pala-ov__nav {
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 1px solid rgba(122, 112, 104, .3);
+  border-radius: 50%;
+  background: rgba(250, 248, 245, .88);
+  color: #2a2520;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background .25s ease, opacity .25s ease;
+}
+
+.pala-ov__nav svg { width: 15px; height: 15px; }
+.pala-ov__nav:hover { background: #faf8f5; }
+.pala-ov__nav:focus-visible { outline: 2px solid #b08d4f; outline-offset: 3px; }
+.pala-ov__nav[disabled] { opacity: 0; pointer-events: none; }
+
+.pala-ov__nav--prev { left: clamp(8px, 2vw, 22px); }
+.pala-ov__nav--next { right: clamp(8px, 2vw, 22px); }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1100px) {
+  .pala-ov__slide { flex-basis: calc((100% - var(--gap) * 2) / 2.4); }
+}
+
+@media (max-width: 720px) {
+  .pala-ov { padding: 3rem 0 3.5rem; }
+  .pala-ov__title { letter-spacing: 3px; text-indent: 3px; margin-bottom: 1.4rem; }
+  .pala-ov__track { --gap: 14px; padding: 0 16px; }
+  .pala-ov__slide { flex-basis: 82%; }
+  .pala-ov__name { font-size: 19px; padding: 0 16px 15px; }
+  .pala-ov__nav { width: 40px; height: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pala-ov__track { scroll-behavior: auto; }
+  .pala-ov__card img { transition: none; }
+  .pala-ov__card:hover img { transform: none; }
+}

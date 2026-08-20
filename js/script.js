@@ -2038,3 +2038,182 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const section = document.querySelector(".pala-vv");
+  if (!section) return;
+
+  const poster = section.querySelector("[data-vv-poster]");
+  const video = section.querySelector("[data-vv-video]");
+  const controls = section.querySelector("[data-vv-controls]");
+  const playBtn = section.querySelector("[data-vv-play]");
+  const playIcon = section.querySelector("[data-vv-icon-play]");
+  const pauseIcon = section.querySelector("[data-vv-icon-pause]");
+  const fullBtn = section.querySelector("[data-vv-full]");
+  const popup = section.querySelector("[data-vv-popup]");
+  const stage = section.querySelector("[data-vv-stage]");
+  const closeBtn = section.querySelector("[data-vv-close]");
+
+  const loopSrc = (section.dataset.loopSrc || "").trim();
+  const embedUrl = (section.dataset.embedUrl || "").trim();
+  const fullSrc = (section.dataset.fullSrc || "").trim();
+
+  /* ---------- Klip latar ---------- */
+  if (loopSrc && video) {
+    /* Di ponsel dan koneksi hemat data, klip tidak dimuat sama sekali —
+       poster saja sudah menyampaikan maksudnya. */
+    const conn = navigator.connection || {};
+    const saveData = conn.saveData === true;
+    const slow = /2g/.test(conn.effectiveType || "");
+    const wide = window.matchMedia("(min-width: 900px)").matches;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (wide && !saveData && !slow && !calm) {
+      video.addEventListener("canplay", () => {
+        section.classList.add("is-playing");
+        video.play().catch(() => {});
+        if (controls) controls.hidden = false;
+      }, { once: true });
+
+      video.addEventListener("error", () => {
+        section.classList.remove("is-playing");
+        if (controls) controls.hidden = true;
+      });
+
+      video.src = loopSrc;
+      video.load();
+    }
+  }
+
+  if (playBtn && video) {
+    playBtn.addEventListener("click", async () => {
+      if (video.paused) {
+        try { await video.play(); } catch (_) {}
+      } else {
+        video.pause();
+      }
+      const paused = video.paused;
+      if (playIcon) playIcon.hidden = !paused;
+      if (pauseIcon) pauseIcon.hidden = paused;
+      playBtn.setAttribute("aria-label", paused ? "播放视频" : "暂停视频");
+    });
+  }
+
+  /* ---------- Video lengkap ---------- */
+  if (!fullBtn || !popup || !stage) return;
+
+  if (!embedUrl && !fullSrc) {
+    fullBtn.hidden = true;
+    return;
+  }
+
+  fullBtn.hidden = false;
+  let lastFocus = null;
+
+  const openPopup = () => {
+    lastFocus = document.activeElement;
+    stage.replaceChildren();
+
+    if (embedUrl) {
+      const frame = document.createElement("iframe");
+      frame.src = embedUrl;
+      frame.title = "别墅影片";
+      frame.allow = "autoplay; fullscreen; encrypted-media";
+      frame.allowFullscreen = true;
+      frame.setAttribute("scrolling", "no");
+      frame.setAttribute("frameborder", "0");
+      stage.appendChild(frame);
+    } else {
+      const el = document.createElement("video");
+      el.src = fullSrc;
+      el.controls = true;
+      el.autoplay = true;
+      el.playsInline = true;
+      el.preload = "auto";
+      stage.appendChild(el);
+    }
+
+    popup.classList.add("is-open");
+    popup.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    if (video && !video.paused) video.pause();
+    closeBtn?.focus();
+  };
+
+  const closePopup = () => {
+    if (!popup.classList.contains("is-open")) return;
+    popup.classList.remove("is-open");
+    popup.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    /* Elemen dihapus supaya suaranya benar-benar berhenti —
+       menyembunyikan popup saja tidak menghentikan pemutaran */
+    stage.replaceChildren();
+
+    if (video && video.src) video.play().catch(() => {});
+    if (lastFocus) lastFocus.focus();
+  };
+
+  fullBtn.addEventListener("click", openPopup);
+  closeBtn?.addEventListener("click", closePopup);
+
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) closePopup();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closePopup();
+  });
+});
+
+/* =========================================================
+   Blok slider 其他别墅 — tempel di script.js.
+
+   Tanpa Swiper. Geser jari sudah ditangani browser lewat CSS
+   scroll-snap; file ini hanya mengurus tombol panah dan
+   menyembunyikannya saat sudah di ujung.
+
+   Pola yang sama dengan slider villa di homepage dan slider
+   ulasan tamu — hanya nama kelasnya yang berbeda.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = document.querySelector(".pala-ov__slider");
+  if (!slider) return;
+
+  const track = slider.querySelector(".pala-ov__track");
+  const prev = slider.querySelector(".pala-ov__nav--prev");
+  const next = slider.querySelector(".pala-ov__nav--next");
+  const slide = track && track.querySelector(".pala-ov__slide");
+  if (!track || !slide || !prev || !next) return;
+
+  const stepSize = () => {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    return slide.getBoundingClientRect().width + gap;
+  };
+
+  const refresh = () => {
+    const max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max - 2;
+  };
+
+  prev.addEventListener("click", () => track.scrollBy({ left: -stepSize(), behavior: "smooth" }));
+  next.addEventListener("click", () => track.scrollBy({ left:  stepSize(), behavior: "smooth" }));
+
+  track.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") { event.preventDefault(); next.click(); }
+    if (event.key === "ArrowLeft")  { event.preventDefault(); prev.click(); }
+  });
+
+  let ticking = false;
+  track.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => { refresh(); ticking = false; });
+  }, { passive: true });
+
+  window.addEventListener("resize", refresh);
+  refresh();
+});
