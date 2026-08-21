@@ -8707,3 +8707,194 @@ a.pala-cm__item:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px;
   .pala-of__box { transform: none; }
   .pala-of.is-open .pala-of__box { transform: none; }
 }
+
+/* =========================================================
+   page-villa-detail.css — halaman detail villa
+   Dipakai bersama oleh Catur, Batur, Sanghyang, Agung,
+   Seraya A, dan Seraya B. Isinya diatur lewat variabel PHP
+   di atas tiap halaman, jadi berkas ini tidak perlu digandakan.
+
+   Prefiks .pala-vd-
+
+   1. HERO + PENGANTAR
+   (section berikutnya ditambahkan di bawah)
+   ========================================================= */
+
+/* ---------------- Hero: setengah layar ---------------- */
+.pala-vd-hero {
+  position: relative;
+  width: 100%;
+  /* Setengah layar, bukan penuh — halaman ini tentang isi villanya,
+     bukan kesan pertama. Tamu yang sampai ke sini sudah tertarik. */
+  height: clamp(300px, 48svh, 520px);
+  overflow: hidden;
+  background: #1d2923;
+}
+
+.pala-vd-hero img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+/* ---------------- Pengantar ---------------- */
+.pala-vd-intro {
+  padding: 4.5rem 3rem 4rem;
+  background: #f1ece1;
+  font-family: var(--tpr-sans);
+  color: #2a2520;
+}
+
+.pala-vd-intro__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: 4rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+/* --------- Kolom kiri: nama & harga --------- */
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring,
+   browser memiringkannya paksa dan hasilnya terbaca sebagai teks rusak */
+.pala-vd-type {
+  margin: 0 0 .6rem;
+  font-family: var(--tpr-serif);
+  font-size: 21px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  color: #7a7068;
+}
+
+.pala-vd-name {
+  margin: 0 0 1.2rem;
+  font-family: var(--tpr-serif);
+  font-size: clamp(44px, 5.4vw, 76px);
+  font-weight: 300;
+  /* line-height 1 memotong aksara Han di atas dan bawah */
+  line-height: 1.15;
+  letter-spacing: 4px;
+  color: #2a2520;
+}
+
+.pala-vd-name small {
+  display: block;
+  margin-top: 6px;
+  font-size: .42em;
+  letter-spacing: 3px;
+  opacity: .6;
+}
+
+.pala-vd-tagline {
+  margin: 0 0 .7rem;
+  font-family: var(--tpr-serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  line-height: 1.6;
+  color: #7a7068;
+}
+
+.pala-vd-specs {
+  margin: 0 0 2.4rem;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: .04em;
+  line-height: 1.7;
+  color: #5a5248;
+}
+
+.pala-vd-price {
+  margin: 0 0 .4rem;
+  font-size: 15px;
+  font-weight: 300;
+  color: #5a5248;
+}
+
+.pala-vd-price b {
+  font-size: 27px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  color: #2a2520;
+}
+
+.pala-vd-price-note {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #9b8d7c;
+}
+
+/* --------- Kolom kanan: deskripsi --------- */
+.pala-vd-desc {
+  margin: 0 0 2.2rem;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 2;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+.pala-vd-cta {
+  display: inline-block;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #b08d4f;
+  font-family: var(--tpr-serif);
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  color: #b08d4f;
+  transition: color .25s ease, border-color .25s ease;
+}
+
+.pala-vd-cta:hover { color: #2a2520; border-color: #2a2520; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 1000px) {
+  .pala-vd-intro { padding: 3.5rem 2rem 3.5rem; }
+  .pala-vd-intro__inner { grid-template-columns: 1fr; gap: 2.4rem; }
+  .pala-vd-specs { margin-bottom: 1.6rem; }
+}
+
+@media (max-width: 720px) {
+  .pala-vd-hero { height: clamp(240px, 38svh, 360px); }
+  .pala-vd-intro { padding: 2.8rem 1.5rem 3rem; }
+  .pala-vd-type { font-size: 18px; }
+  .pala-vd-name { letter-spacing: 2px; }
+  .pala-vd-tagline { font-size: 18px; }
+  .pala-vd-specs { font-size: 15px; }
+  .pala-vd-price b { font-size: 24px; }
+  .pala-vd-desc { font-size: 15px; line-height: 1.95; }
+}
+
+/* =========================================================
+   Kotak catatan Seraya A & B
+   Hanya muncul di halaman Seraya A dan Seraya B, lewat
+   $villa['note'] — halaman lain tidak menampilkannya.
+   ========================================================= */
+.pala-vd-note {
+  margin: 2rem 0 0;
+  padding: 1.3rem 1.5rem;
+  border-left: 3px solid #b08d4f;
+  background: rgba(176, 141, 79, .07);
+  font-size: 15px;
+  font-weight: 300;
+  /* line-height 1.95 — aksara Han butuh ruang antarbaris lebih
+     lega daripada huruf Latin pada ukuran ini */
+  line-height: 1.95;
+  letter-spacing: .3px;
+  color: #5a5248;
+}
+
+.pala-vd-note b {
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: #2a2520;
+}
+
+@media (max-width: 720px) {
+  .pala-vd-note { padding: 1.1rem 1.2rem; font-size: 14.5px; }
+}
