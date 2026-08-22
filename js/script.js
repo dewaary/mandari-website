@@ -2270,3 +2270,137 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.readyState === "complete") start();
   else window.addEventListener("load", start, { once: true });
 });
+
+/* =========================================================
+   Blok galeri bertab — MENGGANTI blok galeri lama di script.js.
+
+   Menangani dua bentuk sekaligus:
+   - Galeri berkategori (Seraya B): tab di atas, satu panel aktif
+   - Galeri tanpa kategori (villa lain): tab disembunyikan CSS,
+     perilakunya persis seperti sebelumnya
+
+   Lightbox hanya menelusuri foto di panel yang sedang aktif —
+   kalau tidak, menekan panah di kategori 水疗室 akan melompat
+   ke foto kategori lain tanpa penjelasan.
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const gallery = document.querySelector(".pala-gal");
+  if (!gallery) return;
+
+  const box = gallery.querySelector("[data-gal-box]");
+  const boxImg = gallery.querySelector("[data-gal-img]");
+  const counter = gallery.querySelector("[data-gal-counter]");
+  const closeBtn = gallery.querySelector("[data-gal-close]");
+  const prevBtn = gallery.querySelector("[data-gal-prev]");
+  const nextBtn = gallery.querySelector("[data-gal-next]");
+  if (!box || !boxImg) return;
+
+  /* ---------------- Tab ---------------- */
+  const tabs = Array.from(gallery.querySelectorAll("[data-gal-tab]"));
+  const panels = Array.from(gallery.querySelectorAll("[data-gal-panel]"));
+
+  const showPanel = (key) => {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.galTab === key;
+      tab.classList.toggle("is-active", on);
+      tab.setAttribute("aria-selected", String(on));
+    });
+    panels.forEach((panel) => {
+      panel.classList.toggle("is-active", panel.dataset.galPanel === key);
+    });
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => showPanel(tab.dataset.galTab));
+  });
+
+  /* Panah kiri/kanan berpindah tab, sesuai pola tab standar */
+  gallery.querySelector("[data-gal-tablist]")?.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+    const at = tabs.findIndex((t) => t.classList.contains("is-active"));
+    const next = event.key === "ArrowRight"
+      ? (at + 1) % tabs.length
+      : (at - 1 + tabs.length) % tabs.length;
+    showPanel(tabs[next].dataset.galTab);
+    tabs[next].focus();
+  });
+
+  /* ---------------- Lightbox ---------------- */
+  let items = [];
+  let index = 0;
+  let lastFocus = null;
+
+  /* Hanya foto di panel yang terlihat — kalau semuanya diikutkan,
+     panah akan melompat antar kategori tanpa penjelasan */
+  const activeItems = () => {
+    const panel = panels.find((p) => p.classList.contains("is-active"));
+    const scope = panel || gallery;
+    return Array.from(scope.querySelectorAll(".pala-gal__item"));
+  };
+
+  const show = (i) => {
+    if (!items.length) return;
+    index = (i + items.length) % items.length;
+    const thumb = items[index].querySelector("img");
+    if (!thumb) return;
+
+    boxImg.src = items[index].dataset.full || thumb.currentSrc || thumb.src;
+    boxImg.alt = thumb.alt || "";
+
+    if (counter) counter.textContent = index + 1 + " / " + items.length;
+  };
+
+  const openBox = (start) => {
+    items = activeItems();
+    lastFocus = document.activeElement;
+    show(start);
+    box.classList.add("is-open");
+    box.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    closeBtn?.focus();
+  };
+
+  const closeBox = () => {
+    if (!box.classList.contains("is-open")) return;
+    box.classList.remove("is-open");
+    box.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    /* Dikosongkan supaya gambar besar tidak menahan memori */
+    setTimeout(() => {
+      if (!box.classList.contains("is-open")) boxImg.removeAttribute("src");
+    }, 320);
+    if (lastFocus) lastFocus.focus();
+  };
+
+  /* Listener dipasang ke seluruh galeri, bukan tiap tombol —
+     supaya foto di panel mana pun tetap tertangkap */
+  gallery.addEventListener("click", (event) => {
+    const item = event.target.closest(".pala-gal__item");
+    if (!item) return;
+    const list = activeItems();
+    openBox(list.indexOf(item));
+  });
+
+  closeBtn?.addEventListener("click", closeBox);
+  prevBtn?.addEventListener("click", (e) => { e.stopPropagation(); show(index - 1); });
+  nextBtn?.addEventListener("click", (e) => { e.stopPropagation(); show(index + 1); });
+
+  box.addEventListener("click", (event) => {
+    if (event.target === box) closeBox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!box.classList.contains("is-open")) return;
+    if (event.key === "Escape") closeBox();
+    if (event.key === "ArrowRight") show(index + 1);
+    if (event.key === "ArrowLeft") show(index - 1);
+  });
+
+  let startX = 0;
+  box.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+  box.addEventListener("touchend", (e) => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 45) show(dx < 0 ? index + 1 : index - 1);
+  }, { passive: true });
+});

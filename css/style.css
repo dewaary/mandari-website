@@ -6224,6 +6224,7 @@ a.pala-hres__card:focus-visible {
 
 /* Variasi ukuran */
 .pala-gal__item--large { grid-column: span 2; grid-row: span 3; }
+.pala-gal__item--large-min  { grid-column: span 3; grid-row: span 1; }
 .pala-gal__item--half  { grid-column: span 1; grid-row: span 3; }
 .pala-gal__item--tall  { grid-row: span 2; }
 .pala-gal__item--wide  { grid-column: span 2; grid-row: span 1; }
@@ -8897,4 +8898,261 @@ a.pala-cm__item:focus-visible { outline: 2px solid #cdb88a; outline-offset: 3px;
 
 @media (max-width: 720px) {
   .pala-vd-note { padding: 1.1rem 1.2rem; font-size: 14.5px; }
+}
+
+/* =========================================================
+   Tambahan untuk galeri: TAB KATEGORI
+   Tempel di bawah CSS galeri yang sudah ada (.pala-gal-).
+   Grid dan lightbox-nya tidak berubah.
+   ========================================================= */
+
+.pala-gal__eyebrow-top {
+  margin: 0 0 8px;
+  font-family: var(--tpr-serif);
+  font-size: 17px;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #9b8d7c;
+}
+
+/* ---------------- Baris tab ---------------- */
+.pala-gal__tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 2.4rem;
+  margin: 1.6rem 0 2rem;
+  padding: .2rem 0;
+  border-top: 1px solid #ddd2c6;
+  border-bottom: 1px solid #ddd2c6;
+}
+
+/* Disembunyikan kalau cuma satu kategori — tab tunggal
+   tidak memberi pilihan apa pun */
+.pala-gal__tabs--single { display: none; }
+
+.pala-gal__tab {
+  position: relative;
+  padding: 1rem .4rem;
+  border: 0;
+  background: none;
+  font-family: var(--tpr-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  color: #9b8d7c;
+  cursor: pointer;
+  transition: color .25s ease;
+}
+
+.pala-gal__tab:hover { color: #5a5248; }
+
+.pala-gal__tab.is-active { color: #2a2520; font-weight: 500; }
+
+/* Garis penanda tab aktif */
+.pala-gal__tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #2a2520;
+}
+
+.pala-gal__tab:focus-visible { outline: 2px solid #8b6b4a; outline-offset: -4px; }
+
+/* ---------------- Panel ---------------- */
+.pala-gal__panel { display: none; }
+.pala-gal__panel.is-active { display: block; }
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 768px) {
+  .pala-gal__tabs {
+    gap: 0 1.2rem;
+    /* Digeser mendatar kalau kategorinya banyak — lebih baik
+       daripada tab yang turun ke dua baris dan terlihat berantakan */
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .pala-gal__tabs::-webkit-scrollbar { display: none; }
+  .pala-gal__tab { padding: .85rem .3rem; font-size: 12px; white-space: nowrap; }
+}
+
+/* =========================================================
+   page-villa-detail.css — bagian khusus 疗愈别墅 (Seraya B)
+   Prefiks .pala-ws2-  (ws sudah dipakai di halaman wedding)
+
+   Dua blok: kotak礼遇 spa dan alur tiga langkah.
+   Keduanya dibungkus if di HTML, jadi villa lain tidak
+   terpengaruh sama sekali.
+   ========================================================= */
+
+/* ---------------- Kotak礼遇 spa ---------------- */
+.pala-ws2-box {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+  padding: 2rem 2.2rem 2.2rem;
+  border-radius: 3px;
+  background: #14301f;
+  font-family: var(--tpr-sans);
+}
+
+/* Tulisan "Spa" besar samar di kanan — dipotong oleh overflow,
+   jadi terlihat menerus keluar kotak seperti di desain */
+.pala-ws2-box::after {
+  content: "Spa";
+  position: absolute;
+  right: -.12em;
+  bottom: -.34em;
+  font-family: var(--tpr-serif);
+  font-size: clamp(120px, 16vw, 210px);
+  font-weight: 300;
+  line-height: 1;
+  color: rgba(245, 240, 232, .045);
+  pointer-events: none;
+  user-select: none;
+}
+
+.pala-ws2-box__inner { position: relative; z-index: 2; }
+
+.pala-ws2-box__eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  letter-spacing: .2em;
+  color: #cdb88a;
+}
+
+.pala-ws2-box__title {
+  margin: 0 0 1.2rem;
+  font-family: var(--tpr-serif);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 400;
+  /* line-height 1.4 — aksara Han terpotong pada nilai lebih rapat */
+  line-height: 1.4;
+  letter-spacing: 2px;
+  color: #f5f0e8;
+}
+
+.pala-ws2-box__list { margin: 0; padding: 0; list-style: none; }
+
+.pala-ws2-box__list li {
+  position: relative;
+  padding-left: 17px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  /* Kontras .82, bukan .5 — pada latar hijau tua, aksara Han
+     yang guratannya rapat jadi kabur di bawah ambang itu */
+  color: rgba(245, 240, 232, .82);
+}
+
+.pala-ws2-box__list li:last-child { margin-bottom: 0; }
+
+.pala-ws2-box__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .82em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #cdb88a;
+}
+
+/* ---------------- Alur tiga langkah ---------------- */
+.pala-ws2-flow {
+  margin-top: 2.6rem;
+  font-family: var(--tpr-sans);
+  text-align: center;
+}
+
+.pala-ws2-flow__head {
+  margin: 0 0 1.8rem;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #9b8d7c;
+}
+
+.pala-ws2-flow__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+/* Garis penghubung antar nomor. Dipotong di kiri dan kanan
+   supaya tidak menjulur keluar dari nomor pertama dan terakhir. */
+.pala-ws2-flow__steps::before {
+  content: "";
+  position: absolute;
+  left: 16.6%;
+  right: 16.6%;
+  top: 19px;
+  height: 1px;
+  background: #ddd2c6;
+}
+
+.pala-ws2-flow__step { position: relative; z-index: 2; }
+
+.pala-ws2-flow__num {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 1rem;
+  border: 1px solid #ddd2c6;
+  border-radius: 50%;
+  background: #f1ece1;
+  font-family: var(--tpr-serif);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #9b8d7c;
+}
+
+/* Langkah kedua ditandai — titik tengah alurnya */
+.pala-ws2-flow__step--mid .pala-ws2-flow__num {
+  border-color: #b08d4f;
+  background: #b08d4f;
+  color: #f1ece1;
+}
+
+.pala-ws2-flow__title {
+  margin: 0 0 .6rem;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  color: #2a2520;
+}
+
+.pala-ws2-flow__text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #6b645c;
+}
+
+/* Tanpa font-style: italic — font Mandarin tidak punya varian miring */
+.pala-ws2-flow__note {
+  display: block;
+  margin-top: .5rem;
+  letter-spacing: 1px;
+  color: #b08d4f;
+}
+
+/* ---------------- Responsif ---------------- */
+@media (max-width: 760px) {
+  .pala-ws2-box { padding: 1.7rem 1.4rem 1.8rem; }
+  .pala-ws2-box::after { font-size: 110px; }
+
+  .pala-ws2-flow__steps { grid-template-columns: 1fr; gap: 2rem; }
+  /* Garis penghubung dilepas di satu kolom — arahnya jadi
+     tidak masuk akal saat langkahnya bertumpuk ke bawah */
+  .pala-ws2-flow__steps::before { display: none; }
 }
